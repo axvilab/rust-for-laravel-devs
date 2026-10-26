@@ -10,13 +10,10 @@ struct Money {
 
 impl fmt::Display for Money {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "{}.{:02} {}",
-            self.amount / 100,
-            self.amount % 100,
-            self.currency
-        )
+        // знак окремо: `%` зберігає знак діленого, і без abs() -150 дало б "-1.-50"
+        let sign = if self.amount < 0 { "-" } else { "" };
+        let abs = self.amount.abs();
+        write!(f, "{sign}{}.{:02} {}", abs / 100, abs % 100, self.currency)
     }
 }
 
@@ -28,4 +25,11 @@ fn main() {
             currency: "UAH".into()
         }
     ); // 1500.50 UAH
+    for amount in [-150, -5, 0] {
+        let m = Money {
+            amount,
+            currency: "UAH".into(),
+        };
+        println!("{m}"); // -1.50 UAH / -0.05 UAH / 0.00 UAH
+    }
 }

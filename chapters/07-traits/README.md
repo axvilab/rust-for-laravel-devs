@@ -38,6 +38,12 @@ docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p ch07-traits --ex
 | [`exercise-6`](examples/exercise-6.rs) | Вправа 6: `to_string()` без жодного нового коду | `cargo run -p ch07-traits --example exercise-6` |
 | [`exercise-7`](examples/exercise-7.rs) | Вправа 7: `From<f64> for Product`; `.into()` потребує анотації типу | `cargo run -p ch07-traits --example exercise-7` |
 
+## Сам крейт
+
+```bash
+cargo test -p ch07-traits                     # юніт-, інтеграційні та doc-тести
+```
+
 ## Навмисно зламані приклади
 
 У `broken/` лежить код, який книга показує як помилку компіляції. Cargo їх не збирає.

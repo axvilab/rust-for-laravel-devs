@@ -1,0 +1,16 @@
+[package]
+name = "ch16-async"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+description = "Приклади до розділу 16 книги «Rust для Laravel-розробника»"
+
+[lints]
+workspace = true
+
+[dependencies]
+axum = { workspace = true, features = ["macros"] }
+serde_json.workspace = true
+tokio.workspace = true

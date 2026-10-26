@@ -36,8 +36,23 @@ def md(text: str) -> str:
     return text.replace("|", "\\|")
 
 
+def example_files(chapter: Path):
+    """Single-file examples (`NN-name.rs`) and multi-file ones (`NN-name/main.rs`)."""
+    files = list((chapter / "examples").glob("*.rs"))
+    files += [d / "main.rs" for d in (chapter / "examples").iterdir() if (d / "main.rs").is_file()]
+    return sorted(files, key=lambda p: sort_key(p.parent if p.name == "main.rs" else p))
+
+
+def ex_name(p: Path) -> str:
+    return p.parent.name if p.name == "main.rs" else p.stem
+
+
+def ex_link(p: Path) -> str:
+    return f"examples/{p.parent.name}/" if p.name == "main.rs" else f"examples/{p.name}"
+
+
 def generate(chapter: Path):
-    examples = sorted((chapter / "examples").glob("*.rs"), key=sort_key)
+    examples = example_files(chapter)
     if not examples:
         return False
     broken = sorted((chapter / "broken").glob("*.rs"), key=sort_key)
@@ -45,17 +60,17 @@ def generate(chapter: Path):
     lib = (chapter / "src" / "lib.rs").read_text(encoding="utf-8").splitlines()[0]
     title = lib.removeprefix("//! Розділ ").strip()
 
-    samples = [p for p in examples if not p.stem.startswith("exercise-")]
-    exercises = [p for p in examples if p.stem.startswith("exercise-")]
+    samples = [p for p in examples if not ex_name(p).startswith("exercise-")]
+    exercises = [p for p in examples if ex_name(p).startswith("exercise-")]
 
     out = [f"# {title}", ""]
     out += [
         "Код до розділу книги. Кожен приклад — окрема програма в `examples/`.",
         "",
         "```bash",
-        f"cargo run -p {pkg} --example {samples[0].stem}",
+        f"cargo run -p {pkg} --example {ex_name(samples[0])}",
         "# без Rust на машині:",
-        f'docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p {pkg} --example {samples[0].stem}',
+        f'docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p {pkg} --example {ex_name(samples[0])}',
         "```",
         "",
         "Команди запускаються з кореня репозиторію.",
@@ -67,13 +82,26 @@ def generate(chapter: Path):
     ]
     for p in samples:
         desc, _ = header(p)
-        out.append(f"| [`{p.stem}`](examples/{p.name}) | {md(desc)} | `cargo run -p {pkg} --example {p.stem}` |")
+        out.append(f"| [`{ex_name(p)}`]({ex_link(p)}) | {md(desc)} | `cargo run -p {pkg} --example {ex_name(p)}` |")
 
     if exercises:
         out += ["", "## Розв'язки вправ «Спробуй»", "", "| Приклад | Що показує | Команда запуску |", "|---|---|---|"]
         for p in exercises:
             desc, _ = header(p)
-            out.append(f"| [`{p.stem}`](examples/{p.name}) | {md(desc)} | `cargo run -p {pkg} --example {p.stem}` |")
+            out.append(f"| [`{ex_name(p)}`]({ex_link(p)}) | {md(desc)} | `cargo run -p {pkg} --example {ex_name(p)}` |")
+
+    lib = (chapter / "src" / "lib.rs").read_text(encoding="utf-8")
+    bins = sorted((chapter / "src" / "bin").glob("*.rs")) if (chapter / "src" / "bin").is_dir() else []
+    has_tests = (chapter / "tests").is_dir() or "#[test]" in lib or "```" in lib
+    if (chapter / "src" / "main.rs").exists() or bins or has_tests:
+        out += ["", "## Сам крейт", "", "```bash"]
+        if (chapter / "src" / "main.rs").exists():
+            out.append(f"cargo run -p {pkg}                      # src/main.rs")
+        for b in bins:
+            out.append(f"cargo run -p {pkg} --bin {b.stem}         # src/bin/{b.name}")
+        if has_tests:
+            out.append(f"cargo test -p {pkg}                     # юніт-, інтеграційні та doc-тести")
+        out.append("```")
 
     if broken:
         out += [

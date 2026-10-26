@@ -1,0 +1,17 @@
+[package]
+name = "ch12-errors"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+description = "Приклади до розділу 12 книги «Rust для Laravel-розробника»"
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+toml.workspace = true
