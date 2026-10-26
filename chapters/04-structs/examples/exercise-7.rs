@@ -1,4 +1,4 @@
-//! Вправа 7: ручний `impl Default` і `..Default::default()`
+//! Exercise 7: a hand-written `impl Default` and `..Default::default()`
 
 #[derive(Debug)]
 struct Product {
@@ -12,7 +12,7 @@ impl Default for Product {
     fn default() -> Self {
         Self {
             id: 0,
-            name: "Без назви".to_string(),
+            name: "Untitled".to_string(),
             price: 0.0,
             stock: 1,
         }
@@ -24,5 +24,5 @@ fn main() {
         id: 7,
         ..Default::default()
     };
-    println!("{p:?}"); // Product { id: 7, name: "Без назви", price: 0.0, stock: 1 }
+    println!("{p:?}"); // Product { id: 7, name: "Untitled", price: 0.0, stock: 1 }
 }

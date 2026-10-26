@@ -1,9 +1,9 @@
-//! Вправа 4: `_` на початку `match` — функція завжди повертає "invalid"
+//! Exercise 4: `_` at the top of a `match` — the function always returns "invalid"
 //!
-//! Компілятор попереджає `unreachable pattern` на кожній гілці нижче `_`:
-//! гілки перевіряються зверху вниз, а `_` підходить під будь-яке значення,
-//! тож до 100..=199 і далі виконання не доходить ніколи.
-//! `allow` — лише для CI; прибери його, щоб побачити попередження.
+//! The compiler warns `unreachable pattern` on every arm below `_`:
+//! arms are checked top to bottom and `_` matches any value,
+//! so execution never reaches 100..=199 and the rest.
+//! The `allow` is only for CI; remove it to see the warning.
 #![allow(unreachable_patterns)]
 
 fn http_class(status: u16) -> &'static str {
@@ -18,5 +18,5 @@ fn http_class(status: u16) -> &'static str {
 }
 
 fn main() {
-    println!("{}", http_class(200)); // invalid — гілка 200..=299 недосяжна
+    println!("{}", http_class(200)); // invalid — the 200..=299 arm is unreachable
 }

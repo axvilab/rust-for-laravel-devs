@@ -1,4 +1,4 @@
-//! Оголошення структури і створення літералом з іменованими полями
+//! Declaring a struct and building it with a literal with named fields
 
 struct User {
     id: u64,
@@ -10,7 +10,7 @@ struct User {
 fn main() {
     let user = User {
         id: 1,
-        name: String::from("Віталій"),
+        name: String::from("Vitalii"),
         email: String::from("v@example.com"),
         active: true,
     };

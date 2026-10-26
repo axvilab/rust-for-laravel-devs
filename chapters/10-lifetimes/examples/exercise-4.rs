@@ -1,17 +1,17 @@
-//! Вправа 4: `Excerpt` з `String` — лайфтайм зникає
+//! Exercise 4: `Excerpt` with a `String` — the lifetime disappears
 
 struct Excerpt {
-    part: String, // структура володіє даними
+    part: String, // the struct owns its data
 }
 
 fn main() {
     let e;
     {
-        let text = String::from("Перше речення. Друге.");
-        // to_string() копіює шматок — Excerpt більше не залежить від text
+        let text = String::from("First sentence. Second.");
+        // to_string() copies the piece — Excerpt no longer depends on text
         e = Excerpt {
             part: text.split('.').next().unwrap_or("").to_string(),
         };
-    } // text знищено, а e — ні
+    } // text is destroyed, e isn't
     println!("{}", e.part);
 }

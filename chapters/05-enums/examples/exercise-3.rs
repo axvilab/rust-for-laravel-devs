@@ -1,4 +1,4 @@
-//! Вправа 3: `find_discount` повертає `Option<f64>`
+//! Exercise 3: `find_discount` returns an `Option<f64>`
 
 fn find_discount(code: &str) -> Option<f64> {
     match code {

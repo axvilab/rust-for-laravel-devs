@@ -5,7 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 publish.workspace = true
-description = "Приклади до розділу 4 книги «Rust для Laravel-розробника»"
+description = "Examples for chapter 4 of the book \"Rust for Laravel Developers\""
 
 [lints]
 workspace = true

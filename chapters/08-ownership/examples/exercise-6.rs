@@ -1,17 +1,17 @@
-//! Вправа 6: рядок у функцію в циклі — обидва виправлення по черзі
+//! Exercise 6: a string into a function in a loop — both fixes in turn
 //!
-//! Компілятор на версії без виправлень (broken/exercise-6.rs) дає E0382 і дві підказки:
+//! On the unfixed version (broken/exercise-6.rs) the compiler gives E0382 and two hints:
 //!   note: consider changing this parameter type in function `notify` to borrow instead
 //!   help: consider cloning the value if the performance cost is acceptable
 
-// Варіант з note: функція позичає
+// The `note:` option: the function borrows
 fn notify(email: &str) {
-    println!("лист на {email}");
+    println!("email to {email}");
 }
 
-// Варіант з help: функція володіє, викликаємо з clone()
+// The `help:` option: the function owns, we call it with clone()
 fn notify_owned(email: String) {
-    println!("лист на {email} (копія)");
+    println!("email to {email} (copy)");
 }
 
 fn main() {

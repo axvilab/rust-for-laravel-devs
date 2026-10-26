@@ -1,4 +1,4 @@
-//! `Arc<Mutex<T>>`: кілька власників + змінювати по черзі
+//! `Arc<Mutex<T>>`: several owners + change in turn
 
 use std::sync::{Arc, Mutex};
 use std::thread;
@@ -8,11 +8,11 @@ fn main() {
     let mut handles = vec![];
 
     for _ in 0..10 {
-        let counter = Arc::clone(&counter); // ще один власник (тільки лічильник +1)
+        let counter = Arc::clone(&counter); // one more owner (just counter +1)
         handles.push(thread::spawn(move || {
-            let mut guard = counter.lock().unwrap(); // взяти замок
+            let mut guard = counter.lock().unwrap(); // take the lock
             *guard += 1;
-        })); // замок відпускається тут (drop guard)
+        })); // the lock is released here (drop guard)
     }
 
     for h in handles {

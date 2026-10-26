@@ -1,10 +1,10 @@
-//! Вправа 5: `match &maybe` — один символ, і `maybe` лишається живим
+//! Exercise 5: `match &maybe` — one character, and `maybe` stays alive
 
 fn main() {
-    let maybe: Option<String> = Some("тест".into());
+    let maybe: Option<String> = Some("test".into());
     match &maybe {
-        Some(s) => println!("є: {s}"), // s — &String
-        None => println!("нема"),
+        Some(s) => println!("present: {s}"), // s is a &String
+        None => println!("absent"),
     }
-    println!("{maybe:?}"); // Some("тест")
+    println!("{maybe:?}"); // Some("test")
 }

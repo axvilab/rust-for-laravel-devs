@@ -133,7 +133,7 @@ async fn health_ready_and_fallback(pool: PgPool) {
 
     let r = call(&app, Method::GET, "/nope", None, None).await;
     assert_eq!(r.status, StatusCode::NOT_FOUND);
-    assert_eq!(r.body["error"], "не знайдено");
+    assert_eq!(r.body["error"], "not found");
 }
 
 #[sqlx::test(migrator = "orders_api::MIGRATOR")]
@@ -237,7 +237,7 @@ async fn order_lifecycle(pool: PgPool) {
     )
     .await;
     assert_eq!(r.status, StatusCode::UNPROCESSABLE_ENTITY);
-    assert_eq!(r.body["error"], "не можна оплатити порожнє замовлення");
+    assert_eq!(r.body["error"], "cannot pay an empty order");
 
     // create with one item, then add another one
     let o = create_order(
@@ -286,7 +286,10 @@ async fn order_lifecycle(pool: PgPool) {
     )
     .await;
     assert_eq!(r.status, StatusCode::UNPROCESSABLE_ENTITY);
-    assert_eq!(r.body["error"], "замовлення вже paid, змінювати не можна");
+    assert_eq!(
+        r.body["error"],
+        "order is already paid and cannot be changed"
+    );
 
     let r = call(
         &app,
@@ -363,12 +366,7 @@ async fn validation_and_rejections(pool: PgPool) {
     )
     .await;
     assert_eq!(r.status, StatusCode::UNPROCESSABLE_ENTITY);
-    assert!(
-        r.body["error"]
-            .as_str()
-            .unwrap()
-            .contains("невалідний email")
-    );
+    assert!(r.body["error"].as_str().unwrap().contains("invalid email"));
 
     // negative qty: u32 cannot be negative -> 422 from deserialization
     let r = call(

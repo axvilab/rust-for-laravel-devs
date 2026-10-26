@@ -1,4 +1,4 @@
-//! Своя функція, яка приймає замикання: `impl Fn(i32) -> i32`
+//! Your own function that takes a closure: `impl Fn(i32) -> i32`
 
 fn apply_twice(f: impl Fn(i32) -> i32, x: i32) -> i32 {
     f(f(x))

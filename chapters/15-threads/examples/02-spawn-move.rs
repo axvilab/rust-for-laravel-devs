@@ -1,13 +1,13 @@
-//! `move` — віддати дані потоку у володіння
+//! `move` — give the data to the thread
 
 use std::thread;
 
 fn main() {
-    let name = String::from("Віталій");
+    let name = String::from("Vitalii");
 
     let h = thread::spawn(move || {
-        println!("{name}"); // name тепер належить потоку
+        println!("{name}"); // name now belongs to the thread
     });
     h.join().unwrap();
-    // println!("{name}"); // ПОМИЛКА E0382: name переїхав у потік
+    // println!("{name}"); // ERROR E0382: name moved into the thread
 }

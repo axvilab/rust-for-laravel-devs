@@ -1,10 +1,10 @@
-//! Вправа 2: без гілки `_` match по u16 не вичерпний
+//! Exercise 2: without the `_` arm a match on u16 is not exhaustive
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0004]: non-exhaustive patterns:
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0004]: non-exhaustive patterns:
 //!   `0_u16..=99_u16` and `600_u16..=u16::MAX` not covered
-//! Компілятор сам перелічує, які саме значення не покрито.
-//! Виправлення: повернути `_ => "invalid"` — див. examples/exercise-1.rs
+//! The compiler lists exactly which values are not covered.
+//! Fix: bring back `_ => "invalid"` — see examples/exercise-1.rs
 // expected-error: E0004
 
 fn http_class(status: u16) -> &'static str {

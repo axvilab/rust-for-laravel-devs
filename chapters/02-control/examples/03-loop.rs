@@ -1,8 +1,8 @@
-//! `loop` — нескінченний цикл до `break` (у PHP — `while (true)`)
+//! `loop` — an infinite loop until `break` (in PHP: `while (true)`)
 
-// Заглушка «підключення»: вдається з третьої спроби.
+// A stand-in for "connecting": succeeds on the third attempt.
 fn try_connect(attempt: u32) -> bool {
-    println!("спроба {attempt}...");
+    println!("attempt {attempt}...");
     attempt == 3
 }
 
@@ -14,8 +14,8 @@ fn main() {
             break;
         }
         if attempts == 5 {
-            panic!("не вдалось підключитися");
+            panic!("failed to connect");
         }
     }
-    println!("підключено з {attempts}-ї спроби");
+    println!("connected on attempt {attempts}");
 }

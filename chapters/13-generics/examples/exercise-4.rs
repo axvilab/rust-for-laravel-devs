@@ -1,14 +1,14 @@
-//! Вправа 4: `Rc<String>`, три клони, `strong_count` до і після `drop`
+//! Exercise 4: `Rc<String>`, three clones, `strong_count` before and after `drop`
 
 use std::rc::Rc;
 
 fn main() {
-    let s = Rc::new(String::from("спільний рядок"));
+    let s = Rc::new(String::from("a shared string"));
     let a = Rc::clone(&s);
     let b = Rc::clone(&s);
     let c = Rc::clone(&s);
-    println!("{}", Rc::strong_count(&s)); // 4: оригінал + три клони
+    println!("{}", Rc::strong_count(&s)); // 4: the original + three clones
     drop(b);
     println!("{}", Rc::strong_count(&s)); // 3
-    println!("{a} / {c}"); // рядок один на всіх
+    println!("{a} / {c}"); // one string for everyone
 }

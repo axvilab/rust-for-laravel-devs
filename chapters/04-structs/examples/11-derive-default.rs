@@ -1,8 +1,8 @@
-//! `derive(Default)` і `..Default::default()` / `..інший_екземпляр`
+//! `derive(Default)` and `..Default::default()` / `..another_instance`
 
 #[derive(Debug, Default)]
 struct Config {
-    host: String, // "" за замовчуванням
+    host: String, // "" by default
     port: u16,    // 0
     debug: bool,  // false
 }

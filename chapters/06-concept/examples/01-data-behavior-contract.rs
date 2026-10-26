@@ -1,32 +1,32 @@
-//! Дані (`struct`), поведінка (`impl`) і контракт (`trait`) — три окремі блоки
+//! Data (`struct`), behavior (`impl`) and contract (`trait`) — three separate blocks
 
-// 1. Дані
+// 1. Data
 struct Invoice {
     id: u64,
     total: f64,
     paid: bool,
 }
 
-// 2. Поведінка саме для Invoice
+// 2. Behavior specifically for Invoice
 impl Invoice {
     fn mark_paid(&mut self) {
         self.paid = true;
     }
 }
 
-// 3. Контракт: «усе, що можна відправити email-ом»
+// 3. Contract: "anything that can be sent by email"
 trait Mailable {
     fn subject(&self) -> String;
     fn body(&self) -> String;
 }
 
-// 2 знову: Invoice виконує контракт
+// 2 again: Invoice fulfils the contract
 impl Mailable for Invoice {
     fn subject(&self) -> String {
-        format!("Рахунок №{}", self.id)
+        format!("Invoice #{}", self.id)
     }
     fn body(&self) -> String {
-        format!("До сплати: {} грн", self.total)
+        format!("Amount due: {} UAH", self.total)
     }
 }
 
@@ -38,5 +38,5 @@ fn main() {
     };
     println!("{} — {}", inv.subject(), inv.body());
     inv.mark_paid();
-    println!("оплачено: {}", inv.paid);
+    println!("paid: {}", inv.paid);
 }

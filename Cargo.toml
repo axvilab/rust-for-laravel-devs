@@ -23,7 +23,7 @@ members = [
 
 [workspace.package]
 edition = "2024"
-rust-version = "1.88" # let chains (розділ 2) стабільні з 1.88
+rust-version = "1.88" # let chains (chapter 2) are stable since 1.88
 license = "MIT"
 publish = false
 

@@ -1,9 +1,9 @@
-//! Вправа 5 (зламана версія): переповнення, відоме під час компіляції
+//! Exercise 5 (broken version): an overflow known at compile time
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error: this arithmetic operation will overflow
-//!   (лінт `arithmetic_overflow`, увімкнений як deny)
-//! Виправлення: `checked_add` / `saturating_add` — див. examples/exercise-5.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error: this arithmetic operation will overflow
+//!   (the `arithmetic_overflow` lint, deny by default)
+//! Fix: `checked_add` / `saturating_add` — see examples/exercise-5.rs
 // expected-error: this arithmetic operation will overflow
 
 fn main() {

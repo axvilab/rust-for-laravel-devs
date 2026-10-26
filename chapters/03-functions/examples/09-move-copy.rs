@@ -1,13 +1,13 @@
-//! `move` з числами нічого не «забирає»: Copy-типи копіюються
+//! `move` with numbers "takes" nothing: Copy types are copied
 
 fn main() {
-    let percent = 0.1; // f64 — Copy-тип
+    let percent = 0.1; // f64 — a Copy type
     let discount = move |p: f64| p * (1.0 - percent);
     println!("{}", discount(100.0)); // 90
-    println!("{percent}"); // ok: move забрав копію
+    println!("{percent}"); // ok: move took a copy
 
-    let name = String::from("Віталій"); // String — не Copy
-    let greet = move || println!("Привіт, {name}");
+    let name = String::from("Vitalii"); // String — not Copy
+    let greet = move || println!("Hello, {name}");
     greet();
-    // println!("{name}");              // ПОМИЛКА: borrow of moved value
+    // println!("{name}");              // ERROR: borrow of moved value
 }

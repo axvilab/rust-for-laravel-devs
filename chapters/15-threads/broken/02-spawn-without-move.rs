@@ -1,16 +1,16 @@
-//! Потік позичає локальну змінну — вона може не дожити
+//! A thread borrows a local variable — which may not live long enough
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0373]: closure may outlive the current function, but it
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0373]: closure may outlive the current function, but it
 //!   borrows `name`, which is owned by the current function
 //!   help: to force the closure to take ownership of `name` ... use the `move` keyword
-//! Виправлення: `thread::spawn(move || ...)` — див. examples/02-spawn-move.rs
+//! Fix: `thread::spawn(move || ...)` — see examples/02-spawn-move.rs
 // expected-error: E0373
 
 use std::thread;
 
 fn main() {
-    let name = String::from("Віталій");
+    let name = String::from("Vitalii");
     let h = thread::spawn(|| {
         println!("{name}");
     });

@@ -1,4 +1,4 @@
-//! Розділ 2. Керування потоком
+//! Chapter 2. Control flow
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch02-control --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch02-control --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

@@ -1,4 +1,4 @@
-//! Вправа 1: 4 потоки рахують суми частин `0..1_000_000`, результати — через `join`
+//! Exercise 1: 4 threads sum parts of `0..1_000_000`, the results come via `join`
 
 use std::thread;
 use std::time::Instant;
@@ -22,7 +22,7 @@ fn main() {
     let t_seq = start.elapsed();
 
     assert_eq!(parallel, sequential);
-    println!("сума {parallel}: потоки {t_parallel:?}, послідовно {t_seq:?}");
-    // Для такої дрібної роботи послідовно часто швидше: створення потоку
-    // коштує більше, ніж додати мільйон чисел (особливо в release).
+    println!("sum {parallel}: threads {t_parallel:?}, sequential {t_seq:?}");
+    // For such tiny work sequential is often faster: creating a thread
+    // costs more than adding a million numbers (especially in release).
 }

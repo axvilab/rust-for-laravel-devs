@@ -1,4 +1,4 @@
-//! Вправа 7: одна змінна стала `_` — її значення знищується одразу
+//! Exercise 7: one variable became `_` — its value is destroyed immediately
 
 struct Noisy(&'static str);
 
@@ -10,10 +10,10 @@ impl Drop for Noisy {
 
 fn main() {
     {
-        let _a = Noisy("перший");
-        let _ = Noisy("другий"); // `_` — не змінна: значення без власника, drop негайно
-        let _c = Noisy("третій");
-        println!("кінець блоку");
+        let _a = Noisy("first");
+        let _ = Noisy("second"); // `_` isn't a variable: a value without an owner, dropped at once
+        let _c = Noisy("third");
+        println!("end of block");
     }
-    // drop другий / кінець блоку / drop третій / drop перший
+    // drop second / end of block / drop third / drop first
 }

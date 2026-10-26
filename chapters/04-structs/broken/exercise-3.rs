@@ -1,8 +1,8 @@
-//! Вправа 3 (зламана версія): метод з `&mut self` на незмінній змінній
+//! Exercise 3 (broken version): a `&mut self` method on an immutable variable
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0596]: cannot borrow `product` as mutable, as it is not declared as mutable
-//! Виправлення: `let mut product` — див. examples/exercise-3.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0596]: cannot borrow `product` as mutable, as it is not declared as mutable
+//! Fix: `let mut product` — see examples/exercise-3.rs
 // expected-error: E0596
 
 struct Product {

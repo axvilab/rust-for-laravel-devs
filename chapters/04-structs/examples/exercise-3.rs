@@ -1,9 +1,9 @@
-//! Вправа 3: `sell` вимагає `let mut product`
+//! Exercise 3: `sell` requires `let mut product`
 //!
-//! Без `mut` компілятор скаже:
+//! Without `mut` the compiler says:
 //!   error[E0596]: cannot borrow `product` as mutable, as it is not declared as mutable
 //!   help: consider changing this to be mutable: `mut product`
-//! (див. broken/exercise-3.rs). `&mut self` у сигнатурі `sell` вимагає змінного власника.
+//! (see broken/exercise-3.rs). `&mut self` in the signature of `sell` needs a mutable owner.
 
 struct Product {
     stock: u32,
@@ -19,7 +19,7 @@ impl Product {
 }
 
 fn main() {
-    let mut product = Product::new(3); // виправлення: додали mut
+    let mut product = Product::new(3); // the fix: added mut
     product.sell(1);
     println!("{}", product.stock); // 2
 }

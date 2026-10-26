@@ -1,4 +1,4 @@
-//! `RwLock` — багато читачів або один писець
+//! `RwLock` — many readers or one writer
 
 use std::sync::{Arc, RwLock};
 
@@ -11,13 +11,13 @@ fn main() {
     let config = Arc::new(RwLock::new(Config::default()));
 
     {
-        // читачі не блокують один одного
+        // readers don't block each other
         let cfg = config.read().unwrap();
         let cfg2 = config.read().unwrap();
         println!("{} {}", cfg.port, cfg2.port);
-    } // читачі пішли — інакше write() нижче чекав би вічно
+    } // the readers are gone — otherwise write() below would wait forever
 
-    // писець чекає, поки всі читачі підуть, і блокує всіх
+    // the writer waits until all readers leave, and blocks everyone
     config.write().unwrap().port = 9090;
     println!("{:?}", config.read().unwrap());
 }

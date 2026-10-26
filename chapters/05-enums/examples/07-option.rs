@@ -1,4 +1,4 @@
-//! `Option` замість null: `match` і `if let`
+//! `Option` instead of null: `match` and `if let`
 
 struct User {
     id: u64,
@@ -18,7 +18,7 @@ impl User {
 
 fn find_user(id: u64) -> Option<User> {
     if id == 1 {
-        Some(User::new(1, "Віталій", "v@example.com"))
+        Some(User::new(1, "Vitalii", "v@example.com"))
     } else {
         None
     }
@@ -27,10 +27,10 @@ fn find_user(id: u64) -> Option<User> {
 fn main() {
     match find_user(5) {
         Some(user) => println!("{}", user.name),
-        None => println!("не знайдено"),
+        None => println!("not found"),
     }
 
-    // або коротше, коли цікавить тільки один випадок:
+    // or shorter, when only one case matters:
     if let Some(user) = find_user(1) {
         println!("{} ({}, #{})", user.name, user.email, user.id);
     }

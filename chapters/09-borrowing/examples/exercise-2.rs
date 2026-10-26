@@ -1,14 +1,14 @@
-//! Вправа 2: `append_exclamation(&mut String)` вимагає `let mut` у власника
+//! Exercise 2: `append_exclamation(&mut String)` needs `let mut` on the owner
 //!
-//! Без `mut`: error[E0596]: cannot borrow `s` as mutable, as it is not declared as mutable
-//! (див. broken/exercise-2.rs) — і `help:` підказує дописати `mut`.
+//! Without `mut`: error[E0596]: cannot borrow `s` as mutable, as it is not declared as mutable
+//! (see broken/exercise-2.rs) — and `help:` suggests adding `mut`.
 
 fn append_exclamation(s: &mut String) {
     s.push('!');
 }
 
 fn main() {
-    let mut s = String::from("Привіт");
+    let mut s = String::from("Hello");
     append_exclamation(&mut s);
-    println!("{s}"); // Привіт!
+    println!("{s}"); // Hello!
 }

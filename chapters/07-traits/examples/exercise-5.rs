@@ -1,4 +1,4 @@
-//! Вправа 5: `#[derive(Debug, Clone, PartialEq)]` і `product == product.clone()`
+//! Exercise 5: `#[derive(Debug, Clone, PartialEq)]` and `product == product.clone()`
 
 #[derive(Debug, Clone, PartialEq)]
 struct Product {
@@ -8,9 +8,9 @@ struct Product {
 
 fn main() {
     let product = Product {
-        name: "Ноутбук".into(),
+        name: "Laptop".into(),
         price: 45_000.0,
     };
-    // clone() — нова незалежна копія; PartialEq порівнює поле за полем
+    // clone() — a new independent copy; PartialEq compares field by field
     println!("{}", product == product.clone()); // true
 }

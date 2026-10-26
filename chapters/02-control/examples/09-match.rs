@@ -1,4 +1,4 @@
-//! `match` — `switch`, який подорослішав (і повертає значення)
+//! `match` — a `switch` that grew up (and returns a value)
 
 fn main() {
     let status = 404;

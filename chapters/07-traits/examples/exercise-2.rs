@@ -1,4 +1,4 @@
-//! Вправа 2: `Priced` для товару і для послуги (ціна = ставка × години)
+//! Exercise 2: `Priced` for a product and a service (price = rate × hours)
 
 trait Priced {
     fn price(&self) -> f64;
@@ -24,7 +24,7 @@ impl Priced for Product {
 
 impl Priced for Service {
     fn price(&self) -> f64 {
-        self.hourly * self.hours // обидва отримали price_with_vat безкоштовно
+        self.hourly * self.hours // both got price_with_vat for free
     }
 }
 

@@ -1,4 +1,4 @@
-//! Вправа 1: три `slow` послідовно (~600 мс) проти `tokio::join!` (~200 мс)
+//! Exercise 1: three `slow` calls in sequence (~600 ms) vs `tokio::join!` (~200 ms)
 
 use std::time::{Duration, Instant};
 
@@ -13,9 +13,9 @@ async fn main() {
     let a = slow("a", 200).await;
     let b = slow("b", 200).await;
     let c = slow("c", 200).await;
-    println!("послідовно: {a}{b}{c} за {:?}", start.elapsed()); // ~600 мс
+    println!("sequential: {a}{b}{c} in {:?}", start.elapsed()); // ~600 ms
 
     let start = Instant::now();
     let (a, b, c) = tokio::join!(slow("a", 200), slow("b", 200), slow("c", 200));
-    println!("join!:      {a}{b}{c} за {:?}", start.elapsed()); // ~200 мс
+    println!("join!:      {a}{b}{c} in {:?}", start.elapsed()); // ~200 ms
 }

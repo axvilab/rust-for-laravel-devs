@@ -1,9 +1,9 @@
-//! Пастка: `drop(guard)` перед `.await` НЕ допомагає (на Rust 1.97 — так само)
+//! The trap: `drop(guard)` before `.await` does NOT help (still true on Rust 1.97)
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error: future cannot be sent between threads safely
-//!   (компілятор дивиться на області видимості, а не на виклики drop)
-//! Виправлення: закрити guard блоком `{ ... }` — див. examples/09-mutex-and-await.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error: future cannot be sent between threads safely
+//!   (the compiler looks at scopes, not at drop calls)
+//! Fix: close the guard in a block `{ ... }` — see examples/09-mutex-and-await.rs
 // expected-error: future cannot be sent between threads safely
 
 use std::sync::Mutex;

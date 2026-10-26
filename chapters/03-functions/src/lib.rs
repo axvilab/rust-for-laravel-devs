@@ -1,4 +1,4 @@
-//! Розділ 3. Функції та замикання
+//! Chapter 3. Functions and closures
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch03-functions --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch03-functions --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

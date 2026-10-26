@@ -1,5 +1,5 @@
 //! orders-api — the end-to-end project from the book
-//! "Rust для Laravel-розробника" (chapters 16b–16f).
+//! "Rust for Laravel Developers" (chapters 16b–16f).
 //!
 //! Everything lives in the library so integration tests in `tests/` can build
 //! the same `Router` that `main.rs` serves.

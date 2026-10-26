@@ -1,13 +1,13 @@
-//! Вправа 3: `std::thread::sleep` у `join!` — знову послідовно
+//! Exercise 3: `std::thread::sleep` inside `join!` — sequential again
 //!
-//! Чому: `join!` крутить три futures в ОДНІЙ задачі на одному потоці, по черзі
-//! опитуючи їх. `tokio::time::sleep` віддає керування («я чекаю, займись іншими»),
-//! а `std::thread::sleep` блокує сам потік — інші futures чекають, поки він прокинеться.
+//! Why: `join!` runs three futures in ONE task on one thread, polling them
+//! in turn. `tokio::time::sleep` yields ("I'm waiting, go do the others"),
+//! while `std::thread::sleep` blocks the thread itself — the other futures wait until it wakes up.
 
 use std::time::{Duration, Instant};
 
 async fn slow_blocking(name: &str, ms: u64) -> String {
-    std::thread::sleep(Duration::from_millis(ms)); // НЕ робіть так в async-коді
+    std::thread::sleep(Duration::from_millis(ms)); // DON'T do this in async code
     name.to_string()
 }
 
@@ -19,5 +19,5 @@ async fn main() {
         slow_blocking("b", 200),
         slow_blocking("c", 200)
     );
-    println!("{a}{b}{c} за {:?}", start.elapsed()); // ~600 мс, а не 200
+    println!("{a}{b}{c} in {:?}", start.elapsed()); // ~600 ms, not 200
 }

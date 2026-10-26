@@ -1,4 +1,4 @@
-//! Розділ 12. Обробка помилок — Result замість винятків
+//! Chapter 12. Error handling — Result instead of exceptions
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch12-errors --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch12-errors --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

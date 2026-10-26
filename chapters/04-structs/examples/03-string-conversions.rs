@@ -1,4 +1,4 @@
-//! Чотири способи зробити `String` з `&str`
+//! Four ways to make a `String` from a `&str`
 
 struct User {
     name: String,
@@ -6,14 +6,14 @@ struct User {
 }
 
 fn main() {
-    let name = "Віталій";
+    let name = "Vitalii";
     let u = User {
-        name: name.into(), // тип поля відомий → into() знає, у що
+        name: name.into(), // the field type is known → into() knows what to make
         email: String::from("v@example.com"),
     };
-    let id = 42.to_string(); // to_string() вміє і числа
-    // let s = "текст".into();                // ПОМИЛКА: type annotations needed
-    let s: String = "текст".into(); // ok: тип вказали
-    let t = "текст".to_owned(); // теж String
+    let id = 42.to_string(); // to_string() works for numbers too
+    // let s = "text".into();                // ERROR: type annotations needed
+    let s: String = "text".into(); // ok: the type is given
+    let t = "text".to_owned(); // also a String
     println!("{} {} {id} {s} {t}", u.name, u.email);
 }

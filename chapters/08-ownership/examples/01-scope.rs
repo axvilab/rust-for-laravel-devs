@@ -1,9 +1,9 @@
-//! Область видимості = життя значення: рядок звільняється в кінці блоку
+//! Scope = the life of a value: the string is freed at the end of the block
 
 fn main() {
     {
-        let name = String::from("Віталій"); // name створено, він власник рядка
+        let name = String::from("Vitalii"); // name is created, it owns the string
         println!("{name}");
-    } // name вийшов з області → рядок звільнено
-    // println!("{name}");   // ПОМИЛКА: name не існує (broken/01-out-of-scope.rs)
+    } // name went out of scope → the string is freed
+    // println!("{name}");   // ERROR: name doesn't exist (broken/01-out-of-scope.rs)
 }

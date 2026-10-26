@@ -1,4 +1,4 @@
-//! `Rc` — кілька власників в одному потоці; `Rc::clone` лише +1 до лічильника
+//! `Rc` — several owners in one thread; `Rc::clone` is just +1 to the counter
 
 use std::rc::Rc;
 

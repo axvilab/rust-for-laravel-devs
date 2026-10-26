@@ -1,7 +1,7 @@
-//! Generic-функція `first<T>` — одна для будь-якого типу, без втрати типу
+//! A generic function `first<T>` — one for any type, without losing the type
 
 fn first<T>(items: &[T]) -> Option<&T> {
-    items.first() // у книзі items.get(0); clippy радить first() — те саме
+    items.first() // the same as items.get(0); clippy prefers first()
 }
 
 fn main() {

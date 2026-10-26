@@ -1,8 +1,8 @@
-//! Вправа 5: у що розгортається `#[derive(Debug, Clone)]` (як показав би `cargo expand`)
+//! Exercise 5: what `#[derive(Debug, Clone)]` expands to (as `cargo expand` would show)
 //!
-//! `cargo install cargo-expand` і `cargo expand --example exercise-5` покажуть
-//! майже дослівно реалізації нижче. Тут вони написані руками для `Point`,
-//! а `DerivedPoint` отримує ті самі через derive — вивід однаковий.
+//! `cargo install cargo-expand` and `cargo expand --example exercise-5` show
+//! almost literally the implementations below. Here they're written by hand for `Point`,
+//! while `DerivedPoint` gets the same via derive — the output is identical.
 
 use std::fmt;
 
@@ -11,7 +11,7 @@ struct Point {
     y: i32,
 }
 
-// ≈ що генерує #[derive(Debug)]
+// ≈ what #[derive(Debug)] generates
 impl fmt::Debug for Point {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         f.debug_struct("Point")
@@ -21,7 +21,7 @@ impl fmt::Debug for Point {
     }
 }
 
-// ≈ що генерує #[derive(Clone)]: клон кожного поля
+// ≈ what #[derive(Clone)] generates: a clone of every field
 impl Clone for Point {
     fn clone(&self) -> Self {
         Point {

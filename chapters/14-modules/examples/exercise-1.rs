@@ -1,8 +1,8 @@
-//! Вправа 1: «shop» по модулях — models, pricing, errors (див. src/ цього крейта)
+//! Exercise 1: a "shop" split into modules — models, pricing, errors (see this crate's src/)
 //!
-//! Розв'язок — сама бібліотека: src/models.rs (Product, Order), src/pricing.rs
-//! (розрахунки), src/errors.rs (ShopError), підключені в src/lib.rs через `pub mod`.
-//! Тут — використання всіх трьох модулів.
+//! The solution is the library itself: src/models.rs (Product, Order), src/pricing.rs
+//! (calculations), src/errors.rs (ShopError), included in src/lib.rs with `pub mod`.
+//! Here all three modules are used.
 
 use ch14_modules::errors::ShopError;
 use ch14_modules::models::{Order, Product};
@@ -12,8 +12,8 @@ fn main() {
     let order = Order::new(
         42,
         vec![
-            (Product::new(1, "Ноутбук", 4_500_000), 1),
-            (Product::new(2, "Миша", 80_000), 2),
+            (Product::new(1, "Laptop", 4_500_000), 1),
+            (Product::new(2, "Mouse", 80_000), 2),
         ],
     )
     .unwrap();
@@ -24,7 +24,7 @@ fn main() {
     );
 
     match Order::new(43, vec![]) {
-        Err(ShopError::EmptyOrder) => println!("порожнє замовлення відхилено"),
-        other => println!("неочікувано: {other:?}"),
+        Err(ShopError::EmptyOrder) => println!("empty order rejected"),
+        other => println!("unexpected: {other:?}"),
     }
 }

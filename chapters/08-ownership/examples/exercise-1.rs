@@ -1,11 +1,11 @@
-//! Вправа 1: `let t = s;` — і `s` більше недоступний
+//! Exercise 1: `let t = s;` — and `s` is no longer available
 //!
-//! `println!("{s}")` після `let t = s;` дає error[E0382]: borrow of moved value: `s`
-//! з позначками: `value moved here` — рядок `let t = s;`, і
-//! `value borrowed here after move` — місце використання (див. broken/exercise-1.rs).
+//! `println!("{s}")` after `let t = s;` gives error[E0382]: borrow of moved value: `s`
+//! with markers: `value moved here` — the `let t = s;` line, and
+//! `value borrowed here after move` — the place of use (see broken/exercise-1.rs).
 
 fn main() {
-    let s = String::from("тест");
+    let s = String::from("test");
     let t = s;
-    println!("{t}"); // власник тепер t
+    println!("{t}"); // t is the owner now
 }

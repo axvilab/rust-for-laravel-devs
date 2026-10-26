@@ -1,4 +1,4 @@
-//! Методи enum і макрос `matches!`
+//! Enum methods and the `matches!` macro
 
 enum OrderStatus {
     Pending,
@@ -19,7 +19,7 @@ impl OrderStatus {
 fn main() {
     let a = OrderStatus::Paid { amount: 100.0 };
     let b = OrderStatus::Cancelled {
-        reason: "дубль".into(),
+        reason: "duplicate".into(),
     };
     println!("{} {}", a.is_final(), b.is_final()); // false true
     let _ = (

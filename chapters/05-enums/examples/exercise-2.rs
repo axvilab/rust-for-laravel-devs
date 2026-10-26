@@ -1,4 +1,4 @@
-//! Вправа 2: комісія за способом оплати через `match`
+//! Exercise 2: a fee per payment method with `match`
 
 enum PaymentMethod {
     Cash,
@@ -9,7 +9,7 @@ enum PaymentMethod {
 fn fee(method: &PaymentMethod, amount: f64) -> f64 {
     match method {
         PaymentMethod::Cash => 0.0,
-        PaymentMethod::Card { .. } => amount * 0.02, // дані картки тут не потрібні
+        PaymentMethod::Card { .. } => amount * 0.02, // card data isn't needed here
         PaymentMethod::Crypto { .. } => amount * 0.01 + 10.0,
     }
 }

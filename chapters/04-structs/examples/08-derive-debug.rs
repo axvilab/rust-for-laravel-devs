@@ -1,4 +1,4 @@
-//! `#[derive(Debug)]` — компілятор пише реалізацію `Debug` за тебе
+//! `#[derive(Debug)]` — the compiler writes the `Debug` implementation for you
 
 #[derive(Debug)]
 struct User {
@@ -9,8 +9,8 @@ struct User {
 fn main() {
     let user = User {
         id: 1,
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
     };
-    println!("{:?}", user); // User { id: 1, name: "Віталій" }
-    println!("{:#?}", user); // те саме з переносами — як dd()
+    println!("{:?}", user); // User { id: 1, name: "Vitalii" }
+    println!("{:#?}", user); // the same with line breaks — like dd()
 }

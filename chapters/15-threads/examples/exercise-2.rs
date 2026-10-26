@@ -1,4 +1,4 @@
-//! Вправа 2: те саме через спільний `Arc<Mutex<u64>>`
+//! Exercise 2: the same with a shared `Arc<Mutex<u64>>`
 
 use std::sync::{Arc, Mutex};
 use std::thread;
@@ -11,8 +11,8 @@ fn main() {
         .map(|i| {
             let total = Arc::clone(&total);
             thread::spawn(move || {
-                let part: u64 = (i * N / 4..(i + 1) * N / 4).sum(); // рахуємо БЕЗ замка
-                *total.lock().unwrap() += part; // під замком — лише додавання
+                let part: u64 = (i * N / 4..(i + 1) * N / 4).sum(); // computed WITHOUT the lock
+                *total.lock().unwrap() += part; // under the lock — only the addition
             })
         })
         .collect();

@@ -1,4 +1,4 @@
-//! Розділ 4. Структури — класи без класів
+//! Chapter 4. Structs — classes without classes
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch04-structs --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch04-structs --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

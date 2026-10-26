@@ -1,8 +1,8 @@
-//! `#[derive(Eq)]` на структурі з `f64`
+//! `#[derive(Eq)]` on a struct with an `f64`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0277]: the trait bound `f64: Eq` is not satisfied
-//! Виправлення: лише `PartialEq`, або гроші в копійках як `i64` — див. examples/10-partial-eq.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0277]: the trait bound `f64: Eq` is not satisfied
+//! Fix: only `PartialEq`, or money in cents as `i64` — see examples/10-partial-eq.rs
 // expected-error: E0277
 
 #[derive(Debug, PartialEq, Eq)]

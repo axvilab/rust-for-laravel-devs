@@ -1,8 +1,8 @@
-//! Поле `String` переїхало через `..dev` — `dev.host` більше не використати
+//! The `String` field moved out via `..dev` — `dev.host` can't be used any more
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0382]: borrow of moved value: `dev.host`
-//! Виправлення: `..dev.clone()` — див. examples/13-struct-update-moves.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0382]: borrow of moved value: `dev.host`
+//! Fix: `..dev.clone()` — see examples/13-struct-update-moves.rs
 // expected-error: E0382
 
 #[derive(Debug)]

@@ -1,4 +1,4 @@
-//! `#[derive(Debug, Clone, PartialEq, Default)]` у дії
+//! `#[derive(Debug, Clone, PartialEq, Default)]` in action
 
 #[derive(Debug, Clone, PartialEq, Default)]
 struct Money {

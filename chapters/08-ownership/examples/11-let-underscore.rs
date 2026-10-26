@@ -1,16 +1,16 @@
-//! `let _ =` знищує одразу, `let _b =` — у кінці блоку
+//! `let _ =` destroys immediately, `let _b =` — at the end of the block
 
 struct Guard(&'static str);
 
 impl Drop for Guard {
     fn drop(&mut self) {
-        println!("звільнено: {}", self.0);
+        println!("released: {}", self.0);
     }
 }
 
 fn main() {
-    let _ = Guard("A"); // знищується ОДРАЗУ, у цьому ж рядку
-    let _b = Guard("B"); // живе до кінця блоку, як звичайна змінна
-    println!("кінець main");
+    let _ = Guard("A"); // destroyed IMMEDIATELY, on this very line
+    let _b = Guard("B"); // lives to the end of the block, like a normal variable
+    println!("end of main");
 }
-// Виведе: звільнено: A / кінець main / звільнено: B
+// Prints: released: A / end of main / released: B

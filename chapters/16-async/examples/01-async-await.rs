@@ -1,4 +1,4 @@
-//! `async fn` повертає Future; `.await` чекає; `.await?` — дочекатися і прокинути помилку
+//! `async fn` returns a Future; `.await` waits; `.await?` — wait and propagate the error
 
 use std::time::Duration;
 
@@ -20,9 +20,9 @@ impl From<DbError> for AppError {
     }
 }
 
-// «База» — заглушка: справжній запит у проєкті orders-api.
+// The "database" is a stand-in: the real query is in the orders-api project.
 async fn fetch_user(id: u64) -> Result<User, DbError> {
-    tokio::time::sleep(Duration::from_millis(20)).await; // чекаємо «мережу»
+    tokio::time::sleep(Duration::from_millis(20)).await; // waiting for the "network"
     if id == 0 {
         return Err(DbError("not found".into()));
     }
@@ -33,7 +33,7 @@ async fn fetch_user(id: u64) -> Result<User, DbError> {
 }
 
 async fn handler(id: u64) -> Result<String, AppError> {
-    let user = fetch_user(id).await?; // дочекатися, потім ? з розділу про помилки
+    let user = fetch_user(id).await?; // wait, then ? from the error handling chapter
     Ok(format!("{{\"id\":{},\"name\":\"{}\"}}", user.id, user.name))
 }
 

@@ -1,20 +1,20 @@
-//! Новий варіант enum — і кожен `match` без нього перестає компілюватися
+//! A new enum variant — and every `match` without it stops compiling
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0004]: non-exhaustive patterns: `&OrderStatus::Refunded` not covered
-//! Виправлення: додати гілку для `Refunded` — компілятор сам показав, де.
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0004]: non-exhaustive patterns: `&OrderStatus::Refunded` not covered
+//! Fix: add an arm for `Refunded` — the compiler showed where.
 // expected-error: E0004
 
 enum OrderStatus {
     Pending,
     Paid { amount: f64 },
-    Refunded, // новий варіант
+    Refunded, // a new variant
 }
 
 fn describe(status: &OrderStatus) -> String {
     match status {
-        OrderStatus::Pending => "очікує оплати".to_string(),
-        OrderStatus::Paid { amount } => format!("оплачено {amount} грн"),
+        OrderStatus::Pending => "awaiting payment".to_string(),
+        OrderStatus::Paid { amount } => format!("paid {amount} UAH"),
     }
 }
 

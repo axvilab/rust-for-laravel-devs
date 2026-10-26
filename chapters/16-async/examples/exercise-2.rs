@@ -1,7 +1,7 @@
-//! Вправа 2: те саме через `tokio::spawn` і цикл по `handles`
+//! Exercise 2: the same with `tokio::spawn` and a loop over `handles`
 //!
-//! `slow` приймає `&str`, а задача має бути 'static — тому в spawn ідуть
-//! рядки-літерали (&'static str) або String через `async move`.
+//! `slow` takes a `&str`, and a task must be 'static — so spawn gets
+//! string literals (&'static str) or a String via `async move`.
 
 use std::time::{Duration, Instant};
 
@@ -15,11 +15,11 @@ async fn main() {
     let start = Instant::now();
     let handles: Vec<_> = ["a", "b", "c"]
         .into_iter()
-        .map(|name| tokio::spawn(slow(name, 200))) // літерали — 'static, можна
+        .map(|name| tokio::spawn(slow(name, 200))) // literals are 'static, allowed
         .collect();
     let mut out = String::new();
     for h in handles {
         out.push_str(&h.await.unwrap());
     }
-    println!("spawn: {out} за {:?}", start.elapsed()); // ~200 мс
+    println!("spawn: {out} in {:?}", start.elapsed()); // ~200 ms
 }

@@ -1,4 +1,4 @@
-//! Трейт = інтерфейс; реалізація — окремий блок `impl Trait for Type`
+//! A trait is an interface; the implementation is a separate `impl Trait for Type` block
 
 trait Notifiable {
     fn route_for(&self, channel: &str) -> String;

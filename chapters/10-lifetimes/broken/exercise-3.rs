@@ -1,10 +1,10 @@
-//! Вправа 3: `Excerpt` з посиланням на String, що знищився в кінці блоку
+//! Exercise 3: an `Excerpt` referring to a String destroyed at the end of a block
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0597]: `text` does not live long enough
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0597]: `text` does not live long enough
 //!   — borrowed value does not live long enough / `text` dropped here while still borrowed
-//! Тобто: `e` тримає посилання на `text`, а `text` знищено на `}` раніше, ніж `e`
-//! використано. Виправлення: examples/exercise-4.rs (Excerpt з String)
+//! That is: `e` holds a reference to `text`, and `text` is destroyed at `}` before `e`
+//! is used. Fix: examples/exercise-4.rs (Excerpt with a String)
 // expected-error: E0597
 
 struct Excerpt<'a> {
@@ -14,7 +14,7 @@ struct Excerpt<'a> {
 fn main() {
     let e;
     {
-        let text = String::from("Перше речення. Друге.");
+        let text = String::from("First sentence. Second.");
         e = Excerpt { part: &text };
     }
     println!("{}", e.part);

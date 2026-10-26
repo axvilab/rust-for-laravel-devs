@@ -1,4 +1,4 @@
-//! Вправа 2: `new`, `is_available`, `sell` з `saturating_sub`
+//! Exercise 2: `new`, `is_available`, `sell` with `saturating_sub`
 
 #[derive(Debug)]
 struct Product {
@@ -23,15 +23,15 @@ impl Product {
     }
 
     fn sell(&mut self, qty: u32) {
-        // saturating_sub: 2 - 5 = 0, а не паніка чи 4294967293
+        // saturating_sub: 2 - 5 = 0, not a panic or 4294967293
         self.stock = self.stock.saturating_sub(qty);
     }
 }
 
 fn main() {
-    let mut p = Product::new(1, "Ноутбук", 45_000.0, 2);
+    let mut p = Product::new(1, "Laptop", 45_000.0, 2);
     p.sell(1);
-    println!("{} в наявності: {}", p.stock, p.is_available()); // 1 true
+    println!("{} in stock: {}", p.stock, p.is_available()); // 1 true
     p.sell(5);
-    println!("{} в наявності: {}", p.stock, p.is_available()); // 0 false
+    println!("{} in stock: {}", p.stock, p.is_available()); // 0 false
 }

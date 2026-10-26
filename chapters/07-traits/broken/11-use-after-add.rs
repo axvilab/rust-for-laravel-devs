@@ -1,8 +1,8 @@
-//! `+` забирає доданки (`self`, не `&self`): після додавання їх не використати
+//! `+` takes its operands (`self`, not `&self`): you can't use them after the addition
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0382]: borrow of moved value: `price`
-//! Виправлення: `price.clone() + shipping.clone()` — див. examples/11-operator-add.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0382]: borrow of moved value: `price`
+//! Fix: `price.clone() + shipping.clone()` — see examples/11-operator-add.rs
 // expected-error: E0382
 
 use std::ops::Add;

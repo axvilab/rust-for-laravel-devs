@@ -1,4 +1,4 @@
-//! Оператори — теж трейти: `impl Add for Money`
+//! Operators are traits too: `impl Add for Money`
 
 use std::ops::Add;
 
@@ -28,11 +28,11 @@ fn main() {
         currency: "UAH".into(),
     };
 
-    // Якщо доданки ще потрібні — додаємо копії:
+    // If you still need the operands, add copies:
     let preview = price.clone() + shipping.clone();
     println!("{preview:?}");
 
     let total = price + shipping;
-    // price і shipping тут уже недоступні — add забрав їх собі (self, а не &self)
+    // price and shipping are gone here — add took them (self, not &self)
     println!("{total:?}");
 }

@@ -1,28 +1,28 @@
-//! `Option` у полях — аналог nullable-колонок
+//! `Option` in fields — like nullable columns
 
 use std::time::SystemTime;
 
-// У книзі `deleted_at: Option<DateTime>` (тип з крейту chrono). Щоб приклад
-// не тягнув залежностей, тут стандартний `SystemTime`; з chrono це було б
+// The book has `deleted_at: Option<DateTime>` (a type from the chrono crate). To keep
+// the example dependency-free it uses the standard `SystemTime`; with chrono it would be
 // `Option<chrono::DateTime<chrono::Utc>>`.
 #[derive(Debug)]
 struct User {
     id: u64,
     name: String,
-    phone: Option<String>,          // може бути відсутній
+    phone: Option<String>,          // may be missing
     deleted_at: Option<SystemTime>, // soft delete
 }
 
 fn main() {
     let u = User {
         id: 1,
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
         phone: None,
         deleted_at: None,
     };
     match &u.phone {
-        Some(p) => println!("телефон: {p}"),
-        None => println!("{} без телефону", u.name),
+        Some(p) => println!("phone: {p}"),
+        None => println!("{} has no phone", u.name),
     }
-    println!("видалений: {}", u.deleted_at.is_some());
+    println!("deleted: {}", u.deleted_at.is_some());
 }

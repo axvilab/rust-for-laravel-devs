@@ -1,9 +1,9 @@
-//! Те саме, але `first` використано ПІСЛЯ `push`
+//! The same, but `first` is used AFTER `push`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0502]: cannot borrow `scores` as mutable because it is
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0502]: cannot borrow `scores` as mutable because it is
 //!   also borrowed as immutable
-//! Виправлення: використати посилання раніше — див. examples/07-nll.rs
+//! Fix: use the reference earlier — see examples/07-nll.rs
 // expected-error: E0502
 
 fn main() {

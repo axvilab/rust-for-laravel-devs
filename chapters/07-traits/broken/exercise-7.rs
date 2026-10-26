@@ -1,8 +1,8 @@
-//! Вправа 7 (зламана версія): `.into()` без анотації типу
+//! Exercise 7 (broken version): `.into()` without a type annotation
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0283]: type annotations needed
-//! Виправлення: `let p: Product = 99.9.into();` — див. examples/exercise-7.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0283]: type annotations needed
+//! Fix: `let p: Product = 99.9.into();` — see examples/exercise-7.rs
 // expected-error: type annotations needed
 
 #[derive(Debug)]

@@ -1,4 +1,4 @@
-//! Список різнотипних об'єктів — `Vec<Box<dyn Trait>>`
+//! A list of objects of different types — `Vec<Box<dyn Trait>>`
 
 trait Describable {
     fn describe(&self) -> String;
@@ -13,21 +13,21 @@ struct Product {
 
 impl Describable for User {
     fn describe(&self) -> String {
-        format!("Це {}", self.name)
+        format!("This is {}", self.name)
     }
 }
 impl Describable for Product {
     fn describe(&self) -> String {
-        format!("Товар «{}»", self.title)
+        format!("Product “{}”", self.title)
     }
 }
 
 fn main() {
     let user = User {
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
     };
     let product = Product {
-        title: "Ноутбук".into(),
+        title: "Laptop".into(),
     };
 
     let items: Vec<Box<dyn Describable>> = vec![Box::new(user), Box::new(product)];

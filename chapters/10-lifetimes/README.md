@@ -1,53 +1,53 @@
-# 10. Лайфтайми — коротко і без паніки
+# 10. Lifetimes — briefly and without panic
 
-Код до розділу книги. Кожен приклад — окрема програма в `examples/`.
+Code for this chapter of the book. Every example is a separate program in `examples/`.
 
 ```bash
 cargo run -p ch10-lifetimes --example 01-longer
-# без Rust на машині:
+# without Rust installed:
 docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p ch10-lifetimes --example 01-longer
 ```
 
-Команди запускаються з кореня репозиторію.
+Run the commands from the repository root.
 
-## Приклади з тексту
+## Examples from the text
 
-| Приклад | Що показує | Команда запуску |
+| Example | What it shows | Run |
 |---|---|---|
-| [`01-longer`](examples/01-longer.rs) | `'a` описує зв'язок: результат живе не довше за коротший з аргументів | `cargo run -p ch10-lifetimes --example 01-longer` |
-| [`02-elision`](examples/02-elision.rs) | Правила виведення: один параметр-посилання або `&self` — лайфтайми не потрібні | `cargo run -p ch10-lifetimes --example 02-elision` |
-| [`03-return-owned`](examples/03-return-owned.rs) | Створив рядок у функції — повертай `String`, не `&str` | `cargo run -p ch10-lifetimes --example 03-return-owned` |
-| [`04-struct-with-ref`](examples/04-struct-with-ref.rs) | Структура з посиланням потребує лайфтайму і не переживе джерело | `cargo run -p ch10-lifetimes --example 04-struct-with-ref` |
-| [`05-static`](examples/05-static.rs) | `'static` — посилання, валідне до кінця програми (рядкові літерали) | `cargo run -p ch10-lifetimes --example 05-static` |
-| [`06-static-bound`](examples/06-static-bound.rs) | `T: 'static` виконують власні типи: String, Vec, числа, структури з String | `cargo run -p ch10-lifetimes --example 06-static-bound` |
-| [`07-anonymous-lifetime`](examples/07-anonymous-lifetime.rs) | `'_` — анонімний лайфтайм: «тут позичено, деталі неважливі» | `cargo run -p ch10-lifetimes --example 07-anonymous-lifetime` |
+| [`01-longer`](examples/01-longer.rs) | `'a` describes a relationship: the result lives no longer than the shorter argument | `cargo run -p ch10-lifetimes --example 01-longer` |
+| [`02-elision`](examples/02-elision.rs) | Elision rules: one reference parameter or `&self` — no lifetimes needed | `cargo run -p ch10-lifetimes --example 02-elision` |
+| [`03-return-owned`](examples/03-return-owned.rs) | Created a string in the function — return `String`, not `&str` | `cargo run -p ch10-lifetimes --example 03-return-owned` |
+| [`04-struct-with-ref`](examples/04-struct-with-ref.rs) | A struct with a reference needs a lifetime and can't outlive its source | `cargo run -p ch10-lifetimes --example 04-struct-with-ref` |
+| [`05-static`](examples/05-static.rs) | `'static` — a reference valid until the end of the program (string literals) | `cargo run -p ch10-lifetimes --example 05-static` |
+| [`06-static-bound`](examples/06-static-bound.rs) | `T: 'static` is satisfied by owned types: String, Vec, numbers, structs with String | `cargo run -p ch10-lifetimes --example 06-static-bound` |
+| [`07-anonymous-lifetime`](examples/07-anonymous-lifetime.rs) | `'_` — the anonymous lifetime: "something is borrowed here, details don't matter" | `cargo run -p ch10-lifetimes --example 07-anonymous-lifetime` |
 
-## Розв'язки вправ «Спробуй»
+## Solutions to the “Try it” exercises
 
-| Приклад | Що показує | Команда запуску |
+| Example | What it shows | Run |
 |---|---|---|
-| [`exercise-1`](examples/exercise-1.rs) | Вправа 1: `pick` з двома літералами, потім з літералом і `&String` | `cargo run -p ch10-lifetimes --example exercise-1` |
-| [`exercise-2`](examples/exercise-2.rs) | Вправа 2: що пропонує компілятор, якщо прибрати лайфтайми | `cargo run -p ch10-lifetimes --example exercise-2` |
-| [`exercise-3`](examples/exercise-3.rs) | Вправа 3: `Excerpt<'a>` працює, поки джерело живе довше | `cargo run -p ch10-lifetimes --example exercise-3` |
-| [`exercise-4`](examples/exercise-4.rs) | Вправа 4: `Excerpt` з `String` — лайфтайм зникає | `cargo run -p ch10-lifetimes --example exercise-4` |
-| [`exercise-5`](examples/exercise-5.rs) | Вправа 5: `make_greeting` повертає `String` | `cargo run -p ch10-lifetimes --example exercise-5` |
+| [`exercise-1`](examples/exercise-1.rs) | Exercise 1: `pick` with two literals, then with a literal and a `&String` | `cargo run -p ch10-lifetimes --example exercise-1` |
+| [`exercise-2`](examples/exercise-2.rs) | Exercise 2: what the compiler suggests if you remove the lifetimes | `cargo run -p ch10-lifetimes --example exercise-2` |
+| [`exercise-3`](examples/exercise-3.rs) | Exercise 3: `Excerpt<'a>` works as long as the source lives longer | `cargo run -p ch10-lifetimes --example exercise-3` |
+| [`exercise-4`](examples/exercise-4.rs) | Exercise 4: `Excerpt` with a `String` — the lifetime disappears | `cargo run -p ch10-lifetimes --example exercise-4` |
+| [`exercise-5`](examples/exercise-5.rs) | Exercise 5: `make_greeting` returns a `String` | `cargo run -p ch10-lifetimes --example exercise-5` |
 
-## Навмисно зламані приклади
+## Intentionally broken examples
 
-У `broken/` лежить код, який книга показує як помилку компіляції. Cargo їх не збирає.
-У шапці кожного файлу записано очікувану помилку і виправлення.
-Перевірити, що вони справді не компілюються і з тією самою помилкою:
+`broken/` holds code that the book shows as a compile error. Cargo does not build these files.
+The header of each file states the expected error and the fix.
+To check that they really fail, and with exactly that error:
 
 ```bash
 ./scripts/check-broken.sh 10
-rustc --edition 2024 chapters/10-lifetimes/broken/01-missing-lifetime.rs   # побачити повідомлення компілятора
+rustc --edition 2024 chapters/10-lifetimes/broken/01-missing-lifetime.rs   # see the compiler message
 ```
 
-| Файл | Що показує | Очікувана помилка |
+| File | What it shows | Expected error |
 |---|---|---|
-| [`01-missing-lifetime.rs`](broken/01-missing-lifetime.rs) | Два посилання на вході, посилання на виході — компілятор просить лайфтайм | error[E0106]: missing lifetime specifier |
-| [`03-return-ref-to-local.rs`](broken/03-return-ref-to-local.rs) | Лайфтайм не врятує посилання на локальну змінну | error[E0515]: cannot return reference to local variable `s` |
-| [`06-static-bound.rs`](broken/06-static-bound.rs) | `T: 'static` — «не містить позичених посилань», а не «живе вічно» | error[E0597]: `local` does not live long enough |
-| [`exercise-2.rs`](broken/exercise-2.rs) | Вправа 2: `pick` без лайфтаймів | error[E0106]: missing lifetime specifier |
-| [`exercise-3.rs`](broken/exercise-3.rs) | Вправа 3: `Excerpt` з посиланням на String, що знищився в кінці блоку | error[E0597]: `text` does not live long enough |
-| [`exercise-5.rs`](broken/exercise-5.rs) | Вправа 5: повернути `&format!(...)` з функції | error[E0515]: cannot return reference to temporary value |
+| [`01-missing-lifetime.rs`](broken/01-missing-lifetime.rs) | Two references in, a reference out — the compiler asks for a lifetime | error[E0106]: missing lifetime specifier |
+| [`03-return-ref-to-local.rs`](broken/03-return-ref-to-local.rs) | A lifetime won't save a reference to a local variable | error[E0515]: cannot return reference to local variable `s` |
+| [`06-static-bound.rs`](broken/06-static-bound.rs) | `T: 'static` means "holds no borrowed references", not "lives forever" | error[E0597]: `local` does not live long enough |
+| [`exercise-2.rs`](broken/exercise-2.rs) | Exercise 2: `pick` without lifetimes | error[E0106]: missing lifetime specifier |
+| [`exercise-3.rs`](broken/exercise-3.rs) | Exercise 3: an `Excerpt` referring to a String destroyed at the end of a block | error[E0597]: `text` does not live long enough |
+| [`exercise-5.rs`](broken/exercise-5.rs) | Exercise 5: returning `&format!(...)` from a function | error[E0515]: cannot return reference to temporary value |

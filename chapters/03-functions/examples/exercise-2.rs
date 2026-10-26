@@ -1,13 +1,13 @@
-//! Вправа 2: замикання зі знижкою, застосоване через `.map()`
+//! Exercise 2: a discount closure applied with `.map()`
 
 fn main() {
     let percent = 0.15;
-    let discount = |price: f64| price * (1.0 - percent); // percent захоплено позичанням
+    let discount = |price: f64| price * (1.0 - percent); // percent is captured by borrowing
 
-    // У книзі `vec![...]`; clippy (useless_vec) радить масив, бо список не змінюється.
+    // An array, not vec!: the list never changes (clippy::useless_vec).
     let prices = [100.0, 250.0, 80.0];
-    // Замикання передаємо в map за іменем — воно вже приймає f64.
-    // iter() дає &f64, тому `copied()` перетворює їх на f64.
+    // We pass the closure to map by name — it already takes an f64.
+    // iter() yields &f64, so `copied()` turns them into f64.
     let discounted: Vec<f64> = prices.iter().copied().map(discount).collect();
     println!("{discounted:?}"); // [85.0, 212.5, 68.0]
 }

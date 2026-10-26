@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Перевіряє, що кожен файл chapters/*/broken/*.rs справді НЕ компілюється
-# і що помилка — саме та, яку обіцяє рядок `// expected-error: ...` у файлі.
+# Checks that every chapters/*/broken/*.rs really does NOT compile,
+# and that the error is exactly the one promised by its `// expected-error: ...` line.
 #
-#   ./scripts/check-broken.sh            # усі розділи
-#   ./scripts/check-broken.sh 08         # тільки chapters/08-*
+#   ./scripts/check-broken.sh            # all chapters
+#   ./scripts/check-broken.sh 08         # only chapters/08-*
 #
 # Docker:  docker run --rm -v "$PWD":/w -w /w rust:1-bookworm ./scripts/check-broken.sh
 set -uo pipefail

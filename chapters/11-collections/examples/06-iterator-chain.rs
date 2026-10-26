@@ -1,4 +1,4 @@
-//! Ланцюжок `.iter().filter().map().sum()` — як Laravel Collection
+//! A `.iter().filter().map().sum()` chain — like a Laravel Collection
 
 struct Order {
     total: f64,
@@ -24,12 +24,12 @@ fn main() {
     let total: f64 = orders.iter().filter(|o| o.paid).map(|o| o.total).sum();
     println!("{total}"); // 180
 
-    // те саме з турборибою замість анотації змінної
+    // the same with the turbofish instead of a variable annotation
     let count = orders.iter().filter(|o| !o.paid).count();
     let unpaid = orders
         .iter()
         .filter(|o| !o.paid)
         .map(|o| o.total)
         .sum::<f64>();
-    println!("{count} неоплачених на {unpaid}");
+    println!("{count} unpaid for {unpaid}");
 }

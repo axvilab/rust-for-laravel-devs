@@ -1,4 +1,4 @@
-//! Тримай замок коротко: повільну роботу — до `lock()`
+//! Keep the lock short: do slow work before `lock()`
 
 use std::sync::{Arc, Mutex};
 use std::thread;
@@ -17,12 +17,12 @@ fn run(hold_lock_during_call: bool) -> Duration {
             let shared = Arc::clone(&shared);
             thread::spawn(move || {
                 if hold_lock_during_call {
-                    // погано: замок тримається весь час, поки працює повільна функція
+                    // bad: the lock is held the whole time the slow function runs
                     let mut data = shared.lock().unwrap();
                     let result = slow_network_call(i);
                     data.push(result);
                 } else {
-                    // добре: взяли, записали, відпустили
+                    // good: took it, wrote, released
                     let result = slow_network_call(i);
                     shared.lock().unwrap().push(result);
                 }
@@ -36,6 +36,6 @@ fn run(hold_lock_during_call: bool) -> Duration {
 }
 
 fn main() {
-    println!("замок через виклик: {:?}", run(true)); // ~200 мс: потоки по черзі
-    println!("короткий замок:     {:?}", run(false)); // ~50 мс: паралельно
+    println!("lock held through the call: {:?}", run(true)); // ~200 ms: threads take turns
+    println!("short lock:                 {:?}", run(false)); // ~50 ms: in parallel
 }

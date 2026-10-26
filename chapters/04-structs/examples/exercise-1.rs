@@ -1,4 +1,4 @@
-//! Вправа 1: структура `Product` з `#[derive(Debug)]`
+//! Exercise 1: a `Product` struct with `#[derive(Debug)]`
 
 #[derive(Debug)]
 struct Product {
@@ -11,7 +11,7 @@ struct Product {
 fn main() {
     let p = Product {
         id: 1,
-        name: "Ноутбук".into(),
+        name: "Laptop".into(),
         price: 45_000.0,
         stock: 3,
     };

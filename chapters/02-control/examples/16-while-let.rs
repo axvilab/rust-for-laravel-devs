@@ -1,7 +1,7 @@
-//! `while let` — цикл, поки шаблон збігається
+//! `while let` — loop while the pattern matches
 
 fn process(job: &str) {
-    println!("обробляю {job}");
+    println!("processing {job}");
 }
 
 fn main() {
@@ -9,5 +9,5 @@ fn main() {
     while let Some(job) = queue.pop() {
         process(job);
     }
-    // pop() знімає з кінця: report, invoice, email
+    // pop() takes from the end: report, invoice, email
 }

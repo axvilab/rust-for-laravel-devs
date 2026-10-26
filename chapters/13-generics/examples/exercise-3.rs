@@ -1,13 +1,13 @@
-//! Вправа 3: дерево коментарів через `Vec` (без Box) і ланцюжок через `Option<Box<_>>`
+//! Exercise 3: a comment tree with `Vec` (no Box) and a chain with `Option<Box<_>>`
 //!
-//! `struct Reply { text: String, parent: Option<Reply> }` дає
+//! `struct Reply { text: String, parent: Option<Reply> }` gives
 //! E0072 recursive type has infinite size (broken/exercise-3.rs):
-//! Option<Reply> зберігає Reply всередині себе, а той — ще один Reply...
-//! Box ставить між ними вказівник фіксованого розміру.
+//! Option<Reply> stores a Reply inside itself, which holds another Reply...
+//! Box puts a fixed-size pointer between them.
 
 struct Comment {
     text: String,
-    replies: Vec<Comment>, // Vec уже в купі — Box не потрібен
+    replies: Vec<Comment>, // Vec is already on the heap — no Box needed
 }
 
 fn total(c: &Comment) -> usize {
@@ -25,30 +25,34 @@ fn depth(r: &Reply) -> usize {
 
 fn main() {
     let thread = Comment {
-        text: "Перший".into(),
+        text: "First".into(),
         replies: vec![
             Comment {
-                text: "Відповідь".into(),
+                text: "A reply".into(),
                 replies: vec![Comment {
-                    text: "Відповідь на відповідь".into(),
+                    text: "A reply to the reply".into(),
                     replies: vec![],
                 }],
             },
             Comment {
-                text: "Ще одна".into(),
+                text: "Another one".into(),
                 replies: vec![],
             },
         ],
     };
-    println!("коментарів: {} (у гілці «{}»)", total(&thread), thread.text); // 4
+    println!(
+        "comments: {} (in the thread '{}')",
+        total(&thread),
+        thread.text
+    ); // 4
 
     let root = Reply {
-        text: "корінь".into(),
+        text: "root".into(),
         parent: None,
     };
     let child = Reply {
-        text: "дитина".into(),
+        text: "child".into(),
         parent: Some(Box::new(root)),
     };
-    println!("глибина «{}»: {}", child.text, depth(&child)); // 2
+    println!("depth of '{}': {}", child.text, depth(&child)); // 2
 }

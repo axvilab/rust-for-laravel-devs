@@ -1,8 +1,8 @@
-//! `==` для enum без `PartialEq`
+//! `==` for an enum without `PartialEq`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0369]: binary operation `==` cannot be applied to type `Status`
-//! Виправлення: `#[derive(PartialEq)]` або `matches!` — див. examples/05-enum-eq.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0369]: binary operation `==` cannot be applied to type `Status`
+//! Fix: `#[derive(PartialEq)]` or `matches!` — see examples/05-enum-eq.rs
 // expected-error: E0369
 
 enum Status {
@@ -13,6 +13,6 @@ enum Status {
 fn main() {
     let s = Status::Paid { amount: 1500 };
     if s == Status::Pending {
-        println!("чекаємо");
+        println!("waiting");
     }
 }

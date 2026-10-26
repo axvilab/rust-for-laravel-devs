@@ -1,4 +1,4 @@
-//! Три форми параметра: `&impl Trait`, `<T: Trait>`, `&dyn Trait`
+//! Three parameter forms: `&impl Trait`, `<T: Trait>`, `&dyn Trait`
 
 trait Describable {
     fn describe(&self) -> String;
@@ -13,44 +13,44 @@ struct Product {
 
 impl Describable for User {
     fn describe(&self) -> String {
-        format!("Це {}", self.name)
+        format!("This is {}", self.name)
     }
 }
 impl Describable for Product {
     fn describe(&self) -> String {
-        format!("Товар «{}»", self.title)
+        format!("Product “{}”", self.title)
     }
 }
 
-// 1. impl Trait — найпростіша, пиши її за замовчуванням
+// 1. impl Trait — the simplest, write it by default
 fn announce(item: &impl Describable) {
     println!("{}", item.describe());
 }
 
-// 2. Generic з обмеженням — те саме, але можна посилатись на тип T кілька разів
+// 2. A generic with a bound — the same, but you can refer to T several times
 fn announce_pair<T: Describable>(a: &T, b: &T) {
-    println!("{} і {}", a.describe(), b.describe());
+    println!("{} and {}", a.describe(), b.describe());
 }
 
-// 3. dyn Trait — «динамічна» диспетчеризація, вибір реалізації в рантаймі
+// 3. dyn Trait — "dynamic" dispatch, the implementation is picked at runtime
 fn announce_dyn(item: &dyn Describable) {
     println!("{}", item.describe());
 }
 
 fn main() {
     let u1 = User {
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
     };
     let u2 = User {
-        name: "Марія".into(),
+        name: "Maria".into(),
     };
     let p = Product {
-        title: "Ноутбук".into(),
+        title: "Laptop".into(),
     };
 
     announce(&u1);
     announce(&p);
-    announce_pair(&u1, &u2); // два User — так
-    // announce_pair(&u1, &p); // User і Product — ні: E0308 mismatched types
+    announce_pair(&u1, &u2); // two Users — yes
+    // announce_pair(&u1, &p); // a User and a Product — no: E0308 mismatched types
     announce_dyn(&p);
 }

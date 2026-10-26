@@ -1,21 +1,21 @@
-//! Два виправлення E0382 у циклі: позичити (краще) або клонувати
+//! Two fixes for E0382 in a loop: borrow (better) or clone
 
-// 1. Функція тільки читає → параметр &str, передаємо &email
+// 1. The function only reads → a &str parameter, pass &email
 fn send(email: &str) {
-    println!("надіслано: {email}");
+    println!("sent: {email}");
 }
 
-// 2. Функція справді хоче володіти → викликаємо з clone()
+// 2. The function really wants ownership → call it with clone()
 fn send_owned(email: String) {
-    println!("надіслано (копія): {email}");
+    println!("sent (copy): {email}");
 }
 
 fn main() {
     let email = String::from("v@example.com");
     for _ in 0..3 {
-        send(&email); // жодної копії
+        send(&email); // no copies
     }
     for _ in 0..3 {
-        send_owned(email.clone()); // три копії рядка
+        send_owned(email.clone()); // three copies of the string
     }
 }

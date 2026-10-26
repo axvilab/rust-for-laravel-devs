@@ -1,15 +1,15 @@
-//! `pub` і приватні поля: ззовні модуля — тільки через конструктор
+//! `pub` and private fields: from outside the module — only through the constructor
 
 mod users {
     pub struct User {
         pub id: u64,
         pub name: String,
-        password_hash: String, // без pub — ззовні модуля не видно
+        password_hash: String, // no pub — invisible outside the module
     }
 
     impl User {
         pub fn new(id: u64, name: &str, password: &str) -> Self {
-            // публічний
+            // public
             Self {
                 id,
                 name: name.to_string(),
@@ -22,16 +22,16 @@ mod users {
         }
 
         fn hash_password(password: &str) -> String {
-            // приватний helper (НЕ справжнє хешування — лише для прикладу!)
+            // a private helper (NOT real hashing — just for the example!)
             password.chars().rev().collect()
         }
     }
 }
 
 fn main() {
-    let u = users::User::new(1, "Віталій", "secret");
+    let u = users::User::new(1, "Vitalii", "secret");
     println!("{} {} {}", u.id, u.name, u.check("secret"));
-    // println!("{}", u.password_hash);  // ПОМИЛКА E0616: field is private
+    // println!("{}", u.password_hash);  // ERROR E0616: field is private
     // users::User { id: 2, name: "x".into(), password_hash: "y".into() };
-    //                                       // ПОМИЛКА E0451: private field
+    //                                       // ERROR E0451: private field
 }

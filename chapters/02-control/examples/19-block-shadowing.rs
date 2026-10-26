@@ -1,18 +1,18 @@
-//! Пастка: затінення всередині блоку не змінює зовнішню змінну
+//! A trap: shadowing inside a block doesn't change the outer variable
 
 fn main() {
     let has_discount = true;
     let total = 100;
     if has_discount {
-        let total = total + 50; // НОВА змінна, живе лише в цьому блоці
-        println!("всередині: {total}"); // 150
+        let total = total + 50; // a NEW variable, lives only in this block
+        println!("inside: {total}"); // 150
     }
-    println!("зовні: {total}"); // 100 — зовнішню ніхто не чіпав
+    println!("outside: {total}"); // 100 — nobody touched the outer one
 
-    // Правильно: mut зовні і зміна БЕЗ let усередині.
+    // Correct: mut outside and a change WITHOUT let inside.
     let mut total = 100;
     if has_discount {
         total += 50;
     }
-    println!("виправлено: {total}"); // 150
+    println!("fixed: {total}"); // 150
 }

@@ -1,4 +1,4 @@
-//! Свій трейт для чужого типу: метод з'являється навіть у `String` (як `Collection::macro`)
+//! Your own trait for someone else's type: the method shows up even on `String` (like `Collection::macro`)
 
 trait Slugify {
     fn slug(&self) -> String;
@@ -14,6 +14,6 @@ impl Slugify for String {
 }
 
 fn main() {
-    let title = String::from("Rust для Laravel Розробника");
-    println!("{}", title.slug()); // rust-для-laravel-розробника
+    let title = String::from("Rust for Laravel Developers");
+    println!("{}", title.slug()); // rust-for-laravel-developers
 }

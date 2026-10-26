@@ -1,15 +1,15 @@
-//! Вправа 5 (зламана версія): `match` без `&` забрав вміст Option
+//! Exercise 5 (broken version): `match` without `&` took the contents of the Option
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0382]: borrow of partially moved value: `maybe`
-//! Виправлення одним символом: `match &maybe` — див. examples/exercise-5.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0382]: borrow of partially moved value: `maybe`
+//! One-character fix: `match &maybe` — see examples/exercise-5.rs
 // expected-error: partially moved
 
 fn main() {
-    let maybe: Option<String> = Some("тест".into());
+    let maybe: Option<String> = Some("test".into());
     match maybe {
-        Some(s) => println!("є: {s}"),
-        None => println!("нема"),
+        Some(s) => println!("present: {s}"),
+        None => println!("absent"),
     }
     println!("{maybe:?}");
 }

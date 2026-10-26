@@ -1,8 +1,8 @@
-//! Умова — явне порівняння, яке дає `bool`
+//! The condition is an explicit comparison that yields a `bool`
 
 fn main() {
     let count = 3;
     if count > 0 {
-        println!("є {count} шт.");
+        println!("{count} in stock");
     }
 }

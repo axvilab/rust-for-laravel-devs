@@ -1,8 +1,8 @@
-//! Вправа 2 (зламана версія): `&mut` на незмінну змінну
+//! Exercise 2 (broken version): `&mut` to an immutable variable
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0596]: cannot borrow `s` as mutable, as it is not declared as mutable
-//! Виправлення: `let mut s` — див. examples/exercise-2.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0596]: cannot borrow `s` as mutable, as it is not declared as mutable
+//! Fix: `let mut s` — see examples/exercise-2.rs
 // expected-error: E0596
 
 fn append_exclamation(s: &mut String) {
@@ -10,7 +10,7 @@ fn append_exclamation(s: &mut String) {
 }
 
 fn main() {
-    let s = String::from("Привіт");
+    let s = String::from("Hello");
     append_exclamation(&mut s);
     println!("{s}");
 }

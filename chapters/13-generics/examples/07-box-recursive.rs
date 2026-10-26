@@ -1,18 +1,18 @@
-//! `Box` для рекурсивних типів; `Vec` усередині — без Box
+//! `Box` for recursive types; a `Vec` inside — no Box needed
 
 enum Expr {
     Num(i64),
-    Add(Box<Expr>, Box<Expr>), // (2 + 3) — вираз усередині виразу
+    Add(Box<Expr>, Box<Expr>), // (2 + 3) — an expression inside an expression
 }
 
 fn eval(e: &Expr) -> i64 {
     match e {
         Expr::Num(n) => *n,
-        Expr::Add(a, b) => eval(a) + eval(b), // &Box<Expr> поводиться як &Expr
+        Expr::Add(a, b) => eval(a) + eval(b), // &Box<Expr> behaves like &Expr
     }
 }
 
-// Vec уже тримає елементи в купі — Box не потрібен
+// Vec already keeps its elements on the heap — no Box needed
 struct Category(String, Vec<Category>);
 
 fn count(c: &Category) -> usize {
@@ -27,11 +27,11 @@ fn main() {
     println!("{}", eval(&e)); // 9
 
     let tree = Category(
-        "Електроніка".into(),
+        "Electronics".into(),
         vec![
-            Category("Ноутбуки".into(), vec![]),
-            Category("Телефони".into(), vec![]),
+            Category("Laptops".into(), vec![]),
+            Category("Phones".into(), vec![]),
         ],
     );
-    println!("{} категорій у «{}»", count(&tree), tree.0); // 3
+    println!("{} categories in '{}'", count(&tree), tree.0); // 3
 }

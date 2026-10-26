@@ -1,4 +1,4 @@
-//! `if let ... && умова` — let chains (edition 2024, Rust 1.88+)
+//! `if let ... && condition` — let chains (edition 2024, Rust 1.88+)
 
 struct User {
     name: String,
@@ -8,11 +8,11 @@ struct User {
 fn find_user(id: u64) -> Option<User> {
     match id {
         1 => Some(User {
-            name: "Віталій".into(),
+            name: "Vitalii".into(),
             active: true,
         }),
         2 => Some(User {
-            name: "Заблокований".into(),
+            name: "Blocked".into(),
             active: false,
         }),
         _ => None,
@@ -24,9 +24,9 @@ fn main() {
         if let Some(user) = find_user(id)
             && user.active
         {
-            println!("вітаємо, {}", user.name);
+            println!("welcome, {}", user.name);
         } else {
-            println!("id {id}: нема або неактивний");
+            println!("id {id}: missing or inactive");
         }
     }
 }

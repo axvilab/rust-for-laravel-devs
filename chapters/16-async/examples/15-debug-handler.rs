@@ -1,9 +1,9 @@
-//! `#[axum::debug_handler]` — людські помилки для неправильних сигнатур хендлерів
+//! `#[axum::debug_handler]` — human-readable errors for wrong handler signatures
 //!
-//! Якщо поставити `Json` ПЕРЕД `Path`, звичайна помилка — `the trait bound ... Handler<_, _>
-//! is not satisfied`. З атрибутом: «Json<_> consumes the request body and thus must be
-//! the last argument to the handler function». Тут порядок уже правильний.
-//! (Потрібна feature `macros`: `cargo add axum --features macros`.)
+//! If you put `Json` BEFORE `Path`, the usual error is `the trait bound ... Handler<_, _>
+//! is not satisfied`. With the attribute: "Json<_> consumes the request body and thus must be
+//! the last argument to the handler function". Here the order is already correct.
+//! (Needs the `macros` feature: `cargo add axum --features macros`.)
 
 use axum::{Json, Router, extract::Path, routing::post};
 
@@ -13,7 +13,7 @@ async fn hello(Path(id): Path<u64>, Json(body): Json<serde_json::Value>) -> Stri
 }
 
 fn main() {
-    // Лише збираємо роутер: приклад про компіляцію, а не про запуск сервера.
+    // We only build the router: this example is about compiling, not running a server.
     let _app: Router = Router::new().route("/hello/{id}", post(hello));
-    println!("хендлер має правильну сигнатуру — компілюється");
+    println!("the handler has a correct signature — it compiles");
 }

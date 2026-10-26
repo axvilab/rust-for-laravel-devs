@@ -1,15 +1,15 @@
-//! Вправа 1: тест, що навмисно падає, з поясненням у `assert_eq!`
+//! Exercise 1: a test that fails on purpose, with an explanation in `assert_eq!`
 //!
-//! Тест позначено `#[ignore]`, щоб `cargo test` у CI проходив. Запуск:
+//! The test is marked `#[ignore]` so that `cargo test` passes in CI. Run it with:
 //!   cargo test -p ch17-tests --example exercise-1 -- --ignored
-//! Вивід:
+//! Output:
 //!   ---- tests::broken stdout ----
-//!   порахували: 20
+//!   calculated: 20
 //!   thread 'tests::broken' panicked at ...:
-//!   assertion `left == right` failed: комісія для 1000
+//!   assertion `left == right` failed: fee for 1000
 //!     left: 20
 //!    right: 25
-//! `left` — що порахував код, `right` — що ти очікував.
+//! `left` is what the code calculated, `right` is what you expected.
 
 use ch17_tests::calc_fee;
 
@@ -22,10 +22,10 @@ mod tests {
     use super::*;
 
     #[test]
-    #[ignore = "навмисно падає: cargo test --example exercise-1 -- --ignored"]
+    #[ignore = "fails on purpose: cargo test --example exercise-1 -- --ignored"]
     fn broken() {
         let fee = calc_fee(1000);
-        println!("порахували: {fee}");
-        assert_eq!(fee, 25, "комісія для 1000");
+        println!("calculated: {fee}");
+        assert_eq!(fee, 25, "fee for 1000");
     }
 }

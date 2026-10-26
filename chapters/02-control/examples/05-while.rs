@@ -1,4 +1,4 @@
-//! `while` — як у PHP, тільки без дужок навколо умови
+//! `while` — like in PHP, just without parentheses around the condition
 
 fn main() {
     let mut countdown = 3;

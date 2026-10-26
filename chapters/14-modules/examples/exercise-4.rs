@@ -1,26 +1,26 @@
-//! Вправа 4: що `cargo clippy` пропонує найчастіше (уже виправлено) і `cargo fmt`
+//! Exercise 4: what `cargo clippy` suggests most often (already fixed) and `cargo fmt`
 //!
-//! Кожен рядок нижче — «після». У коментарі — що було «до» і назва лінту.
-//! Весь цей репозиторій перевіряється в CI командами
-//! `cargo fmt --check` і `cargo clippy --all-targets -- -D warnings`.
+//! Every line below is the "after". The comment says what the "before" was and the lint name.
+//! This whole repository is checked in CI with
+//! `cargo fmt --check` and `cargo clippy --all-targets -- -D warnings`.
 
 fn print_users(users: &[&str]) {
-    // було &Vec<&str> → ptr_arg
+    // was &Vec<&str> → ptr_arg
     if !users.is_empty() {
-        // було users.len() > 0 → len_zero
+        // was users.len() > 0 → len_zero
         for user in users {
-            // було for i in 0..users.len() { users[i] } → needless_range_loop
+            // was for i in 0..users.len() { users[i] } → needless_range_loop
             println!("{user}");
         }
     }
 }
 
 fn main() {
-    let users = ["Іван", "Марія"]; // було vec![...] → useless_vec
+    let users = ["Ivan", "Maria"]; // was vec![...] → useless_vec
     print_users(&users);
     let n = Some(-5_i32);
-    let abs = n.map(i32::abs); // було .map(|x| x.abs()) → redundant_closure_for_method_calls (pedantic)
-    let mut name = String::from("Віталій");
-    name.push('!'); // було push_str("!") → single_char_add_str
-    println!("{abs:?} {name} {}", users.first().unwrap_or(&"")); // було get(0) → get_first
+    let abs = n.map(i32::abs); // was .map(|x| x.abs()) → redundant_closure_for_method_calls (pedantic)
+    let mut name = String::from("Vitalii");
+    name.push('!'); // was push_str("!") → single_char_add_str
+    println!("{abs:?} {name} {}", users.first().unwrap_or(&"")); // was get(0) → get_first
 }

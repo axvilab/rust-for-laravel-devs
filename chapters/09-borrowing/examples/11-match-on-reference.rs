@@ -1,22 +1,22 @@
-//! `match &x` дивиться, `match x` забирає вміст
+//! `match &x` looks, `match x` takes the contents
 
 fn main() {
-    let name: Option<String> = Some("Віталій".to_string());
+    let name: Option<String> = Some("Vitalii".to_string());
 
     match &name {
-        // дивимось, не забираємо
-        Some(n) => println!("є: {n}"), // n тут — &String
-        None => println!("нема"),
+        // we look, we don't take
+        Some(n) => println!("present: {n}"), // n here is a &String
+        None => println!("absent"),
     }
-    println!("{name:?}"); // name живий
+    println!("{name:?}"); // name is alive
 
-    // У книзі тут `match` з порожньою гілкою `None => {}`. Clippy радить для
-    // такого `if let` (clippy::single_match); форму `match` залишено навмисно.
+    // The book's `match` has an empty `None => {}` arm. Clippy suggests
+    // `if let` for that (clippy::single_match); the `match` form is kept on purpose.
     #[allow(clippy::single_match)]
     match name {
-        // без & — забираємо вміст
-        Some(n) => println!("забрали: {n}"), // n — String, переїхав
+        // no & — we take the contents
+        Some(n) => println!("took: {n}"), // n is a String, it moved
         None => {}
     }
-    // println!("{name:?}");            // ПОМИЛКА: borrow of partially moved value
+    // println!("{name:?}");            // ERROR: borrow of partially moved value
 }

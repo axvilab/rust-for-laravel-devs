@@ -1,21 +1,21 @@
-//! Вправа 3: `shout(String)` забирає рядок — два способи виправити
+//! Exercise 3: `shout(String)` takes the string — two ways to fix it
 //!
-//! Без виправлень: `shout(s); println!("{s}")` → E0382 (broken/exercise-3.rs).
+//! Without fixes: `shout(s); println!("{s}")` → E0382 (broken/exercise-3.rs).
 
 fn shout(s: String) -> String {
     s.to_uppercase()
 }
 
 fn main() {
-    // Спосіб 1: «повернути володіння» — результат shout і є новий власник
-    let s = String::from("привіт");
+    // Way 1: "give ownership back" — the result of shout is the new owner
+    let s = String::from("hello");
     let s = shout(s);
-    println!("{s}"); // ПРИВІТ
+    println!("{s}"); // HELLO
 
-    // Спосіб 2: віддати копію, оригінал лишається
-    let original = String::from("привіт");
+    // Way 2: give away a copy, the original stays
+    let original = String::from("hello");
     let loud = shout(original.clone());
     println!("{original} → {loud}");
 
-    // (Спосіб 3, з наступного розділу: fn shout(s: &str) -> String.)
+    // (Way 3, from the next chapter: fn shout(s: &str) -> String.)
 }

@@ -1,4 +1,4 @@
-//! Розділ 8. Ownership — один власник на кожну річ
+//! Chapter 8. Ownership — one owner for every thing
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch08-ownership --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch08-ownership --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

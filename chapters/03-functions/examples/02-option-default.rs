@@ -1,4 +1,4 @@
-//! Немає дефолтних аргументів: необов'язкове передається як `Option`
+//! No default arguments: an optional value is passed as an `Option`
 
 fn paginate(page: u32, per_page: Option<u32>) -> (u32, u32) {
     let per_page = per_page.unwrap_or(15); // None → 15

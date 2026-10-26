@@ -1,8 +1,8 @@
-//! Вправа 4 (зламана версія): FnMut-замикання без `mut`
+//! Exercise 4 (broken version): an FnMut closure without `mut`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0596]: cannot borrow `apply` as mutable, as it is not declared as mutable
-//! Виправлення: `let mut apply = ...` — див. examples/exercise-4.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0596]: cannot borrow `apply` as mutable, as it is not declared as mutable
+//! Fix: `let mut apply = ...` — see examples/exercise-4.rs
 // expected-error: E0596
 
 fn main() {
@@ -12,5 +12,5 @@ fn main() {
         price * 0.9
     };
     println!("{}", apply(100.0));
-    println!("викликів: {calls}");
+    println!("calls: {calls}");
 }

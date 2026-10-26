@@ -1,4 +1,4 @@
-//! Кілька значень з функції — кортеж; зріз `&[i32]` як параметр
+//! Several values from a function — a tuple; a `&[i32]` slice as the parameter
 
 fn min_max(values: &[i32]) -> (i32, i32) {
     let mut min = values[0];
@@ -19,5 +19,5 @@ fn main() {
     println!("{lo}..{hi}"); // 1..9
 
     let pair = min_max(&[5, -2]);
-    println!("{} {}", pair.0, pair.1); // доступ за номером: -2 5
+    println!("{} {}", pair.0, pair.1); // access by position: -2 5
 }

@@ -1,8 +1,8 @@
-//! `Rc` не можна передати в інший потік
+//! An `Rc` can't be sent to another thread
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0277]: `Rc<i32>` cannot be sent between threads safely
-//! Виправлення: `Arc` замість `Rc` — див. examples/exercise-4.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0277]: `Rc<i32>` cannot be sent between threads safely
+//! Fix: `Arc` instead of `Rc` — see examples/exercise-4.rs
 // expected-error: cannot be sent between threads safely
 
 use std::rc::Rc;

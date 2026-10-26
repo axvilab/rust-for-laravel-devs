@@ -1,8 +1,8 @@
-//! «Поле не ініціалізоване» неможливе: літерал має перелічити всі поля
+//! An "uninitialized field" is impossible: a literal must list every field
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0063]: missing field `paid` in initializer of `Invoice`
-//! Виправлення: вказати всі поля — див. examples/05-no-constructors.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0063]: missing field `paid` in initializer of `Invoice`
+//! Fix: give all the fields — see examples/05-no-constructors.rs
 // expected-error: E0063
 
 struct Invoice {

@@ -1,10 +1,10 @@
-//! Вправа 3: `cargo add thiserror anyhow`, `cargo tree` — хто тягне `syn`
+//! Exercise 3: `cargo add thiserror anyhow`, `cargo tree` — who pulls in `syn`
 //!
-//! Після `cargo add thiserror anyhow` у Cargo.toml з'являються два рядки в
-//! [dependencies], а Cargo.lock фіксує ще й транзитивні: thiserror-impl,
+//! After `cargo add thiserror anyhow`, Cargo.toml gets two lines in
+//! [dependencies], and Cargo.lock also pins the transitive ones: thiserror-impl,
 //! proc-macro2, quote, syn, unicode-ident.
 //!
-//! У цьому репозиторії (крейт ch12-errors: anyhow, thiserror, serde, toml):
+//! In this repository (the ch12-errors crate: anyhow, thiserror, serde, toml):
 //!
 //! ```text
 //! $ cargo tree -p ch12-errors -i syn -e normal
@@ -15,10 +15,10 @@
 //!     └── thiserror v2.0.21
 //! ```
 //!
-//! Відповідь: `syn` (парсер Rust-коду) тягнуть процедурні макроси — derive з
-//! thiserror і serde. anyhow його не потребує: у нього немає макросів-derive.
-//! Звідси повільна перша збірка: syn компілюється раніше за все інше.
+//! The answer: `syn` (a Rust code parser) is pulled in by procedural macros — the derives
+//! of thiserror and serde. anyhow doesn't need it: it has no derive macros.
+//! Hence the slow first build: syn compiles before everything else.
 
 fn main() {
-    println!("див. коментар у файлі: cargo tree -p ch12-errors -i syn");
+    println!("see the comment in this file: cargo tree -p ch12-errors -i syn");
 }

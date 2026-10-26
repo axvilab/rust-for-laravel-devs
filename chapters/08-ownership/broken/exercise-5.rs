@@ -1,10 +1,10 @@
-//! Вправа 5: `Copy` для структури з полем `String`
+//! Exercise 5: `Copy` for a struct with a `String` field
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0204]: the trait `Copy` cannot be implemented for this type
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0204]: the trait `Copy` cannot be implemented for this type
 //!   (this field does not implement `Copy`)
-//! Чому: String тримає дані в купі; побітова копія дала б двох власників
-//! одного шматка пам'яті. Виправлення: тільки `Clone` — див. examples/exercise-5.rs
+//! Why: a String keeps its data on the heap; a bitwise copy would give two owners
+//! of the same piece of memory. Fix: only `Clone` — see examples/exercise-5.rs
 // expected-error: E0204
 
 #[derive(Clone, Copy)]

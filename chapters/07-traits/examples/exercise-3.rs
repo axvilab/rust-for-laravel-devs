@@ -1,4 +1,4 @@
-//! Вправа 3: `total` по списку `Box<dyn Priced>` з товарів і послуг упереміш
+//! Exercise 3: `total` over a `Box<dyn Priced>` list of mixed products and services
 
 trait Priced {
     fn price(&self) -> f64;
@@ -26,7 +26,7 @@ impl Priced for Service {
     }
 }
 
-// Різні типи в одному списку → dyn; зріз &[...] замість &Vec<...>
+// Different types in one list → dyn; a &[...] slice instead of &Vec<...>
 fn total(items: &[Box<dyn Priced>]) -> f64 {
     items.iter().map(|i| i.price_with_vat()).sum()
 }

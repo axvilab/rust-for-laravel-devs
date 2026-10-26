@@ -1,13 +1,13 @@
-//! Значення функції — останній вираз; `return` можливий, але не ідіоматичний
-// clippy::needless_return свідомо вимкнено: square_verbose показує саме цю форму.
+//! A function's value is its last expression; `return` works but isn't idiomatic
+// clippy::needless_return is turned off on purpose: square_verbose shows exactly that form.
 #![allow(clippy::needless_return)]
 
 fn square(n: i32) -> i32 {
-    n * n // return не потрібен
+    n * n // no return needed
 }
 
 fn square_verbose(n: i32) -> i32 {
-    return n * n; // так теж можна, але ідіоматично — без return
+    return n * n; // also works, but idiomatic code has no return
 }
 
 fn main() {

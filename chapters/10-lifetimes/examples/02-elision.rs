@@ -1,25 +1,25 @@
-//! Правила виведення: один параметр-посилання або `&self` — лайфтайми не потрібні
+//! Elision rules: one reference parameter or `&self` — no lifetimes needed
 
 struct User {
     name: String,
 }
 
-// правило 2: один параметр-посилання → результат отримує його лайфтайм
+// rule 2: one reference parameter → the result gets its lifetime
 fn first_word(s: &str) -> &str {
     s.split_whitespace().next().unwrap_or("")
 }
 
 impl User {
-    // правило 3: є &self → результат отримує лайфтайм self
+    // rule 3: there's &self → the result gets the lifetime of self
     fn name(&self) -> &str {
         &self.name
     }
 }
 
 fn main() {
-    println!("{}", first_word("Привіт, світе"));
+    println!("{}", first_word("Hello, world"));
     let u = User {
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
     };
     println!("{}", u.name());
 }

@@ -1,14 +1,14 @@
-//! Вправа 2: що пропонує компілятор, якщо прибрати лайфтайми
+//! Exercise 2: what the compiler suggests if you remove the lifetimes
 //!
-//! broken/exercise-2.rs дає E0106 з готовим рядком у `help:` —
+//! broken/exercise-2.rs gives E0106 with a ready-made line in `help:` —
 //! `fn pick<'a>(cond: bool, a: &'a str, b: &'a str) -> &'a str`.
-//! Саме його і вставлено тут. Чому компілятор не виводить сам: параметрів-
-//! посилань два, тож правило «один вхід → вихід з його лайфтаймом» не працює.
+//! That's exactly what's inserted here. Why the compiler doesn't infer it: there are
+//! two reference parameters, so the "one input → output gets its lifetime" rule doesn't apply.
 
 fn pick<'a>(cond: bool, a: &'a str, b: &'a str) -> &'a str {
     if cond { a } else { b }
 }
 
 fn main() {
-    println!("{}", pick(false, "так", "ні"));
+    println!("{}", pick(false, "yes", "no"));
 }

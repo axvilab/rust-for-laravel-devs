@@ -1,14 +1,14 @@
-//! Вправа 5: повернути `&format!(...)` з функції
+//! Exercise 5: returning `&format!(...)` from a function
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0515]: cannot return reference to temporary value
-//! Виправлення: повертати `String` — див. examples/exercise-5.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0515]: cannot return reference to temporary value
+//! Fix: return a `String` — see examples/exercise-5.rs
 // expected-error: E0515
 
 fn make_greeting(name: &str) -> &str {
-    &format!("Привіт, {name}")
+    &format!("Hello, {name}")
 }
 
 fn main() {
-    println!("{}", make_greeting("Віталій"));
+    println!("{}", make_greeting("Vitalii"));
 }

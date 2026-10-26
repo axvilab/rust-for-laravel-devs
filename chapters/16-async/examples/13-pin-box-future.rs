@@ -1,4 +1,4 @@
-//! `Pin<Box<dyn Future<Output = T> + Send>>` — коли гілки повертають різні futures
+//! `Pin<Box<dyn Future<Output = T> + Send>>` — when branches return different futures
 
 use std::future::Future;
 use std::pin::Pin;
@@ -8,12 +8,12 @@ type BoxFuture<T> = Pin<Box<dyn Future<Output = T> + Send>>;
 
 fn load(from_cache: bool) -> BoxFuture<String> {
     if from_cache {
-        Box::pin(async { "з кешу".to_string() }) // одна future
+        Box::pin(async { "from the cache".to_string() }) // one future
     } else {
         Box::pin(async {
-            // зовсім інша future (інший анонімний тип) — без Box::pin не скомпілювалось би
+            // a completely different future (another anonymous type) — wouldn't compile without Box::pin
             tokio::time::sleep(Duration::from_millis(20)).await;
-            "з бази".to_string()
+            "from the database".to_string()
         })
     }
 }

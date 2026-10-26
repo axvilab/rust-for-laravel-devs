@@ -1,4 +1,4 @@
-//! Форматування: позиційно, іменовано, `{:?}`, `{:#?}`, вирівнювання, точність
+//! Formatting: positional, named, `{:?}`, `{:#?}`, alignment, precision
 
 #[derive(Debug)]
 struct User {
@@ -7,23 +7,23 @@ struct User {
 }
 
 fn main() {
-    let name = "Віталій";
+    let name = "Vitalii";
     let age = 35;
     let some_struct = User {
         id: 1,
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
     };
 
-    println!("{} має {} років", name, age); // позиційно
-    println!("{name} має {age} років"); // іменовано (з Rust 2021)
-    println!("{:?}", vec![1, 2, 3]); // {:?} — «налагоджувальний» вивід, як var_dump
-    println!("{:#?}", some_struct); // {:#?} — те саме, але з переносами
-    println!("{:>8}|{:<8}|", "право", "ліво"); // вирівнювання
-    // У книзі тут 3.14159; clippy вважає таке число наближеним π і відмовляє
-    // (clippy::approx_constant — це помилка, не попередження). Тому інше число:
+    println!("{} is {} years old", name, age); // positional
+    println!("{name} is {age} years old"); // named (since Rust 2021)
+    println!("{:?}", vec![1, 2, 3]); // {:?} — "debug" output, like var_dump
+    println!("{:#?}", some_struct); // {:#?} — the same, but with line breaks
+    println!("{:>8}|{:<8}|", "right", "left"); // alignment
+    // Not 3.14159: clippy treats such a number as a hand-written π and refuses
+    // (clippy::approx_constant is an error, not a warning). Hence another number:
     println!("{:.2}", 1.23456); // 1.23
 
     let price = 99.5;
-    let users = ["Іван", "Марія"];
-    println!("{users:?} {price:.2}"); // модифікатори з іменами
+    let users = ["Ivan", "Maria"];
+    println!("{users:?} {price:.2}"); // modifiers with names
 }

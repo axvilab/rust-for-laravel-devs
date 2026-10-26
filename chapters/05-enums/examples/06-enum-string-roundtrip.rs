@@ -1,4 +1,4 @@
-//! enum у рядок і назад — аналог `->value` і `::tryFrom()`
+//! An enum to a string and back — like `->value` and `::tryFrom()`
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 enum OrderStatus {
@@ -27,8 +27,8 @@ impl OrderStatus {
 }
 
 fn main() {
-    println!("{}", OrderStatus::Paid.as_str()); // paid — як ->value
-    println!("{:?}", OrderStatus::parse("shipped")); // Some(Shipped) — як tryFrom()
+    println!("{}", OrderStatus::Paid.as_str()); // paid — like ->value
+    println!("{:?}", OrderStatus::parse("shipped")); // Some(Shipped) — like tryFrom()
     println!("{:?}", OrderStatus::parse("lost")); // None
-    println!("{}", OrderStatus::Shipped as i32); // 2 — номер варіанта
+    println!("{}", OrderStatus::Shipped as i32); // 2 — the variant number
 }

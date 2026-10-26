@@ -1,4 +1,4 @@
-//! `From` — «з цього типу можна зробити мій»; `Into` — безкоштовно навпаки
+//! `From` — "my type can be made from this one"; `Into` comes free the other way round
 
 #[derive(Debug)]
 struct Money {
@@ -16,8 +16,8 @@ impl From<i64> for Money {
 }
 
 fn main() {
-    let m: Money = 150050.into(); // .into() — дзеркало From
+    let m: Money = 150050.into(); // .into() — the mirror of From
     println!("{m:?}");
-    let m = Money::from(150050); // те саме
+    let m = Money::from(150050); // the same
     println!("{m:?}");
 }

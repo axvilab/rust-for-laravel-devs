@@ -1,9 +1,9 @@
-//! Вичерпний `match` по bool: обидві гілки, `_` не потрібен
+//! An exhaustive `match` on bool: both arms, no `_` needed
 
 fn main() {
     let x: bool = true;
     match x {
-        true => println!("так"),
-        false => println!("ні"),
+        true => println!("yes"),
+        false => println!("no"),
     }
 }

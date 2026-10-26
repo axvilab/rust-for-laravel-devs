@@ -1,4 +1,4 @@
-//! «Або те, або інше» з функції — `Box<dyn Trait>`
+//! "Either this or that" from a function — `Box<dyn Trait>`
 
 trait Describable {
     fn describe(&self) -> String;
@@ -7,12 +7,12 @@ struct User;
 struct Product;
 impl Describable for User {
     fn describe(&self) -> String {
-        "користувач".into()
+        "user".into()
     }
 }
 impl Describable for Product {
     fn describe(&self) -> String {
-        "товар".into()
+        "product".into()
     }
 }
 

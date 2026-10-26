@@ -1,7 +1,7 @@
-//! Власний enum помилок: хендлер робить `match` і вибирає HTTP-код
+//! Your own error enum: a handler does a `match` and picks the HTTP status
 
-// У книзі третій варіант — `Database(sqlx::Error)`. Щоб приклад не тягнув
-// sqlx, тут замість нього своя «чужа» помилка бази.
+// In the book the third variant is `Database(sqlx::Error)`. To avoid pulling in
+// sqlx, this uses its own "foreign" database error instead.
 #[derive(Debug)]
 struct DbError(String);
 

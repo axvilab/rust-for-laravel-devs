@@ -1,4 +1,4 @@
-//! `if` — вираз, тому тернарний оператор не потрібен
+//! `if` is an expression, so there's no need for a ternary operator
 
 fn main() {
     let age = 20;

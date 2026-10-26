@@ -1,4 +1,4 @@
-//! Generic-структура `Paginated<T>` і методи лише для `T: Clone`
+//! A generic struct `Paginated<T>` and methods only for `T: Clone`
 
 #[derive(Debug, Clone)]
 struct User {
@@ -23,13 +23,13 @@ impl<T> Paginated<T> {
 }
 
 impl<T: Clone> Paginated<T> {
-    // метод доступний тільки якщо T: Clone
+    // the method exists only if T: Clone
     fn first_cloned(&self) -> Option<T> {
         self.items.first().cloned()
     }
 }
 
-// Замість `repo.list(1)` з книги — проста функція, яка «нарізає» сторінку.
+// Instead of the book's `repo.list(1)` — a simple function that "slices" a page.
 fn list<T: Clone>(all: &[T], page: u32) -> Paginated<T> {
     let per_page = 2;
     let start = ((page - 1) * per_page) as usize;
@@ -48,13 +48,13 @@ fn list<T: Clone>(all: &[T], page: u32) -> Paginated<T> {
 fn main() {
     let all_users = [
         User {
-            name: "Іван".into(),
+            name: "Ivan".into(),
         },
         User {
-            name: "Марія".into(),
+            name: "Maria".into(),
         },
         User {
-            name: "Олег".into(),
+            name: "Oleh".into(),
         },
     ];
     let all_orders = [Order { id: 1 }];
@@ -63,13 +63,13 @@ fn main() {
     let orders: Paginated<Order> = list(&all_orders, 2);
 
     println!(
-        "сторінка {} з {} користувачів, перший: {:?}",
+        "page {} of {} users, first: {:?}",
         users.page,
         users.total,
         users.first_cloned()
     );
     println!(
-        "замовлення, сторінка {}: порожня = {}",
+        "orders, page {}: empty = {}",
         orders.page,
         orders.is_empty()
     );

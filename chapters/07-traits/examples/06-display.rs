@@ -1,4 +1,4 @@
-//! `Display` пишеться руками — людський формат для `{}`
+//! `Display` is written by hand — a human-readable format for `{}`
 
 use std::fmt;
 
@@ -10,7 +10,7 @@ struct Money {
 
 impl fmt::Display for Money {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        // знак окремо: `%` зберігає знак діленого, і без abs() -150 дало б "-1.-50"
+        // the sign goes separately: `%` keeps the dividend's sign, and without abs() -150 would give "-1.-50"
         let sign = if self.amount < 0 { "-" } else { "" };
         let abs = self.amount.abs();
         write!(f, "{sign}{}.{:02} {}", abs / 100, abs % 100, self.currency)

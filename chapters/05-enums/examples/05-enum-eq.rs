@@ -1,4 +1,4 @@
-//! `==` (потрібен `PartialEq`, порівнює й дані) проти `matches!` (лише форма)
+//! `==` (needs `PartialEq`, compares the data too) vs `matches!` (shape only)
 
 #[derive(Debug, PartialEq)]
 enum Status {
@@ -9,12 +9,12 @@ enum Status {
 fn main() {
     let s = Status::Paid { amount: 1500 };
     if s == Status::Pending {
-        println!("чекаємо");
-    } // потрібен PartialEq
+        println!("waiting");
+    } // needs PartialEq
     if matches!(s, Status::Paid { .. }) {
-        println!("оплачено");
-    } // PartialEq не потрібен
+        println!("paid");
+    } // no PartialEq needed
     if s == (Status::Paid { amount: 1500 }) {
-        println!("рівно 1500");
+        println!("exactly 1500");
     }
 }

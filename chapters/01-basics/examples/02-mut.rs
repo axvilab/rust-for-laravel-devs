@@ -1,4 +1,4 @@
-//! `let mut` — змінна, яку можна змінювати
+//! `let mut` — a variable that can change
 
 fn main() {
     let mut count = 5;

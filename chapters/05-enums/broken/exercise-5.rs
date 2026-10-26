@@ -1,8 +1,8 @@
-//! Вправа 5 (зламана версія): `!=` для enum без `PartialEq`
+//! Exercise 5 (broken version): `!=` for an enum without `PartialEq`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0369]: binary operation `!=` cannot be applied to type `PaymentMethod`
-//! Виправлення: `matches!` — див. examples/exercise-5.rs (або `#[derive(PartialEq)]`)
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0369]: binary operation `!=` cannot be applied to type `PaymentMethod`
+//! Fix: `matches!` — see examples/exercise-5.rs (or `#[derive(PartialEq)]`)
 // expected-error: E0369
 
 enum PaymentMethod {

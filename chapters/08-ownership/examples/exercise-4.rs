@@ -1,4 +1,4 @@
-//! Вправа 4: порядок знищення — зворотний до порядку оголошення
+//! Exercise 4: drop order is the reverse of declaration order
 
 struct Noisy(&'static str);
 
@@ -10,10 +10,10 @@ impl Drop for Noisy {
 
 fn main() {
     {
-        let _a = Noisy("перший");
-        let _b = Noisy("другий");
-        let _c = Noisy("третій");
-        println!("кінець блоку");
+        let _a = Noisy("first");
+        let _b = Noisy("second");
+        let _c = Noisy("third");
+        println!("end of block");
     }
-    // drop третій / drop другий / drop перший — як стек: останній створений знищується першим
+    // drop third / drop second / drop first — like a stack: the last one created is destroyed first
 }

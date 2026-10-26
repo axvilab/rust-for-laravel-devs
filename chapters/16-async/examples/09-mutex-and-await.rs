@@ -1,9 +1,9 @@
-//! `std::sync::Mutex` не тримають через `.await`: закрити блоком або `tokio::sync::Mutex`
+//! A `std::sync::Mutex` isn't held across `.await`: close it in a block or use `tokio::sync::Mutex`
 
 use std::sync::Arc;
 
 async fn save() {
-    tokio::task::yield_now().await; // «запит у базу»
+    tokio::task::yield_now().await; // "a database query"
 }
 
 async fn query() -> u32 {
@@ -15,7 +15,7 @@ async fn query() -> u32 {
 async fn main() {
     let state = Arc::new(std::sync::Mutex::new(Vec::<u32>::new()));
 
-    // ДОБРЕ 1: не тримати замок через await
+    // GOOD 1: don't hold the lock across await
     let s = Arc::clone(&state);
     tokio::spawn(async move {
         let result = query().await;
@@ -24,19 +24,19 @@ async fn main() {
     .await
     .unwrap();
 
-    // ДОБРЕ 1б: замок закрито БЛОКОМ до .await (drop(guard) компілятор не врахує)
+    // GOOD 1b: the lock is closed in a BLOCK before .await (the compiler ignores drop(guard))
     let s = Arc::clone(&state);
     tokio::spawn(async move {
         {
             let mut guard = s.lock().unwrap();
             guard.push(1);
-        } // guard знищено тут
+        } // the guard is destroyed here
         save().await; // OK
     })
     .await
     .unwrap();
 
-    // ДОБРЕ 2: якщо треба тримати через await — tokio::sync::Mutex
+    // GOOD 2: if you must hold it across await — tokio::sync::Mutex
     let async_state = Arc::new(tokio::sync::Mutex::new(Vec::<u32>::new()));
     let s = Arc::clone(&async_state);
     tokio::spawn(async move {
@@ -47,8 +47,8 @@ async fn main() {
     .await
     .unwrap();
 
-    // Навіть тут: `println!("{:?} {:?}", state.lock().unwrap(), async_state.lock().await)`
-    // тримав би std-замок через .await — clippy ловить це лінтом await_holding_lock.
+    // Even here: `println!("{:?} {:?}", state.lock().unwrap(), async_state.lock().await)`
+    // would hold the std lock across .await — clippy catches that with await_holding_lock.
     let async_items = async_state.lock().await.clone();
     println!("{:?} {:?}", state.lock().unwrap(), async_items);
 }

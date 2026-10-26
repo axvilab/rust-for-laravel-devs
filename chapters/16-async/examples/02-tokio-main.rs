@@ -1,4 +1,4 @@
-//! `#[tokio::main]` — створює рантайм і запускає async main
+//! `#[tokio::main]` — creates the runtime and runs the async main
 
 struct User {
     name: String,

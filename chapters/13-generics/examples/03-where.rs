@@ -1,4 +1,4 @@
-//! Кілька обмежень через `+` і блок `where`
+//! Several bounds with `+` and a `where` block
 
 fn report<T>(items: &[T]) -> String
 where
@@ -11,7 +11,7 @@ where
         .join(", ")
 }
 
-// те саме в кутових дужках
+// the same in angle brackets
 fn report_inline<T: std::fmt::Display + Clone>(items: &[T]) -> String {
     report(items)
 }

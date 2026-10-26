@@ -1,12 +1,12 @@
-//! Розділ 17. Тести, макроси і що далі
+//! Chapter 17. Tests, macros, and what's next
 //!
-//! Тут код розділу — це переважно ТЕСТИ: `cargo test -p ch17-tests` запускає
-//! юніт-тести з цього файлу, інтеграційні з `tests/`, doc-тести з `///` і тести
-//! в прикладах-вправах. Окремі програми — у `examples/`.
+//! The chapter's code here is mostly TESTS: `cargo test -p ch17-tests` runs
+//! the unit tests in this file, the integration tests in `tests/`, the doc tests in `///`
+//! and the tests in the exercise examples. Standalone programs are in `examples/`.
 
 use serde::{Deserialize, Serialize};
 
-/// Комісія: до 100 — нуль, далі 2%.
+/// A fee: zero up to 100, then 2%.
 ///
 /// ```
 /// use ch17_tests::calc_fee;
@@ -18,10 +18,10 @@ pub fn calc_fee(amount: u64) -> u64 {
     if amount < 100 { 0 } else { amount / 50 }
 }
 
-/// Ділення, яке панікує на нулі (для `#[should_panic]`).
+/// Division that panics on zero (for `#[should_panic]`).
 pub fn divide(a: i32, b: i32) -> i32 {
     if b == 0 {
-        panic!("ділення на нуль");
+        panic!("division by zero");
     }
     a / b
 }
@@ -36,28 +36,28 @@ pub struct ParseError(pub String);
 
 impl std::fmt::Display for ParseError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "невалідний конфіг: {}", self.0)
+        write!(f, "invalid config: {}", self.0)
     }
 }
 
 impl std::error::Error for ParseError {}
 
-/// Парсить рядок `port = 8080`.
+/// Parses the line `port = 8080`.
 pub fn parse(text: &str) -> Result<Config, ParseError> {
     let (key, value) = text
         .split_once('=')
-        .ok_or_else(|| ParseError("немає `=`".into()))?;
+        .ok_or_else(|| ParseError("no `=`".into()))?;
     if key.trim() != "port" {
-        return Err(ParseError(format!("невідомий ключ `{}`", key.trim())));
+        return Err(ParseError(format!("unknown key `{}`", key.trim())));
     }
     let port = value
         .trim()
         .parse()
-        .map_err(|_| ParseError(format!("`{}` — не порт", value.trim())))?;
+        .map_err(|_| ParseError(format!("`{}` is not a port", value.trim())))?;
     Ok(Config { port })
 }
 
-/// Сервіс для інтеграційного тесту в `tests/api_test.rs`.
+/// A service for the integration test in `tests/api_test.rs`.
 pub struct PaymentService;
 
 impl PaymentService {
@@ -65,12 +65,12 @@ impl PaymentService {
         PaymentService
     }
 
-    /// Списати `amount` копійок з користувача `user_id`.
+    /// Charge `amount` kopecks to the user `user_id`.
     pub fn charge(&self, user_id: u64, amount: u64) -> Result<u64, String> {
         if amount == 0 {
-            return Err("сума має бути більшою за нуль".into());
+            return Err("the amount must be greater than zero".into());
         }
-        Ok(user_id * 1_000_000 + amount) // «id транзакції»
+        Ok(user_id * 1_000_000 + amount) // "a transaction id"
     }
 }
 
@@ -86,11 +86,11 @@ pub struct User {
     pub name: String,
 }
 
-/// Async-«репозиторій» для `#[tokio::test]`.
+/// An async "repository" for `#[tokio::test]`.
 pub async fn fetch_user(id: u64) -> Result<User, String> {
-    tokio::task::yield_now().await; // уявний запит у базу
+    tokio::task::yield_now().await; // an imaginary database query
     match id {
-        0 => Err("користувача не знайдено".into()),
+        0 => Err("user not found".into()),
         _ => Ok(User {
             id,
             name: format!("user{id}"),
@@ -98,24 +98,24 @@ pub async fn fetch_user(id: u64) -> Result<User, String> {
     }
 }
 
-/// Запит на створення користувача: serde-атрибути з розділу.
+/// A create-user request: the serde attributes from the chapter.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CreateUserRequest {
     pub name: String,
     pub email: String,
-    #[serde(default)] // якщо нема в JSON — Default
+    #[serde(default)] // missing in the JSON — Default
     pub newsletter: bool,
-    #[serde(rename = "phoneNumber")] // camelCase зовні, snake_case всередині
+    #[serde(rename = "phoneNumber")] // camelCase outside, snake_case inside
     pub phone: Option<String>,
-    #[serde(skip_serializing)] // не віддавати назовні
+    #[serde(skip_serializing)] // never send it out
     pub password: String,
 }
 
-/// `HashMap` одним виразом.
+/// A `HashMap` in one expression.
 ///
 /// ```
-/// let stock = ch17_tests::hashmap! { "ноутбук" => 5, "миша" => 40 };
-/// assert_eq!(stock["миша"], 40);
+/// let stock = ch17_tests::hashmap! { "laptop" => 5, "mouse" => 40 };
+/// assert_eq!(stock["mouse"], 40);
 /// ```
 #[macro_export]
 macro_rules! hashmap {
@@ -126,7 +126,7 @@ macro_rules! hashmap {
     }};
 }
 
-/// Вправа 4: `hashset!` за зразком `hashmap!`.
+/// Exercise 4: `hashset!` modelled on `hashmap!`.
 ///
 /// ```
 /// let tags = ch17_tests::hashset!["rust", "php", "rust"];
@@ -141,9 +141,9 @@ macro_rules! hashset {
     }};
 }
 
-#[cfg(test)] // цей модуль компілюється тільки для cargo test
+#[cfg(test)] // this module is compiled only for cargo test
 mod tests {
-    use super::*; // імпортувати все з батьківського модуля
+    use super::*; // import everything from the parent module
 
     #[test]
     fn no_fee_for_small_amounts() {
@@ -156,12 +156,12 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected = "ділення на нуль")]
+    #[should_panic(expected = "division by zero")]
     fn panics_on_zero() {
         divide(1, 0);
     }
 
-    // Тест може повертати Result — тоді в ньому працює `?`
+    // A test can return a Result — then `?` works in it
     #[test]
     fn parses_config() -> Result<(), Box<dyn std::error::Error>> {
         let cfg = parse("port = 8080")?;
@@ -173,7 +173,7 @@ mod tests {
     fn rejects_bad_config() {
         assert_eq!(
             parse("port = abc"),
-            Err(ParseError("`abc` — не порт".into()))
+            Err(ParseError("`abc` is not a port".into()))
         );
         assert!(parse("host = x").is_err());
     }
@@ -185,7 +185,7 @@ mod tests {
         assert_eq!(
             divide(10, 3),
             3,
-            "цілочисельне ділення відкидає дробову частину"
+            "integer division drops the fractional part"
         );
     }
 
@@ -200,8 +200,8 @@ mod tests {
         assert!(fetch_user(0).await.is_err());
     }
 
-    // #[tokio::test] за замовчуванням однопотоковий; блокуючий код у ньому
-    // може зависнути. multi_thread дає справжній пул потоків.
+    // #[tokio::test] is single-threaded by default; blocking code in it
+    // may hang. multi_thread gives a real thread pool.
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn spawn_blocking_on_multi_thread_runtime() {
         let n = tokio::task::spawn_blocking(|| (1..=100u64).sum::<u64>())
@@ -213,7 +213,7 @@ mod tests {
     #[test]
     fn serde_roundtrip() {
         let json =
-            r#"{"name":"Віталій","email":"v@example.com","phoneNumber":"+380","password":"x"}"#;
+            r#"{"name":"Vitalii","email":"v@example.com","phoneNumber":"+380","password":"x"}"#;
         let req: CreateUserRequest = serde_json::from_str(json).unwrap();
         assert!(!req.newsletter); // #[serde(default)]
         assert_eq!(req.phone.as_deref(), Some("+380")); // rename
@@ -222,12 +222,12 @@ mod tests {
         assert!(out.contains("phoneNumber"));
 
         let bad = r#"{"name":1,"email":"x","password":"x"}"#;
-        assert!(serde_json::from_str::<CreateUserRequest>(bad).is_err()); // тип не той — Err
+        assert!(serde_json::from_str::<CreateUserRequest>(bad).is_err()); // wrong type — Err
     }
 
     #[test]
     fn hashmap_and_hashset_macros() {
-        let stock = hashmap! { "ноутбук" => 5, "миша" => 40, };
+        let stock = hashmap! { "laptop" => 5, "mouse" => 40, };
         assert_eq!(stock.len(), 2);
         let tags = hashset![1, 2, 2, 3];
         assert_eq!(tags.len(), 3);

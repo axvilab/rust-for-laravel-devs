@@ -1,21 +1,21 @@
-//! `unwrap_or` рахує дефолт завжди, `unwrap_or_else` — лише при None
+//! `unwrap_or` always computes the default, `unwrap_or_else` only on None
 //
-// clippy тут (як і пише книга) радить коротший запис `unwrap_or_else(load_default_name)`
-// — лінт redundant_closure. Форму з `||` залишено навмисно, тому лінт вимкнено.
+// clippy (as the book says) suggests the shorter `unwrap_or_else(load_default_name)`
+// — the redundant_closure lint. The `||` form is kept on purpose, so the lint is off.
 #![allow(clippy::redundant_closure)]
 
 fn find_name() -> Option<String> {
-    Some("Віталій".to_string())
+    Some("Vitalii".to_string())
 }
 
 fn load_default_name() -> String {
-    println!("(дорогий запит за дефолтом...)");
-    "Гість".to_string()
+    println!("(an expensive default lookup...)");
+    "Guest".to_string()
 }
 
 fn main() {
-    let a = find_name().unwrap_or(load_default_name()); // викликається ЗАВЖДИ
-    let b = find_name().unwrap_or_else(|| load_default_name()); // тільки якщо None
+    let a = find_name().unwrap_or(load_default_name()); // called ALWAYS
+    let b = find_name().unwrap_or_else(|| load_default_name()); // only on None
     let c = find_name().unwrap_or_default(); // None → ""
     println!("{a} {b} {c}");
 }

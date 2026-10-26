@@ -1,9 +1,9 @@
-//! Не блокуй рантайм: `tokio::time::sleep`, `tokio::fs`, `spawn_blocking` для CPU-роботи
+//! Don't block the runtime: `tokio::time::sleep`, `tokio::fs`, `spawn_blocking` for CPU work
 
 use std::time::{Duration, Instant};
 
 fn expensive_hash(password: &str) -> u64 {
-    // імітація argon2: ~100 мс чистого CPU
+    // an argon2 imitation: ~100 ms of pure CPU
     let start = Instant::now();
     let mut h: u64 = 1469598103934665603;
     while start.elapsed() < Duration::from_millis(100) {
@@ -16,15 +16,15 @@ fn expensive_hash(password: &str) -> u64 {
 
 #[tokio::main]
 async fn main() {
-    tokio::time::sleep(Duration::from_millis(10)).await; // спати — так, не std::thread::sleep
+    tokio::time::sleep(Duration::from_millis(10)).await; // sleep like this, not std::thread::sleep
 
-    let cargo_toml = tokio::fs::read_to_string("Cargo.toml").await; // файли — tokio::fs
-    println!("Cargo.toml прочитано: {}", cargo_toml.is_ok());
+    let cargo_toml = tokio::fs::read_to_string("Cargo.toml").await; // files — tokio::fs
+    println!("Cargo.toml read: {}", cargo_toml.is_ok());
 
-    // важке обчислення — в окремий пул потоків
+    // heavy computation — into a separate thread pool
     let password = String::from("secret");
     let hash = tokio::task::spawn_blocking(move || expensive_hash(&password))
         .await
         .unwrap();
-    println!("хеш: {hash:x}");
+    println!("hash: {hash:x}");
 }

@@ -1,12 +1,12 @@
-//! Вправа 1 (зламана версія): використання після move
+//! Exercise 1 (broken version): use after move
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0382]: borrow of moved value: `s`
-//! Виправлення: див. examples/exercise-1.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0382]: borrow of moved value: `s`
+//! Fix: see examples/exercise-1.rs
 // expected-error: E0382
 
 fn main() {
-    let s = String::from("тест");
+    let s = String::from("test");
     let t = s;
     println!("{s} {t}");
 }

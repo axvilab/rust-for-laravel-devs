@@ -1,2 +1,2 @@
 pub mod mail;
-pub mod payment; // «є services/payment.rs»
+pub mod payment; // "there's services/payment.rs"

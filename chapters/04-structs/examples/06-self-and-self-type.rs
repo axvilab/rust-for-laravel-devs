@@ -1,21 +1,21 @@
-//! `self` — екземпляр (`$this`), `Self` — тип (`self::`/`static::` у PHP)
+//! `self` is the instance (`$this`), `Self` is the type (`self::`/`static::` in PHP)
 
 struct Counter {
     value: u32,
 }
 
 impl Counter {
-    const LIMIT: u32 = 3; // константа типу, як const у класі
+    const LIMIT: u32 = 3; // a constant of the type, like a class const
 
     fn new() -> Self {
-        // Self — тип, тобто Counter
+        // Self — the type, i.e. Counter
         Self { value: 0 }
     }
 
     fn bump(&mut self) {
-        // self — цей екземпляр, тобто $this
+        // self — this instance, i.e. $this
         if self.value < Self::LIMIT {
-            // Self:: — як self:: / static:: у PHP
+            // Self:: — like self:: / static:: in PHP
             self.value += 1;
         }
     }

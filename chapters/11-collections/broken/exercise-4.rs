@@ -1,8 +1,8 @@
-//! Вправа 4 (зламана версія): використання `v` після `let v2 = v;`
+//! Exercise 4 (broken version): using `v` after `let v2 = v;`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0382]: borrow of moved value: `v`
-//! Виправлення: `let v2 = v.clone();` — див. examples/exercise-4.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0382]: borrow of moved value: `v`
+//! Fix: `let v2 = v.clone();` — see examples/exercise-4.rs
 // expected-error: E0382
 
 fn main() {

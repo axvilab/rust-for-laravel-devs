@@ -1,14 +1,14 @@
-//! `move` забирає `String` у замикання: після цього змінна недоступна
+//! `move` takes the `String` into the closure: the variable is gone afterwards
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0382]: borrow of moved value: `name`
-//! Виправлення: не використовувати `name` після `move`, або передати в замикання
-//!   копію (`let name2 = name.clone();`) — див. examples/07-move.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0382]: borrow of moved value: `name`
+//! Fix: don't use `name` after `move`, or give the closure a copy
+//!   (`let name2 = name.clone();`) — see examples/07-move.rs
 // expected-error: E0382
 
 fn main() {
-    let name = String::from("Віталій");
-    let greet = move || println!("Привіт, {name}");
+    let name = String::from("Vitalii");
+    let greet = move || println!("Hello, {name}");
     greet();
-    println!("{name}"); // ПОМИЛКА: name переїхав у замикання
+    println!("{name}"); // ERROR: name moved into the closure
 }

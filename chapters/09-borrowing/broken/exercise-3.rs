@@ -1,11 +1,11 @@
-//! Вправа 3: посилання на елемент, потім `push`, потім читання посилання
+//! Exercise 3: a reference to an element, then `push`, then reading the reference
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0502]: cannot borrow `v` as mutable because it is
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0502]: cannot borrow `v` as mutable because it is
 //!   also borrowed as immutable
-//! Чому: `push` може перевиділити пам'ять вектора (не вистачило місця — дані
-//! переїжджають у новий, більший блок), і `first` вказував би на звільнене місце.
-//! Виправлення: examples/exercise-4.rs
+//! Why: `push` may reallocate the vector's memory (no room left — the data
+//! moves to a new, bigger block), and `first` would point to freed memory.
+//! Fix: examples/exercise-4.rs
 // expected-error: E0502
 
 fn main() {

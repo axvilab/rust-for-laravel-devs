@@ -1,16 +1,16 @@
-//! Кортежні структури-обгортки і одиничні структури-маркери
+//! Tuple structs as wrappers and unit structs as markers
 
-// Кортежна: поля без імен. Для «обгорток» навколо одного значення.
+// Tuple struct: fields without names. For "wrappers" around one value.
 struct UserId(u64);
 struct OrderId(u64);
 struct Email(String);
 
-// Одинична: без полів узагалі. Для маркерів і типів-стратегій.
+// Unit struct: no fields at all. For markers and strategy types.
 struct Metric;
 struct Imperial;
 
 fn find(id: UserId) -> String {
-    format!("користувач #{}", id.0)
+    format!("user #{}", id.0)
 }
 
 fn main() {
@@ -19,8 +19,8 @@ fn main() {
     println!("{}", find(id));
 
     let order = OrderId(42);
-    // find(order); // ПОМИЛКА E0308: expected `UserId`, found `OrderId`
-    println!("замовлення #{}", order.0);
+    // find(order); // ERROR E0308: expected `UserId`, found `OrderId`
+    println!("order #{}", order.0);
 
     let email = Email("v@example.com".into());
     println!("{}", email.0);

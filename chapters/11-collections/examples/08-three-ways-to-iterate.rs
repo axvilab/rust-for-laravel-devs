@@ -1,21 +1,21 @@
-//! `for s in &v` (позичити), `&mut v` (змінювати), `v` (забрати)
+//! `for s in &v` (borrow), `&mut v` (change), `v` (take)
 
 fn main() {
     let mut v = vec![String::from("a"), String::from("b")];
 
     for s in &v {
-        // s: &String — позичаємо, v живий після циклу
+        // s: &String — we borrow, v is alive after the loop
         print!("{s} ");
     }
     println!();
     for s in &mut v {
-        // s: &mut String — можна міняти елементи
+        // s: &mut String — the elements can be changed
         s.push('!');
     }
     for s in v {
-        // s: String — забираємо, v більше нема
+        // s: String — we take, v is gone
         print!("{s} ");
     }
     println!();
-    // println!("{v:?}"); // ПОМИЛКА E0382 (broken/09-for-moves-vec.rs)
+    // println!("{v:?}"); // ERROR E0382 (broken/09-for-moves-vec.rs)
 }

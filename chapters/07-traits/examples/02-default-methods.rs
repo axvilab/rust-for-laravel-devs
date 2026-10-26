@@ -1,11 +1,11 @@
-//! Реалізація за замовчуванням: тип перевизначає лише те, що хоче
+//! A default implementation: a type overrides only what it wants
 
 trait Describable {
-    fn name(&self) -> String; // обов'язковий
+    fn name(&self) -> String; // required
 
     fn describe(&self) -> String {
-        // є дефолт
-        format!("Це {}", self.name())
+        // has a default
+        format!("This is {}", self.name())
     }
 }
 
@@ -22,7 +22,7 @@ impl Describable for User {
     fn name(&self) -> String {
         self.name.clone()
     }
-    // describe() отримали безкоштовно
+    // describe() came for free
 }
 
 impl Describable for Product {
@@ -30,19 +30,19 @@ impl Describable for Product {
         self.title.clone()
     }
     fn describe(&self) -> String {
-        // перевизначили
-        format!("Товар «{}» за {} грн", self.title, self.price)
+        // overridden
+        format!("Product “{}” for {} UAH", self.title, self.price)
     }
 }
 
 fn main() {
     let u = User {
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
     };
     let p = Product {
-        title: "Ноутбук".into(),
+        title: "Laptop".into(),
         price: 45_000.0,
     };
-    println!("{}", u.describe()); // Це Віталій
-    println!("{}", p.describe()); // Товар «Ноутбук» за 45000 грн
+    println!("{}", u.describe()); // This is Vitalii
+    println!("{}", p.describe()); // Product “Laptop” for 45000 UAH
 }

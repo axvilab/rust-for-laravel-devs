@@ -1,4 +1,4 @@
-//! Ручний `impl Default`, коли «нульові» значення не підходять
+//! A hand-written `impl Default` when "zero" values don't fit
 
 struct Config {
     host: String,
@@ -13,7 +13,7 @@ impl Default for Config {
             host: "127.0.0.1".to_string(),
             port: 8080,
             debug: false,
-            active: true, // ось він, наш `$active = true`
+            active: true, // here it is, our `$active = true`
         }
     }
 }

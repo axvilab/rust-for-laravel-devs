@@ -1,4 +1,4 @@
-//! Методи в `impl`: `&self` читає, `&mut self` змінює
+//! Methods in `impl`: `&self` reads, `&mut self` changes
 
 struct Counter {
     value: u32,
@@ -6,11 +6,11 @@ struct Counter {
 
 impl Counter {
     fn increment(&mut self) {
-        // &mut self — метод змінює структуру
+        // &mut self — the method changes the struct
         self.value += 1;
     }
     fn get(&self) -> u32 {
-        // &self — метод тільки читає
+        // &self — the method only reads
         self.value
     }
 }

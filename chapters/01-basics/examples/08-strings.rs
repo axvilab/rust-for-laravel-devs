@@ -1,11 +1,11 @@
-//! `&str` і `String`: літерал, власний рядок, `format!`
+//! `&str` and `String`: a literal, an owned string, `format!`
 
 fn main() {
-    let greeting = "Привіт"; // &str, зашитий у бінарник
-    let mut name = String::from("Віталій"); // String, у купі
-    // У книзі тут `push_str("!")`; clippy (single_char_add_str) радить для одного
-    // символу `push('!')`. Щоб показати саме push_str, дописуємо кілька символів.
-    name.push_str(" з Дніпра"); // можна міняти
+    let greeting = "Hello"; // &str, baked into the binary
+    let mut name = String::from("Vitalii"); // String, on the heap
+    // `push` adds one char, `push_str` a whole string
+    name.push('!'); // can be changed
+    name.push_str(" from Dnipro");
     let full = format!("{greeting}, {name}"); // String
     println!("{full}");
 }

@@ -1,8 +1,8 @@
-//! `.sum()` без підказки типу
+//! `.sum()` without a type hint
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0283]: type annotations needed
-//! Виправлення: `let total: f64 = ...` або `.sum::<f64>()` — див. examples/06-iterator-chain.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0283]: type annotations needed
+//! Fix: `let total: f64 = ...` or `.sum::<f64>()` — see examples/06-iterator-chain.rs
 // expected-error: E0283
 
 fn main() {

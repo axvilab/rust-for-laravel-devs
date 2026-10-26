@@ -1,9 +1,9 @@
-//! Повертаємо `String` (володіння), а не `&str` на локальну змінну
+//! Return a `String` (ownership), not a `&str` to a local variable
 
 fn longest_name() -> String {
-    let mut name = String::from("Віталій");
+    let mut name = String::from("Vitalii");
     name.push_str(" Ax");
-    name // володіння переходить до того, хто викликав
+    name // ownership passes to the caller
 }
 
 fn main() {

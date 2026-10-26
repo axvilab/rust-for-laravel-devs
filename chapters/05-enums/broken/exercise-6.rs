@@ -1,8 +1,8 @@
-//! Вправа 6 (зламана версія): додали `Invoice`, а `match` у `code()` — ні
+//! Exercise 6 (broken version): `Invoice` added, but not the `match` arm in `code()`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0004]: non-exhaustive patterns: `&PaymentMethod::Invoice { .. }` not covered
-//! Виправлення: гілка для `Invoice` — див. examples/exercise-6.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0004]: non-exhaustive patterns: `&PaymentMethod::Invoice { .. }` not covered
+//! Fix: an arm for `Invoice` — see examples/exercise-6.rs
 // expected-error: E0004
 
 enum PaymentMethod {

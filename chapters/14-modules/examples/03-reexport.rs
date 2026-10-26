@@ -1,4 +1,4 @@
-//! `pub use` — реекспорт, щоб сховати внутрішню структуру модулів
+//! `pub use` — a re-export that hides the internal module structure
 
 mod services {
     mod payment {
@@ -18,10 +18,10 @@ mod services {
         }
     }
     pub use mail::Mailer;
-    pub use payment::PaymentService; // зовні: services::PaymentService
+    pub use payment::PaymentService; // from outside: services::PaymentService
 }
 
-use services::{Mailer, PaymentService}; // а не services::payment::PaymentService
+use services::{Mailer, PaymentService}; // not services::payment::PaymentService
 
 fn main() {
     println!("{} {}", PaymentService.name(), Mailer.name());

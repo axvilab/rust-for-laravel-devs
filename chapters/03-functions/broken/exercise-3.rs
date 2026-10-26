@@ -1,13 +1,13 @@
-//! Вправа 3 (зламана версія): `String` після `move`-замикання
+//! Exercise 3 (broken version): a `String` after a `move` closure
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0382]: borrow of moved value: `label`
-//!   з поясненням `value moved into closure here` / `variable moved due to use in closure`
-//! Виправлення: див. examples/exercise-3.rs (або `label.clone()` для замикання)
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0382]: borrow of moved value: `label`
+//!   explained as `value moved into closure here` / `variable moved due to use in closure`
+//! Fix: see examples/exercise-3.rs (or `label.clone()` for the closure)
 // expected-error: E0382
 
 fn main() {
-    let label = String::from("знижка");
+    let label = String::from("discount");
     let show = move || println!("{label}");
     show();
     println!("{label}");

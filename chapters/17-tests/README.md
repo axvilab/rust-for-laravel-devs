@@ -1,49 +1,49 @@
-# 17. Тести, макроси і що далі
+# 17. Tests, macros, and what's next
 
-Код до розділу книги. Кожен приклад — окрема програма в `examples/`.
+Code for this chapter of the book. Every example is a separate program in `examples/`.
 
 ```bash
 cargo run -p ch17-tests --example 01-macro-rules
-# без Rust на машині:
+# without Rust installed:
 docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p ch17-tests --example 01-macro-rules
 ```
 
-Команди запускаються з кореня репозиторію.
+Run the commands from the repository root.
 
-## Приклади з тексту
+## Examples from the text
 
-| Приклад | Що показує | Команда запуску |
+| Example | What it shows | Run |
 |---|---|---|
-| [`01-macro-rules`](examples/01-macro-rules.rs) | Декларативний макрос `hashmap!`: `$k:expr`, повтор `$( ... ),*`, кома в кінці `$(,)?` | `cargo run -p ch17-tests --example 01-macro-rules` |
-| [`02-serde`](examples/02-serde.rs) | Serde: `from_str` / `to_string` і атрибути default, rename, skip_serializing | `cargo run -p ch17-tests --example 02-serde` |
+| [`01-macro-rules`](examples/01-macro-rules.rs) | A declarative macro `hashmap!`: `$k:expr`, the repetition `$( ... ),*`, a trailing comma `$(,)?` | `cargo run -p ch17-tests --example 01-macro-rules` |
+| [`02-serde`](examples/02-serde.rs) | Serde: `from_str` / `to_string` and the default, rename, skip_serializing attributes | `cargo run -p ch17-tests --example 02-serde` |
 
-## Розв'язки вправ «Спробуй»
+## Solutions to the “Try it” exercises
 
-| Приклад | Що показує | Команда запуску |
+| Example | What it shows | Run |
 |---|---|---|
-| [`exercise-1`](examples/exercise-1.rs) | Вправа 1: тест, що навмисно падає, з поясненням у `assert_eq!` | `cargo run -p ch17-tests --example exercise-1` |
-| [`exercise-2`](examples/exercise-2.rs) | Вправа 2: `println!` у тесті, що проходить — видно лише з `--nocapture` | `cargo run -p ch17-tests --example exercise-2` |
-| [`exercise-3`](examples/exercise-3.rs) | Вправа 3: `#[sqlx::test]` для `OrderRepo` — зберегти, оплатити, зберегти, прочитати | `cargo run -p ch17-tests --example exercise-3` |
-| [`exercise-4`](examples/exercise-4.rs) | Вправа 4: свій `macro_rules! hashset` за зразком `hashmap!` | `cargo run -p ch17-tests --example exercise-4` |
-| [`exercise-5`](examples/exercise-5.rs) | Вправа 5: у що розгортається `#[derive(Debug, Clone)]` (як показав би `cargo expand`) | `cargo run -p ch17-tests --example exercise-5` |
+| [`exercise-1`](examples/exercise-1.rs) | Exercise 1: a test that fails on purpose, with an explanation in `assert_eq!` | `cargo run -p ch17-tests --example exercise-1` |
+| [`exercise-2`](examples/exercise-2.rs) | Exercise 2: `println!` in a passing test — visible only with `--nocapture` | `cargo run -p ch17-tests --example exercise-2` |
+| [`exercise-3`](examples/exercise-3.rs) | Exercise 3: `#[sqlx::test]` for `OrderRepo` — save, pay, save, read back | `cargo run -p ch17-tests --example exercise-3` |
+| [`exercise-4`](examples/exercise-4.rs) | Exercise 4: your own `macro_rules! hashset` modelled on `hashmap!` | `cargo run -p ch17-tests --example exercise-4` |
+| [`exercise-5`](examples/exercise-5.rs) | Exercise 5: what `#[derive(Debug, Clone)]` expands to (as `cargo expand` would show) | `cargo run -p ch17-tests --example exercise-5` |
 
-## Сам крейт
+## The crate itself
 
 ```bash
-cargo test -p ch17-tests                     # юніт-, інтеграційні та doc-тести
+cargo test -p ch17-tests                     # unit, integration and doc tests
 ```
 
-## Навмисно зламані приклади
+## Intentionally broken examples
 
-У `broken/` лежить код, який книга показує як помилку компіляції. Cargo їх не збирає.
-У шапці кожного файлу записано очікувану помилку і виправлення.
-Перевірити, що вони справді не компілюються і з тією самою помилкою:
+`broken/` holds code that the book shows as a compile error. Cargo does not build these files.
+The header of each file states the expected error and the fix.
+To check that they really fail, and with exactly that error:
 
 ```bash
 ./scripts/check-broken.sh 17
-rustc --edition 2024 chapters/17-tests/broken/01-async-test-without-runtime.rs   # побачити повідомлення компілятора
+rustc --edition 2024 chapters/17-tests/broken/01-async-test-without-runtime.rs   # see the compiler message
 ```
 
-| Файл | Що показує | Очікувана помилка |
+| File | What it shows | Expected error |
 |---|---|---|
-| [`01-async-test-without-runtime.rs`](broken/01-async-test-without-runtime.rs) | `#[test]` над `async fn` — тест-раннер не вміє чекати на future | error: async functions cannot be used for tests |
+| [`01-async-test-without-runtime.rs`](broken/01-async-test-without-runtime.rs) | `#[test]` on an `async fn` — the test runner can't wait for a future | error: async functions cannot be used for tests |

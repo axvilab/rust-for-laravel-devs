@@ -1,10 +1,10 @@
-//! Забули `Arc::clone` перед `move` у циклі
+//! Forgot `Arc::clone` before `move` in a loop
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0382]: the type `Arc` does not implement `Copy`
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0382]: the type `Arc` does not implement `Copy`
 //!   value moved into closure here, in previous iteration of loop
 //!   this move could be avoided by cloning the original `Arc`, which is inexpensive
-//! Виправлення: `let counter = Arc::clone(&counter);` у тілі циклу — examples/03-arc-mutex.rs
+//! Fix: `let counter = Arc::clone(&counter);` in the loop body — examples/03-arc-mutex.rs
 // expected-error: does not implement `Copy`
 
 use std::sync::{Arc, Mutex};

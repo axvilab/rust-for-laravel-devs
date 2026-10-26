@@ -1,4 +1,4 @@
-//! Розділ 6. Як влаштована мова: модель у голові
+//! Chapter 6. How the language is built: the mental model
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch06-concept --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch06-concept --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

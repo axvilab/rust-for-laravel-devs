@@ -1,8 +1,8 @@
-//! Вправа 6 (зламана версія): `v.push(v.pop().unwrap())`
+//! Exercise 6 (broken version): `v.push(v.pop().unwrap())`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0499]: cannot borrow `v` as mutable more than once at a time
-//! Виправлення: тимчасова змінна — див. examples/exercise-6.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0499]: cannot borrow `v` as mutable more than once at a time
+//! Fix: a temporary variable — see examples/exercise-6.rs
 // expected-error: E0499
 
 fn main() {

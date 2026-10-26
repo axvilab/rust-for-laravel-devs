@@ -1,26 +1,26 @@
-//! Канал `mpsc`: багато відправників, один отримувач
+//! An `mpsc` channel: many senders, one receiver
 
 use std::sync::mpsc;
 use std::thread;
 
 fn process_job(id: u32) -> String {
-    format!("задача {id}")
+    format!("job {id}")
 }
 
 fn main() {
-    let (tx, rx) = mpsc::channel(); // tx — відправник, rx — отримувач
+    let (tx, rx) = mpsc::channel(); // tx — the sender, rx — the receiver
 
     for id in 0..4 {
-        let tx = tx.clone(); // кожен потік — свій відправник
+        let tx = tx.clone(); // every thread gets its own sender
         thread::spawn(move || {
             let result = process_job(id);
             tx.send(result).unwrap();
         });
     }
-    drop(tx); // закрити «оригінальний» відправник
+    drop(tx); // close the "original" sender
 
     for result in rx {
-        // цикл закінчиться, коли всі tx знищені
-        println!("готово: {result}");
+        // the loop ends when all tx are destroyed
+        println!("done: {result}");
     }
 }

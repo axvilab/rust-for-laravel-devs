@@ -1,9 +1,9 @@
-//! Вправа 2: `Cache<K, V>` — HashMap вимагає від ключа `Eq + Hash`
+//! Exercise 2: `Cache<K, V>` — HashMap requires `Eq + Hash` from the key
 //!
-//! Без обмежень компілятор скаже на `self.map.get(key)`:
+//! Without bounds the compiler says on `self.map.get(key)`:
 //!   error[E0599]: the method `get` exists for struct `HashMap<K, V>`, but its
 //!   trait bounds were not satisfied … `K: Eq`, `K: Hash`
-//! Тому `impl<K: Eq + Hash, V> Cache<K, V>`.
+//! Hence `impl<K: Eq + Hash, V> Cache<K, V>`.
 
 use std::collections::HashMap;
 use std::hash::Hash;
@@ -28,7 +28,7 @@ impl<K: Eq + Hash, V> Cache<K, V> {
 
 fn main() {
     let mut users: Cache<u64, String> = Cache::new();
-    users.set(1, "Віталій".into());
+    users.set(1, "Vitalii".into());
     println!("{:?} {:?}", users.get(&1), users.get(&2));
 
     let mut rates: Cache<&str, f64> = Cache::new();

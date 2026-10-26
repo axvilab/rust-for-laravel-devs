@@ -1,4 +1,4 @@
-//! `..dev` переносить поля: `u16` копіюється, `String` переїжджає
+//! `..dev` moves fields: `u16` is copied, `String` moves
 
 #[derive(Debug, Clone)]
 struct Config {
@@ -16,13 +16,13 @@ fn main() {
     let prod = Config {
         debug: false,
         ..dev
-    }; // host ПЕРЕЇХАВ із dev у prod
+    }; // host MOVED from dev into prod
 
-    println!("{}", dev.port); // ok: u16 скопіювався
-    // println!("{}", dev.host);   // ПОМИЛКА: borrow of moved value: `dev.host`
+    println!("{}", dev.port); // ok: the u16 was copied
+    // println!("{}", dev.host);   // ERROR: borrow of moved value: `dev.host`
     println!("{prod:?}");
 
-    // Якщо dev ще потрібен цілим — ..dev.clone()
+    // If you still need dev in one piece — ..dev.clone()
     let dev2 = Config {
         host: "localhost".into(),
         port: 8080,

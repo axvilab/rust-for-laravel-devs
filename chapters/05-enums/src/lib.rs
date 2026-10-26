@@ -1,4 +1,4 @@
-//! Розділ 5. Enum, Option і прощання з null
+//! Chapter 5. Enum, Option and saying goodbye to null
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch05-enums --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch05-enums --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

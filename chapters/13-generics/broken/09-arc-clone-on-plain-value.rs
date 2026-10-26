@@ -1,8 +1,8 @@
-//! `Arc::clone(&x)` для значення, яке не в `Arc`, не компілюється — і це плюс
+//! `Arc::clone(&x)` for a value that isn't in an `Arc` doesn't compile — and that's a plus
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0308]: mismatched types (expected `&Arc<_>`, found `&Config`)
-//! Виправлення: `Arc::new(Config { .. })` — див. examples/09-arc-clone.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0308]: mismatched types (expected `&Arc<_>`, found `&Config`)
+//! Fix: `Arc::new(Config { .. })` — see examples/09-arc-clone.rs
 // expected-error: E0308
 
 use std::sync::Arc;

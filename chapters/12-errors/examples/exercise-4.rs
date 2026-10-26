@@ -1,14 +1,14 @@
-//! Вправа 4: той самий `ValidationError` на thiserror; вивід через `{}`
+//! Exercise 4: the same `ValidationError` with thiserror; printed with `{}`
 
 use thiserror::Error;
 
 #[derive(Debug, Error)]
 enum ValidationError {
-    #[error("ім'я порожнє")]
+    #[error("name is empty")]
     Empty,
-    #[error("ім'я задовге: {0} символів (максимум 50)")]
+    #[error("name is too long: {0} characters (max 50)")]
     TooLong(usize),
-    #[error("невалідний вік: {0}")]
+    #[error("invalid age: {0}")]
     BadAge(String),
 }
 
@@ -19,9 +19,12 @@ impl From<String> for ValidationError {
 }
 
 fn parse_age(s: &str) -> Result<u8, String> {
-    let n: u8 = s.trim().parse().map_err(|_| format!("«{s}» — не число"))?;
+    let n: u8 = s
+        .trim()
+        .parse()
+        .map_err(|_| format!("'{s}' is not a number"))?;
     if n > 150 {
-        return Err(format!("{n} — забагато"));
+        return Err(format!("{n} is too much"));
     }
     Ok(n)
 }
@@ -38,10 +41,10 @@ fn parse_user(name: &str, age: &str) -> Result<(String, u8), ValidationError> {
 }
 
 fn main() {
-    for (n, a) in [("Віталій", "35"), ("", "1"), ("Віталій", "двісті")] {
+    for (n, a) in [("Vitalii", "35"), ("", "1"), ("Vitalii", "two hundred")] {
         match parse_user(n, a) {
             Ok(u) => println!("ok: {u:?}"),
-            Err(e) => println!("помилка: {e}"), // текст з #[error(...)]
+            Err(e) => println!("error: {e}"), // the text from #[error(...)]
         }
     }
 }

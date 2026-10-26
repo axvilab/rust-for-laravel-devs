@@ -1,15 +1,15 @@
-//! Вправа 1: ціна (f64) × кількість (u32) — потрібне явне перетворення
+//! Exercise 1: price (f64) × quantity (u32) — needs an explicit conversion
 
 fn main() {
     let mut price: f64 = 199.99;
     let qty: u32 = 3;
 
-    // `price * qty` не скомпілюється: f64 і u32 — різні типи.
-    // Перетворюємо кількість явно через `as f64`.
+    // `price * qty` won't compile: f64 and u32 are different types.
+    // Convert the quantity explicitly with `as f64`.
     let total = price * qty as f64;
-    println!("сума: {total}");
+    println!("total: {total}");
 
-    // `mut` знадобився, бо ціну змінюємо (знижка):
+    // `mut` was needed because we change the price (a discount):
     price -= 10.0;
-    println!("нова ціна: {price}");
+    println!("new price: {price}");
 }

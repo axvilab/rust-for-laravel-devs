@@ -1,9 +1,9 @@
-//! `-> impl Trait` — це ОДИН прихований тип, а не «будь-який з кількох»
+//! `-> impl Trait` is ONE hidden type, not "any of several"
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0308]: `if` and `else` have incompatible types
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0308]: `if` and `else` have incompatible types
 //!   (expected `User`, found `Product`)
-//! Виправлення: `-> Box<dyn Describable>` — див. examples/05-return-box-dyn.rs
+//! Fix: `-> Box<dyn Describable>` — see examples/05-return-box-dyn.rs
 // expected-error: E0308
 
 trait Describable {

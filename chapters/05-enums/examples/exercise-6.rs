@@ -1,14 +1,14 @@
-//! Вправа 6: `code()` і новий варіант `Invoice`
+//! Exercise 6: `code()` and the new `Invoice` variant
 //!
-//! Після додавання `Invoice` компілятор вимагає виправити КОЖЕН match по
-//! `PaymentMethod` без `_`: тут це `code()` і `fee()` (див. broken/exercise-6.rs —
-//! E0004 вказує на обидва). `matches!` у `is_cashless` міняти не довелося.
+//! After adding `Invoice` the compiler demands fixing EVERY match on
+//! `PaymentMethod` without `_`: here that's `code()` and `fee()` (see broken/exercise-6.rs —
+//! E0004 points at both). `matches!` in `is_cashless` didn't need any change.
 
 enum PaymentMethod {
     Cash,
     Card { last4: String },
     Crypto { wallet: String, network: String },
-    Invoice { number: String }, // новий варіант
+    Invoice { number: String }, // a new variant
 }
 
 impl PaymentMethod {

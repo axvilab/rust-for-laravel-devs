@@ -1,14 +1,14 @@
-//! Вправа 5: `make_greeting` повертає `String`
+//! Exercise 5: `make_greeting` returns a `String`
 //!
-//! З `-> &str` і `&format!(...)` компілятор дає E0515 «cannot return reference
-//! to temporary value» (broken/exercise-5.rs): рядок з format! знищується на
-//! виході з функції. Жоден `'a` тут не допоможе — треба віддати сам рядок.
+//! With `-> &str` and `&format!(...)` the compiler gives E0515 "cannot return reference
+//! to temporary value" (broken/exercise-5.rs): the string from format! is destroyed when
+//! the function returns. No `'a` will help — you have to give away the string itself.
 
 fn make_greeting(name: &str) -> String {
-    format!("Привіт, {name}")
+    format!("Hello, {name}")
 }
 
 fn main() {
-    let g = make_greeting("Віталій");
+    let g = make_greeting("Vitalii");
     println!("{g}");
 }

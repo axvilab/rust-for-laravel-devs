@@ -1,4 +1,4 @@
-//! Copy: числа копіюються, а не переїжджають
+//! Copy: numbers are copied, not moved
 
 fn main() {
     let a = 5;

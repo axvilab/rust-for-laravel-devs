@@ -1,4 +1,4 @@
-//! `async fn` у трейтах (Rust 1.75+) — без крейта async_trait
+//! `async fn` in traits (Rust 1.75+) — without the async_trait crate
 
 use std::collections::HashMap;
 
@@ -18,7 +18,7 @@ struct InMemoryRepo {
 
 impl UserRepo for InMemoryRepo {
     async fn find(&self, id: u64) -> Option<User> {
-        tokio::task::yield_now().await; // уявний I/O
+        tokio::task::yield_now().await; // imaginary I/O
         self.users.get(&id).cloned()
     }
 }
@@ -30,7 +30,7 @@ async fn main() {
             1,
             User {
                 id: 1,
-                name: "Віталій".into(),
+                name: "Vitalii".into(),
             },
         )]),
     };

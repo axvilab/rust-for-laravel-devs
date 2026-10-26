@@ -1,15 +1,15 @@
-//! `move` — замикання забирає захоплене у власність
+//! `move` — the closure takes ownership of what it captures
 
 fn main() {
-    let name = String::from("Віталій");
-    let greet = move || println!("Привіт, {name}");
+    let name = String::from("Vitalii");
+    let greet = move || println!("Hello, {name}");
     greet();
-    // println!("{name}");   // ПОМИЛКА: name переїхав у замикання (broken/07-use-after-move.rs)
+    // println!("{name}");   // ERROR: name moved into the closure (broken/07-use-after-move.rs)
 
-    // Якщо оригінал ще потрібен — віддати замиканню копію:
-    let city = String::from("Дніпро");
+    // If you still need the original, give the closure a copy:
+    let city = String::from("Dnipro");
     let city_for_closure = city.clone();
-    let show = move || println!("Місто: {city_for_closure}");
+    let show = move || println!("City: {city_for_closure}");
     show();
     println!("{city}"); // ok
 }

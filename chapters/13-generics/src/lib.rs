@@ -1,4 +1,4 @@
-//! Розділ 13. Generics і розумні вказівники
+//! Chapter 13. Generics and smart pointers
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch13-generics --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch13-generics --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

@@ -1,21 +1,21 @@
-//! thiserror: `#[error]` генерує Display, `#[from]` — impl From
+//! thiserror: `#[error]` generates Display, `#[from]` — impl From
 
 use thiserror::Error;
 
-// Замість `sqlx::Error` з книги — своя помилка бази (теж через thiserror).
+// Instead of the book's `sqlx::Error` — our own database error (also via thiserror).
 #[derive(Debug, Error)]
 #[error("db: {0}")]
 struct DbError(String);
 
 #[derive(Debug, Error)]
 enum AppError {
-    #[error("запис не знайдено")]
+    #[error("record not found")]
     NotFound,
-    #[error("невалідні дані: {0}")]
+    #[error("invalid data: {0}")]
     Validation(String),
-    #[error("помилка бази даних")]
-    Database(#[from] DbError), // #[from] генерує impl From
-    #[error("помилка вводу-виводу")]
+    #[error("database error")]
+    Database(#[from] DbError), // #[from] generates impl From
+    #[error("I/O error")]
     Io(#[from] std::io::Error),
 }
 
@@ -36,6 +36,6 @@ fn main() {
         AppError::from(std::io::Error::other("disk")),
     ];
     for e in &errors {
-        println!("{e}"); // Display з #[error(...)]
+        println!("{e}"); // Display from #[error(...)]
     }
 }

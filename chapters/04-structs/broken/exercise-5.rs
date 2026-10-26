@@ -1,9 +1,9 @@
-//! Вправа 5: без `Debug` у `derive` вивід через `{:?}` не компілюється
+//! Exercise 5: without `Debug` in `derive`, printing with `{:?}` doesn't compile
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0277]: `Product` doesn't implement `Debug`
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0277]: `Product` doesn't implement `Debug`
 //!   note: add `#[derive(Debug)]` to `Product` or manually `impl Debug for Product`
-//! Рядок `note:` — і є готова підказка. Виправлення: examples/exercise-4.rs
+//! The `note:` line is the ready-made hint. Fix: examples/exercise-4.rs
 // expected-error: E0277
 
 struct Product {
@@ -14,7 +14,7 @@ struct Product {
 fn main() {
     let p = Product {
         id: 1,
-        name: "Ноутбук".into(),
+        name: "Laptop".into(),
     };
     println!("{p:#?}");
 }

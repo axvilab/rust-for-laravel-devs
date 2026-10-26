@@ -1,4 +1,4 @@
-//! `#[derive(Clone, Copy)]` для маленької «числової» структури
+//! `#[derive(Clone, Copy)]` for a small "numeric" struct
 
 #[derive(Debug, Clone, Copy)]
 struct Point {
@@ -8,6 +8,6 @@ struct Point {
 
 fn main() {
     let a = Point { x: 1.0, y: 2.0 };
-    let b = a; // копія, a живий
+    let b = a; // a copy, a is still alive
     println!("{a:?} {b:?}");
 }

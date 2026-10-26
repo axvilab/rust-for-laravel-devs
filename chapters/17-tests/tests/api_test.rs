@@ -1,5 +1,5 @@
-//! Інтеграційний тест: окремий крейт, бачить лише публічний API бібліотеки.
-//! Пакет `ch17-tests` у коді — `ch17_tests` (дефіс → підкреслення).
+//! An integration test: a separate crate that sees only the library's public API.
+//! The package `ch17-tests` is `ch17_tests` in code (hyphen → underscore).
 
 use ch17_tests::{PaymentService, fetch_user};
 

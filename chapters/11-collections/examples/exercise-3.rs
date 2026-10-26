@@ -1,4 +1,4 @@
-//! Вправа 3: `top_n` — n найбільших замовлень за `total`, без клонування самих замовлень
+//! Exercise 3: `top_n` — the n largest orders by `total`, without cloning the orders
 
 #[derive(Debug)]
 struct Order {
@@ -7,9 +7,9 @@ struct Order {
 }
 
 fn top_n(orders: &[Order], n: usize) -> Vec<&Order> {
-    let mut refs: Vec<&Order> = orders.iter().collect(); // копіюємо лише посилання
-    refs.sort_by(|a, b| b.total.total_cmp(&a.total)); // за спаданням; total_cmp — без паніки на NaN
-    refs.truncate(n); // те саме, що take(n), але на місці
+    let mut refs: Vec<&Order> = orders.iter().collect(); // only references are copied
+    refs.sort_by(|a, b| b.total.total_cmp(&a.total)); // descending; total_cmp — no panic on NaN
+    refs.truncate(n); // the same as take(n), but in place
     refs
 }
 
@@ -32,5 +32,5 @@ fn main() {
     for o in top_n(&orders, 2) {
         println!("{} → {}", o.id, o.total); // 2 → 1200, 4 → 800
     }
-    println!("всього замовлень досі {}", orders.len()); // orders не змінено
+    println!("still {} orders in total", orders.len()); // orders unchanged
 }

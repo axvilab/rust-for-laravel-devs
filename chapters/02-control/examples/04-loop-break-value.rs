@@ -1,6 +1,6 @@
-//! `break значення` — результат усього `loop`
+//! `break value` — the result of the whole `loop`
 
-// Заглушка «джерела чисел»: 10, 11, 12, ...
+// A stand-in "number source": 10, 11, 12, ...
 fn next_number(counter: &mut i32) -> i32 {
     *counter += 1;
     9 + *counter
@@ -11,7 +11,7 @@ fn main() {
     let result = loop {
         let n = next_number(&mut counter);
         if n % 7 == 0 {
-            break n; // break зі значенням — результат усього loop
+            break n; // break with a value — the result of the whole loop
         }
     };
     println!("{result}"); // 14

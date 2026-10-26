@@ -1,58 +1,58 @@
-# 1. Hello, world і базовий синтаксис.
+# 1. Hello, world and basic syntax
 
-Код до розділу книги. Кожен приклад — окрема програма в `examples/`.
+Code for this chapter of the book. Every example is a separate program in `examples/`.
 
 ```bash
 cargo run -p ch01-basics --example 01-hello
-# без Rust на машині:
+# without Rust installed:
 docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p ch01-basics --example 01-hello
 ```
 
-Команди запускаються з кореня репозиторію.
+Run the commands from the repository root.
 
-## Приклади з тексту
+## Examples from the text
 
-| Приклад | Що показує | Команда запуску |
+| Example | What it shows | Run |
 |---|---|---|
-| [`01-hello`](examples/01-hello.rs) | Перша програма: `fn main` і макрос `println!` | `cargo run -p ch01-basics --example 01-hello` |
-| [`02-mut`](examples/02-mut.rs) | `let mut` — змінна, яку можна змінювати | `cargo run -p ch01-basics --example 02-mut` |
-| [`03-warnings`](examples/03-warnings.rs) | Попередження компілятора: невикористана змінна і `_`-префікс | `cargo run -p ch01-basics --example 03-warnings` |
-| [`04-const`](examples/04-const.rs) | `const` — справжня константа, тип обов'язковий | `cargo run -p ch01-basics --example 04-const` |
-| [`05-types`](examples/05-types.rs) | Виведення типів і явна анотація | `cargo run -p ch01-basics --example 05-types` |
-| [`06-as-cast`](examples/06-as-cast.rs) | `as` — явне перетворення числових типів | `cargo run -p ch01-basics --example 06-as-cast` |
-| [`07-overflow`](examples/07-overflow.rs) | Переповнення: `checked_*`, `saturating_*`, `wrapping_*` і мовчазний `as` | `cargo run -p ch01-basics --example 07-overflow` |
-| [`08-strings`](examples/08-strings.rs) | `&str` і `String`: літерал, власний рядок, `format!` | `cargo run -p ch01-basics --example 08-strings` |
-| [`09-utf8-len`](examples/09-utf8-len.rs) | Довжина рядка: байти (`len`) проти символів (`chars().count()`) | `cargo run -p ch01-basics --example 09-utf8-len` |
-| [`10-format`](examples/10-format.rs) | Форматування: позиційно, іменовано, `{:?}`, `{:#?}`, вирівнювання, точність | `cargo run -p ch01-basics --example 10-format` |
-| [`11-dbg`](examples/11-dbg.rs) | `println!` (stdout), `eprintln!` (stderr) і `dbg!` — справжній `dd()` | `cargo run -p ch01-basics --example 11-dbg` |
-| [`12-block-expression`](examples/12-block-expression.rs) | Блок `{ ... }` — вираз: значення останнього рядка без `;` | `cargo run -p ch01-basics --example 12-block-expression` |
-| [`13-return`](examples/13-return.rs) | Значення функції — останній вираз; `return` можливий, але не ідіоматичний | `cargo run -p ch01-basics --example 13-return` |
+| [`01-hello`](examples/01-hello.rs) | The first program: `fn main` and the `println!` macro | `cargo run -p ch01-basics --example 01-hello` |
+| [`02-mut`](examples/02-mut.rs) | `let mut` — a variable that can change | `cargo run -p ch01-basics --example 02-mut` |
+| [`03-warnings`](examples/03-warnings.rs) | Compiler warnings: an unused variable and the `_` prefix | `cargo run -p ch01-basics --example 03-warnings` |
+| [`04-const`](examples/04-const.rs) | `const` — a real constant, the type is mandatory | `cargo run -p ch01-basics --example 04-const` |
+| [`05-types`](examples/05-types.rs) | Type inference and explicit annotations | `cargo run -p ch01-basics --example 05-types` |
+| [`06-as-cast`](examples/06-as-cast.rs) | `as` — explicit numeric conversion | `cargo run -p ch01-basics --example 06-as-cast` |
+| [`07-overflow`](examples/07-overflow.rs) | Overflow: `checked_*`, `saturating_*`, `wrapping_*` and the silent `as` | `cargo run -p ch01-basics --example 07-overflow` |
+| [`08-strings`](examples/08-strings.rs) | `&str` and `String`: a literal, an owned string, `format!` | `cargo run -p ch01-basics --example 08-strings` |
+| [`09-utf8-len`](examples/09-utf8-len.rs) | String length: bytes (`len`) vs characters (`chars().count()`) | `cargo run -p ch01-basics --example 09-utf8-len` |
+| [`10-format`](examples/10-format.rs) | Formatting: positional, named, `{:?}`, `{:#?}`, alignment, precision | `cargo run -p ch01-basics --example 10-format` |
+| [`11-dbg`](examples/11-dbg.rs) | `println!` (stdout), `eprintln!` (stderr) and `dbg!` — the real `dd()` | `cargo run -p ch01-basics --example 11-dbg` |
+| [`12-block-expression`](examples/12-block-expression.rs) | A block `{ ... }` is an expression: the value of the last line without `;` | `cargo run -p ch01-basics --example 12-block-expression` |
+| [`13-return`](examples/13-return.rs) | A function's value is its last expression; `return` works but isn't idiomatic | `cargo run -p ch01-basics --example 13-return` |
 
-## Розв'язки вправ «Спробуй»
+## Solutions to the “Try it” exercises
 
-| Приклад | Що показує | Команда запуску |
+| Example | What it shows | Run |
 |---|---|---|
-| [`exercise-1`](examples/exercise-1.rs) | Вправа 1: ціна (f64) × кількість (u32) — потрібне явне перетворення | `cargo run -p ch01-basics --example exercise-1` |
-| [`exercise-2`](examples/exercise-2.rs) | Вправа 2: два знаки після коми через `{:.2}` | `cargo run -p ch01-basics --example exercise-2` |
-| [`exercise-3`](examples/exercise-3.rs) | Вправа 3: без `mut` повторне присвоєння не компілюється | `cargo run -p ch01-basics --example exercise-3` |
-| [`exercise-4`](examples/exercise-4.rs) | Вправа 4: `dbg!` посеред виразу і порядок виводу | `cargo run -p ch01-basics --example exercise-4` |
-| [`exercise-5`](examples/exercise-5.rs) | Вправа 5: `checked_add` і `saturating_add` для u8 | `cargo run -p ch01-basics --example exercise-5` |
+| [`exercise-1`](examples/exercise-1.rs) | Exercise 1: price (f64) × quantity (u32) — needs an explicit conversion | `cargo run -p ch01-basics --example exercise-1` |
+| [`exercise-2`](examples/exercise-2.rs) | Exercise 2: two decimal places with `{:.2}` | `cargo run -p ch01-basics --example exercise-2` |
+| [`exercise-3`](examples/exercise-3.rs) | Exercise 3: without `mut`, reassignment doesn't compile | `cargo run -p ch01-basics --example exercise-3` |
+| [`exercise-4`](examples/exercise-4.rs) | Exercise 4: `dbg!` in the middle of an expression, and the output order | `cargo run -p ch01-basics --example exercise-4` |
+| [`exercise-5`](examples/exercise-5.rs) | Exercise 5: `checked_add` and `saturating_add` for u8 | `cargo run -p ch01-basics --example exercise-5` |
 
-## Навмисно зламані приклади
+## Intentionally broken examples
 
-У `broken/` лежить код, який книга показує як помилку компіляції. Cargo їх не збирає.
-У шапці кожного файлу записано очікувану помилку і виправлення.
-Перевірити, що вони справді не компілюються і з тією самою помилкою:
+`broken/` holds code that the book shows as a compile error. Cargo does not build these files.
+The header of each file states the expected error and the fix.
+To check that they really fail, and with exactly that error:
 
 ```bash
 ./scripts/check-broken.sh 01
-rustc --edition 2024 chapters/01-basics/broken/02-immutable.rs   # побачити повідомлення компілятора
+rustc --edition 2024 chapters/01-basics/broken/02-immutable.rs   # see the compiler message
 ```
 
-| Файл | Що показує | Очікувана помилка |
+| File | What it shows | Expected error |
 |---|---|---|
-| [`02-immutable.rs`](broken/02-immutable.rs) | Змінні незмінні за замовчуванням: повторне присвоєння не компілюється | error[E0384]: cannot assign twice to immutable variable `count` |
-| [`06-no-implicit-conversion.rs`](broken/06-no-implicit-conversion.rs) | Немає неявних перетворень: i32 + f64 не компілюється | error[E0277]: cannot add `f64` to `i32` |
-| [`13-extra-semicolon.rs`](broken/13-extra-semicolon.rs) | Зайва `;` після останнього виразу: функція повертає `()` замість i32 | error[E0308]: mismatched types — expected `i32`, found `()` |
-| [`exercise-3.rs`](broken/exercise-3.rs) | Вправа 3 (зламана версія): присвоєння незмінній змінній | error[E0384]: cannot assign twice to immutable variable `price` |
-| [`exercise-5.rs`](broken/exercise-5.rs) | Вправа 5 (зламана версія): переповнення, відоме під час компіляції | error: this arithmetic operation will overflow |
+| [`02-immutable.rs`](broken/02-immutable.rs) | Variables are immutable by default: reassignment does not compile | error[E0384]: cannot assign twice to immutable variable `count` |
+| [`06-no-implicit-conversion.rs`](broken/06-no-implicit-conversion.rs) | No implicit conversions: i32 + f64 does not compile | error[E0277]: cannot add `f64` to `i32` |
+| [`13-extra-semicolon.rs`](broken/13-extra-semicolon.rs) | An extra `;` after the last expression: the function returns `()` instead of i32 | error[E0308]: mismatched types — expected `i32`, found `()` |
+| [`exercise-3.rs`](broken/exercise-3.rs) | Exercise 3 (broken version): assigning to an immutable variable | error[E0384]: cannot assign twice to immutable variable `price` |
+| [`exercise-5.rs`](broken/exercise-5.rs) | Exercise 5 (broken version): an overflow known at compile time | error: this arithmetic operation will overflow |

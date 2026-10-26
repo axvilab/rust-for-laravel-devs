@@ -1,4 +1,4 @@
-//! `thread::scope` — позичити локальні дані потокам без `Arc` і `move`
+//! `thread::scope` — lend local data to threads without `Arc` and `move`
 
 use std::thread;
 
@@ -7,9 +7,9 @@ fn main() {
 
     thread::scope(|s| {
         let (left, right) = data.split_at(3);
-        s.spawn(|| println!("сума лівої: {}", left.iter().sum::<i32>()));
-        s.spawn(|| println!("сума правої: {}", right.iter().sum::<i32>()));
-    }); // scope чекає всі потоки тут
+        s.spawn(|| println!("left sum: {}", left.iter().sum::<i32>()));
+        s.spawn(|| println!("right sum: {}", right.iter().sum::<i32>()));
+    }); // scope waits for all the threads here
 
-    println!("{data:?}"); // data все ще доступний
+    println!("{data:?}"); // data is still available
 }

@@ -1,4 +1,4 @@
-//! `Arc::clone(&x)` замість `x.clone()`: видно, що це дешевий «пропуск», а не копія
+//! `Arc::clone(&x)` instead of `x.clone()`: it's visibly a cheap "pass", not a copy
 
 use std::sync::Arc;
 
@@ -8,7 +8,7 @@ struct Config {
 
 fn main() {
     let config = Arc::new(Config { port: 3000 });
-    let a = Arc::clone(&config); // ще один власник, без копіювання Config
-    let b = config.clone(); // те саме, але читач може подумати про дорогу копію
+    let a = Arc::clone(&config); // one more owner, Config isn't copied
+    let b = config.clone(); // the same, but a reader may think of an expensive copy
     println!("{} {} {}", a.port, b.port, Arc::strong_count(&config)); // 3000 3000 3
 }

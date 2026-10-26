@@ -1,4 +1,4 @@
-//! Звичайна функція: типи параметрів обов'язкові, `->` для результату
+//! A plain function: parameter types are mandatory, `->` for the result
 
 fn add(a: i32, b: i32) -> i32 {
     a + b

@@ -1,8 +1,8 @@
-//! Змінити значення через `&` не можна
+//! You can't change a value through `&`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0594]: cannot assign to `*s`, which is behind a `&` reference
-//! Виправлення: `&mut` у посиланні і `let mut` у власника — див. examples/04-mut-binding-vs-mut-ref.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0594]: cannot assign to `*s`, which is behind a `&` reference
+//! Fix: `&mut` in the reference and `let mut` on the owner — see examples/04-mut-binding-vs-mut-ref.rs
 // expected-error: E0594
 
 fn main() {

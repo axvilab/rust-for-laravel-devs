@@ -1,9 +1,9 @@
-//! Вправа 3: числа 0..=100, що діляться на 3, але не на 5 (`continue`)
+//! Exercise 3: numbers in 0..=100 divisible by 3 but not by 5 (`continue`)
 
 fn main() {
     for n in 0..=100 {
         if n % 3 != 0 || n % 5 == 0 {
-            continue; // пропускаємо все, що не підходить
+            continue; // skip everything that doesn't fit
         }
         print!("{n} ");
     }

@@ -1,7 +1,7 @@
-//! `.map()`, `.filter()`, `.sum()` — як методи Laravel-колекції
+//! `.map()`, `.filter()`, `.sum()` — like Laravel collection methods
 
 fn main() {
-    // У книзі `vec![...]`; clippy (useless_vec) радить масив, бо список не змінюється.
+    // An array, not vec!: the list never changes (clippy::useless_vec).
     let prices = [100.0, 250.0, 80.0];
 
     let with_tax: Vec<f64> = prices.iter().map(|p| p * 1.2).collect();

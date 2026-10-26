@@ -1,8 +1,8 @@
-//! Вправа 3 (зламана версія): присвоєння незмінній змінній
+//! Exercise 3 (broken version): assigning to an immutable variable
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0384]: cannot assign twice to immutable variable `price`
-//! Виправлення: `let mut price` — див. examples/exercise-3.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0384]: cannot assign twice to immutable variable `price`
+//! Fix: `let mut price` — see examples/exercise-3.rs
 // expected-error: E0384
 
 fn main() {

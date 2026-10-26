@@ -37,15 +37,15 @@ impl fmt::Display for OrderStatus {
 
 #[derive(Debug, Clone, PartialEq, Eq, thiserror::Error)]
 pub enum DomainError {
-    #[error("замовлення вже {0}, змінювати не можна")]
+    #[error("order is already {0} and cannot be changed")]
     NotEditable(OrderStatus),
-    #[error("не можна оплатити порожнє замовлення")]
+    #[error("cannot pay an empty order")]
     Empty,
-    #[error("кількість має бути більше нуля")]
+    #[error("quantity must be greater than zero")]
     BadQty,
-    #[error("ціна не може бути від'ємною")]
+    #[error("price cannot be negative")]
     BadPrice,
-    #[error("невалідний email")]
+    #[error("invalid email")]
     InvalidEmail,
 }
 
@@ -341,7 +341,7 @@ mod tests {
         let ok: Result<Email, _> = serde_json::from_str("\"x@y.org\"");
         assert!(ok.is_ok());
         let bad: Result<Email, _> = serde_json::from_str("\"nope\"");
-        assert!(bad.unwrap_err().to_string().contains("невалідний email"));
+        assert!(bad.unwrap_err().to_string().contains("invalid email"));
     }
 
     #[test]
@@ -352,7 +352,7 @@ mod tests {
         );
         assert_eq!(
             DomainError::NotEditable(OrderStatus::Paid).to_string(),
-            "замовлення вже paid, змінювати не можна"
+            "order is already paid and cannot be changed"
         );
     }
 }

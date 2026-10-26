@@ -1,16 +1,16 @@
-//! `&T` — позичити подивитись: власник лишається власником
+//! `&T` — borrow to look: the owner stays the owner
 
-// clippy радить &str замість &String (ptr_arg) — це наступний приклад книги;
-// тут навмисно &String, як у тексті.
+// clippy suggests &str instead of &String (ptr_arg) — that's the book's next example;
+// here it's &String on purpose, as in the text.
 #[allow(clippy::ptr_arg)]
 fn print_name(name: &String) {
-    // приймаємо посилання
+    // we take a reference
     println!("{name}");
-} // name — лише посилання, нічого не знищується
+} // name is only a reference, nothing is destroyed
 
 fn main() {
-    let n = String::from("Віталій");
-    print_name(&n); // & — позичаємо
-    print_name(&n); // можна скільки завгодно
-    println!("{n}"); // n усе ще твій
+    let n = String::from("Vitalii");
+    print_name(&n); // & — we borrow
+    print_name(&n); // as many times as you like
+    println!("{n}"); // n is still yours
 }

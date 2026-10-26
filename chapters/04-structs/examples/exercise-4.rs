@@ -1,4 +1,4 @@
-//! Вправа 4: вивід товару через `{:#?}`
+//! Exercise 4: printing a product with `{:#?}`
 
 #[derive(Debug)]
 struct Product {
@@ -11,14 +11,14 @@ struct Product {
 fn main() {
     let p = Product {
         id: 1,
-        name: "Ноутбук".into(),
+        name: "Laptop".into(),
         price: 45_000.0,
         stock: 3,
     };
     println!("{p:#?}");
     // Product {
     //     id: 1,
-    //     name: "Ноутбук",
+    //     name: "Laptop",
     //     price: 45000.0,
     //     stock: 3,
     // }

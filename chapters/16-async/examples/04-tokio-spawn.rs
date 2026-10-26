@@ -1,4 +1,4 @@
-//! `tokio::spawn(async move { ... })` — дешева задача, аналог `thread::spawn`
+//! `tokio::spawn(async move { ... })` — a cheap task, like `thread::spawn`
 
 use std::time::Duration;
 
@@ -8,7 +8,7 @@ struct User {
 
 async fn send_email(user: User) -> Result<String, String> {
     tokio::time::sleep(Duration::from_millis(50)).await;
-    Ok(format!("лист надіслано на {}", user.email))
+    Ok(format!("email sent to {}", user.email))
 }
 
 #[tokio::main]
@@ -18,9 +18,9 @@ async fn main() {
     };
     let handle = tokio::spawn(async move { send_email(user).await });
 
-    // робимо щось інше...
-    println!("головна задача працює далі");
+    // doing something else...
+    println!("the main task keeps working");
 
-    let result = handle.await.unwrap(); // JoinError → unwrap; всередині — наш Result
+    let result = handle.await.unwrap(); // JoinError → unwrap; inside is our Result
     println!("{result:?}");
 }

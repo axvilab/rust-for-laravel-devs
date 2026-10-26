@@ -1,4 +1,4 @@
-//! Вправа 2: групування за `paid` у `HashMap<bool, Vec<&Order>>`
+//! Exercise 2: grouping by `paid` into a `HashMap<bool, Vec<&Order>>`
 
 use std::collections::HashMap;
 
@@ -20,7 +20,7 @@ fn main() {
 
     let mut groups: HashMap<bool, Vec<&Order>> = HashMap::new();
     for o in &orders {
-        // or_default() створить порожній Vec для нового ключа
+        // or_default() creates an empty Vec for a new key
         groups.entry(o.paid).or_default().push(o);
     }
 

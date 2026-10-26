@@ -1,4 +1,4 @@
-//! Copy-структура — окрема копія, а не «той самий об'єкт», як у PHP
+//! A Copy struct is a separate copy, not "the same object" as in PHP
 
 #[derive(Debug, Clone, Copy)]
 struct Point {
@@ -7,17 +7,17 @@ struct Point {
 }
 
 fn shift(mut p: Point) {
-    p.x += 10; // змінюємо КОПІЮ
-    println!("усередині shift: {p:?}");
+    p.x += 10; // we change the COPY
+    println!("inside shift: {p:?}");
 }
 
 fn main() {
     let a = Point { x: 1, y: 2 };
-    let mut b = a; // КОПІЯ, а не «той самий об'єкт»
+    let mut b = a; // a COPY, not "the same object"
     b.x = 100;
-    println!("{a:?}"); // Point { x: 1, y: 2 } — a не змінився
+    println!("{a:?}"); // Point { x: 1, y: 2 } — a didn't change
     println!("{b:?}"); // Point { x: 100, y: 2 }
 
     shift(a);
-    println!("{a:?}"); // досі x: 1 — функція отримала копію
+    println!("{a:?}"); // still x: 1 — the function got a copy
 }

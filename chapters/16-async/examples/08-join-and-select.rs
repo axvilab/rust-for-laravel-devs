@@ -1,4 +1,4 @@
-//! `join!` — чекати обидва одночасно; `select!` — хто перший; `timeout`
+//! `join!` — wait for both at once; `select!` — whoever is first; `timeout`
 
 use std::time::{Duration, Instant};
 
@@ -14,14 +14,14 @@ async fn fetch_orders(id: u64) -> Vec<u64> {
 
 async fn fetch_from(source: &str, ms: u64) -> String {
     tokio::time::sleep(Duration::from_millis(ms)).await;
-    format!("відповідь від {source}")
+    format!("response from {source}")
 }
 
 #[derive(Debug)]
 struct Timeout;
 
 async fn fastest() -> Result<String, Timeout> {
-    // хто перший — того і беремо, решту скасовуємо
+    // whoever is first wins, the rest are cancelled
     tokio::select! {
         result = fetch_from("primary", 300) => Ok(result),
         result = fetch_from("replica", 50) => Ok(result),
@@ -32,13 +32,13 @@ async fn fastest() -> Result<String, Timeout> {
 #[tokio::main]
 async fn main() {
     let start = Instant::now();
-    // обидва одночасно, чекаємо обох: ~100 мс, а не 200
+    // both at once, wait for both: ~100 ms, not 200
     let (user, orders) = tokio::join!(fetch_user(7), fetch_orders(7));
-    println!("{user} {orders:?} за {:?}", start.elapsed());
+    println!("{user} {orders:?} in {:?}", start.elapsed());
 
     println!("{:?}", fastest().await); // replica
 
-    // таймаут без макроса
+    // a timeout without a macro
     let r = tokio::time::timeout(Duration::from_millis(50), fetch_user(1)).await;
     println!("timeout: {r:?}"); // Err(Elapsed(()))
 }

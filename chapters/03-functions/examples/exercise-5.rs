@@ -1,11 +1,11 @@
-//! Вправа 5: `greet` з необов'язковим привітанням через `Option<&str>`
+//! Exercise 5: `greet` with an optional greeting via `Option<&str>`
 
 fn greet(name: &str, greeting: Option<&str>) -> String {
-    let greeting = greeting.unwrap_or("Привіт"); // None → "Привіт"
+    let greeting = greeting.unwrap_or("Hello"); // None → "Hello"
     format!("{greeting}, {name}!")
 }
 
 fn main() {
-    println!("{}", greet("Віталій", None)); // Привіт, Віталій!
-    println!("{}", greet("Віталій", Some("Добрий день"))); // Добрий день, Віталій!
+    println!("{}", greet("Vitalii", None)); // Hello, Vitalii!
+    println!("{}", greet("Vitalii", Some("Good afternoon"))); // Good afternoon, Vitalii!
 }

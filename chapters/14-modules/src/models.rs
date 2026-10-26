@@ -1,12 +1,12 @@
-//! Моделі: дані без логіки розрахунків.
+//! Models: data without calculation logic.
 
-use crate::errors::ShopError; // crate:: — від кореня крейта, як \App\
+use crate::errors::ShopError; // crate:: — from the crate root, like \App\
 
 #[derive(Debug, Clone)]
 pub struct Product {
     pub id: u64,
     pub name: String,
-    pub price: u64, // копійки
+    pub price: u64, // kopecks
 }
 
 impl Product {

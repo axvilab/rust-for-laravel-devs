@@ -1,4 +1,4 @@
-//! Розділ 9. Borrowing — позичити, не забираючи
+//! Chapter 9. Borrowing — lend it without giving it away
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch09-borrowing --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch09-borrowing --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

@@ -1,4 +1,4 @@
-//! Вправа 1: enum `PaymentMethod` з даними у варіантах
+//! Exercise 1: a `PaymentMethod` enum with data in its variants
 
 #[derive(Debug)]
 enum PaymentMethod {

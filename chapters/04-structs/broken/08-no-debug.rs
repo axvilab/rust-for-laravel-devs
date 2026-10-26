@@ -1,9 +1,9 @@
-//! `{:?}` для структури без `#[derive(Debug)]`
+//! `{:?}` for a struct without `#[derive(Debug)]`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0277]: `User` doesn't implement `Debug`
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0277]: `User` doesn't implement `Debug`
 //!   note: add `#[derive(Debug)]` to `User` or manually `impl Debug for User`
-//! Виправлення: `#[derive(Debug)]` — див. examples/08-derive-debug.rs
+//! Fix: `#[derive(Debug)]` — see examples/08-derive-debug.rs
 // expected-error: E0277
 
 struct User {
@@ -14,7 +14,7 @@ struct User {
 fn main() {
     let user = User {
         id: 1,
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
     };
     println!("{:?}", user);
 }

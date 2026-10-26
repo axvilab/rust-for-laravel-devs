@@ -1,26 +1,26 @@
-//! `HashMap`: insert, get → Option, entry().or_insert(), ітерація, remove
+//! `HashMap`: insert, get → Option, entry().or_insert(), iteration, remove
 
 use std::collections::HashMap;
 
 fn main() {
     let mut stock: HashMap<String, u32> = HashMap::new();
-    stock.insert("ноутбук".to_string(), 5);
-    stock.insert("миша".to_string(), 40);
+    stock.insert("laptop".to_string(), 5);
+    stock.insert("mouse".to_string(), 40);
 
-    // читання — завжди Option, бо ключа може не бути
-    match stock.get("ноутбук") {
-        Some(qty) => println!("є {qty} шт"),
-        None => println!("нема"),
+    // reading always gives an Option, because the key may be missing
+    match stock.get("laptop") {
+        Some(qty) => println!("{qty} in stock"),
+        None => println!("none"),
     }
 
-    // «візьми або створи» — замість isset + присвоєння
-    *stock.entry("клавіатура".to_string()).or_insert(0) += 10;
+    // "get or create" — instead of isset + assignment
+    *stock.entry("keyboard".to_string()).or_insert(0) += 10;
 
-    // ітерація: порядок випадковий і змінюється між запусками
+    // iteration: the order is random and changes between runs
     for (name, qty) in &stock {
         println!("{name}: {qty}");
     }
 
-    stock.remove("миша");
-    println!("{}", stock.contains_key("миша")); // false
+    stock.remove("mouse");
+    println!("{}", stock.contains_key("mouse")); // false
 }

@@ -1,5 +1,5 @@
-//! Перша програма: `fn main` і макрос `println!`
+//! The first program: `fn main` and the `println!` macro
 
 fn main() {
-    println!("Привіт, Laravel-розробнику!");
+    println!("Hello, Laravel developer!");
 }

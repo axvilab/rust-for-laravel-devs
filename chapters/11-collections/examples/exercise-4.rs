@@ -1,14 +1,14 @@
-//! Вправа 4: `let v2 = v;` проти `let v2 = v.clone();`
+//! Exercise 4: `let v2 = v;` vs `let v2 = v.clone();`
 //!
-//! Після `let v2 = v;` вектор переїхав: `v` більше недоступний (E0382,
-//! див. broken/exercise-4.rs). Після `let v2 = v.clone();` є дві незалежні
-//! копії, і `v` лишається доступним.
+//! After `let v2 = v;` the vector moved: `v` is no longer available (E0382,
+//! see broken/exercise-4.rs). After `let v2 = v.clone();` there are two independent
+//! copies, and `v` stays available.
 
 fn main() {
     let v = vec![1, 2, 3];
-    let v2 = v.clone(); // копія: обидва живі
+    let v2 = v.clone(); // a copy: both alive
     println!("{v:?} {v2:?}");
 
-    let v3 = v; // move: v тепер недоступний
+    let v3 = v; // move: v is unavailable now
     println!("{v3:?}");
 }

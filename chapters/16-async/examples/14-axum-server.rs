@@ -1,10 +1,10 @@
-//! Мінімальний Axum: State, Path, Json, Result, роут `/users/{id}`
-// long-running: сервер на http://localhost:3000, зупинити — Ctrl+C
-//   curl -s localhost:3000/users/1    → {"id":1,"name":"Віталій"}
+//! A minimal Axum app: State, Path, Json, Result, the route `/users/{id}`
+// long-running: a server on http://localhost:3000, stop it with Ctrl+C
+//   curl -s localhost:3000/users/1    → {"id":1,"name":"Vitalii"}
 //   curl -si localhost:3000/users/9   → 404 {"error":"not found"}
 //
-// У книзі хендлер читає з Postgres через sqlx::query_as!. Тут стан — HashMap у
-// пам'яті, щоб приклад запускався без бази; повна версія з sqlx — у orders-api/.
+// In the book the handler reads Postgres via sqlx::query_as!. Here the state is an
+// in-memory HashMap so the example runs without a database; the full sqlx version is in orders-api/.
 
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -20,7 +20,7 @@ use serde_json::{Value, json};
 
 #[derive(Clone)]
 struct AppState {
-    db: Arc<HashMap<u64, String>>, // замість sqlx::PgPool; Arc — дешевий Clone
+    db: Arc<HashMap<u64, String>>, // instead of sqlx::PgPool; Arc — a cheap Clone
 }
 
 enum AppError {
@@ -47,11 +47,11 @@ async fn get_user(
 
 #[tokio::main]
 async fn main() {
-    let db = Arc::new(HashMap::from([(1, "Віталій".to_string())]));
+    let db = Arc::new(HashMap::from([(1, "Vitalii".to_string())]));
     let app = Router::new()
-        .route("/users/{id}", get(get_user)) // Axum 0.8: {id}, не :id
+        .route("/users/{id}", get(get_user)) // Axum 0.8: {id}, not :id
         .with_state(AppState { db });
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    println!("слухаю :3000");
+    println!("listening on :3000");
     axum::serve(listener, app).await.unwrap();
 }

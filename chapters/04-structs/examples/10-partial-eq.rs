@@ -1,4 +1,4 @@
-//! Чому `PartialEq` є, а `Eq` для `f64` — ні: NaN не дорівнює собі
+//! Why there's `PartialEq` but no `Eq` for `f64`: NaN isn't equal to itself
 
 #[derive(Debug, PartialEq)]
 struct Price {
@@ -11,9 +11,9 @@ struct Sku {
 }
 
 fn main() {
-    // У книзі `nan == nan` і `Price { amount: 1.0 } == Price { amount: 1.0 }`;
-    // clippy відхиляє порівняння виразу з таким самим виразом (clippy::eq_op —
-    // це помилка, не попередження), тому значення розкладено по змінних.
+    // Not `nan == nan` or `Price { amount: 1.0 } == Price { amount: 1.0 }`:
+    // clippy rejects comparing an expression with an identical one (clippy::eq_op
+    // is an error, not a warning), so the values live in separate variables.
     let nan = f64::NAN;
     let same_nan = nan;
     println!("{}", nan == same_nan); // false!

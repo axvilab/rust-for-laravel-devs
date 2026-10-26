@@ -1,4 +1,4 @@
-//! Кожен варіант enum несе свої дані
+//! Every enum variant carries its own data
 
 #[derive(Debug)]
 enum OrderStatus {

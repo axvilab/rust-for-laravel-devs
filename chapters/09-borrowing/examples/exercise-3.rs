@@ -1,21 +1,21 @@
-//! Вправа 3: чому `push` при живому `&v[0]` заборонений
+//! Exercise 3: why `push` is forbidden while `&v[0]` is alive
 //!
-//! Зламана версія — broken/exercise-3.rs (E0502). Тут видно причину: коли
-//! `push` виходить за межі capacity, вектор просить у алокатора більший буфер.
-//! Алокатор інколи розширює блок на місці, а інколи переносить дані в іншу
-//! пам'ять і звільняє старий блок. Компілятор не знає, що станеться під час
-//! виконання, тому забороняє будь-яке посилання, яке переживе `push`.
+//! Broken version — broken/exercise-3.rs (E0502). Here you can see the reason: when
+//! `push` goes past the capacity, the vector asks the allocator for a bigger buffer.
+//! The allocator sometimes grows the block in place, and sometimes moves the data
+//! elsewhere and frees the old block. The compiler can't know what will happen at
+//! runtime, so it forbids any reference that would outlive the `push`.
 
 fn main() {
     let mut v = Vec::with_capacity(3);
     v.extend([1, 2, 3]);
     let (ptr_before, cap_before) = (v.as_ptr(), v.capacity());
 
-    v.push(4); // capacity 3 вичерпано → перевиділення
+    v.push(4); // capacity 3 exhausted → reallocation
 
     println!("capacity: {cap_before} → {}", v.capacity());
     println!(
-        "адреса буфера змінилась: {} (залежить від алокатора)",
+        "buffer address changed: {} (depends on the allocator)",
         ptr_before != v.as_ptr()
     );
 }

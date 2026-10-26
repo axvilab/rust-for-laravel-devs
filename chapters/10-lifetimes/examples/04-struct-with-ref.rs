@@ -1,16 +1,16 @@
-//! Структура з посиланням потребує лайфтайму і не переживе джерело
+//! A struct with a reference needs a lifetime and can't outlive its source
 
 struct Highlight<'a> {
     text: &'a str,
 }
 
 fn main() {
-    let article = String::from("довгий текст статті");
-    // &article[0..12]: межі зрізу — у байтах; «довгий» = 6 кириличних літер = 12 байт.
-    // (У книзі `&article[0..6]` — це «дов», бо кирилиця займає 2 байти на літеру.)
+    let article = String::from("a long article text");
+    // &article[0..6]: slice bounds are in BYTES. Here every character is one byte;
+    // with Cyrillic text (2 bytes per letter) the same range would be 3 letters.
     let h = Highlight {
         text: &article[0..12],
     };
-    // h не може пережити article — компілятор перевірить
-    println!("{}", h.text); // довгий
+    // h can't outlive article — the compiler checks it
+    println!("{}", h.text); // a long
 }

@@ -1,4 +1,4 @@
-//! Конструкторів немає: літерал з усіма полями, а `new` — звичайна функція
+//! No constructors: a literal with all fields, and `new` is just a function
 
 struct Invoice {
     id: u64,
@@ -7,7 +7,7 @@ struct Invoice {
 }
 
 impl Invoice {
-    // `new` і `draft` — звичайні функції, названі за домовленістю
+    // `new` and `draft` are ordinary functions, named by convention
     fn new(id: u64, total: f64) -> Self {
         Self {
             id,

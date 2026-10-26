@@ -1,8 +1,8 @@
-//! Вправа 5: `anyhow` + `.context()` навколо всієї обробки в `main`
-// exits-with-error: навмисно невалідні дані, щоб побачити ланцюжок причин:
-//   Error: не вдалось створити користувача з рядка «Віталій;двісті»
+//! Exercise 5: `anyhow` + `.context()` around all the processing in `main`
+// exits-with-error: invalid data on purpose, to show the chain of causes:
+//   Error: failed to create a user from the line 'Vitalii;two hundred'
 //   Caused by:
-//       0: невалідний вік: «двісті» — не число
+//       0: invalid age: 'two hundred' is not a number
 //       ...
 
 use anyhow::{Context, Result};
@@ -10,30 +10,32 @@ use thiserror::Error;
 
 #[derive(Debug, Error)]
 enum ValidationError {
-    #[error("ім'я порожнє")]
+    #[error("name is empty")]
     Empty,
-    #[error("невалідний вік: {0}")]
+    #[error("invalid age: {0}")]
     BadAge(String),
 }
 
 fn parse_age(s: &str) -> Result<u8, ValidationError> {
     s.trim()
         .parse()
-        .map_err(|_| ValidationError::BadAge(format!("«{s}» — не число")))
+        .map_err(|_| ValidationError::BadAge(format!("'{s}' is not a number")))
 }
 
 fn parse_user(line: &str) -> Result<(String, u8)> {
-    let (name, age) = line.split_once(';').context("очікую формат `ім'я;вік`")?;
+    let (name, age) = line
+        .split_once(';')
+        .context("expected the format `name;age`")?;
     if name.is_empty() {
-        return Err(ValidationError::Empty.into()); // thiserror-помилка → anyhow::Error
+        return Err(ValidationError::Empty.into()); // a thiserror error → anyhow::Error
     }
-    Ok((name.to_string(), parse_age(age)?)) // ? приймає будь-яку помилку
+    Ok((name.to_string(), parse_age(age)?)) // ? accepts any error
 }
 
 fn main() -> Result<()> {
-    for line in ["Віталій;35", "Віталій;двісті"] {
+    for line in ["Vitalii;35", "Vitalii;two hundred"] {
         let user = parse_user(line)
-            .with_context(|| format!("не вдалось створити користувача з рядка «{line}»"))?;
+            .with_context(|| format!("failed to create a user from the line '{line}'"))?;
         println!("{user:?}");
     }
     Ok(())

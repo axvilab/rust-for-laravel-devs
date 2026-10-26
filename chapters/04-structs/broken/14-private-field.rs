@@ -1,8 +1,8 @@
-//! Структуру з приватним полем не створити літералом ззовні модуля
+//! A struct with a private field can't be built with a literal outside its module
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0451]: field `password_hash` of struct `User` is private
-//! Виправлення: створювати через `User::new(...)` — див. examples/14-visibility.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0451]: field `password_hash` of struct `User` is private
+//! Fix: build it with `User::new(...)` — see examples/14-visibility.rs
 // expected-error: E0451
 
 mod users {

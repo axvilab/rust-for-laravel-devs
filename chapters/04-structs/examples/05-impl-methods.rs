@@ -1,4 +1,4 @@
-//! Блок `impl`: конструктор `new`, методи з `&self` і `&mut self`
+//! An `impl` block: a `new` constructor, methods with `&self` and `&mut self`
 
 struct User {
     id: u64,
@@ -8,7 +8,7 @@ struct User {
 }
 
 impl User {
-    // «статичний» метод — без self. Так роблять конструктори.
+    // a "static" method — no self. That's how constructors are written.
     fn new(id: u64, name: &str, email: &str) -> Self {
         Self {
             id,
@@ -18,19 +18,19 @@ impl User {
         }
     }
 
-    // читає, не змінює
+    // reads, doesn't change
     fn display_name(&self) -> String {
         format!("{} <{}>", self.name, self.email)
     }
 
-    // змінює
+    // changes
     fn deactivate(&mut self) {
         self.active = false;
     }
 }
 
 fn main() {
-    let mut user = User::new(1, "Віталій", "v@example.com");
+    let mut user = User::new(1, "Vitalii", "v@example.com");
     println!("{}", user.display_name());
     user.deactivate();
     println!("id={} active={}", user.id, user.active);

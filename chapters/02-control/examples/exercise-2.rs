@@ -1,7 +1,7 @@
-//! Вправа 2: вичерпність без `_` — перелічуємо діапазони явно
+//! Exercise 2: exhaustiveness without `_` — list the ranges explicitly
 //!
-//! Без `_` компілятор вимагає покрити весь u16 (див. broken/exercise-2.rs).
-//! Можна і без `_`: явно описати «хвости» 0..=99 і 600..=u16::MAX.
+//! Without `_` the compiler requires covering all of u16 (see broken/exercise-2.rs).
+//! You can do it without `_`: describe the "tails" 0..=99 and 600..=u16::MAX explicitly.
 
 fn http_class(status: u16) -> &'static str {
     match status {

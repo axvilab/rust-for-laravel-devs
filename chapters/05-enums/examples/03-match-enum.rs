@@ -1,4 +1,4 @@
-//! `match` по enum: дані витягуються прямо в гілці, `..` — «решта полів»
+//! `match` on an enum: data is pulled out right in the arm, `..` means "the other fields"
 
 enum OrderStatus {
     Pending,
@@ -9,10 +9,10 @@ enum OrderStatus {
 
 fn describe(status: &OrderStatus) -> String {
     match status {
-        OrderStatus::Pending => "очікує оплати".to_string(),
-        OrderStatus::Paid { amount, .. } => format!("оплачено {amount} грн"),
-        OrderStatus::Shipped { tracking } => format!("в дорозі, ТТН {tracking}"),
-        OrderStatus::Cancelled { reason } => format!("скасовано: {reason}"),
+        OrderStatus::Pending => "awaiting payment".to_string(),
+        OrderStatus::Paid { amount, .. } => format!("paid {amount} UAH"),
+        OrderStatus::Shipped { tracking } => format!("on the way, tracking {tracking}"),
+        OrderStatus::Cancelled { reason } => format!("cancelled: {reason}"),
     }
 }
 
@@ -27,7 +27,7 @@ fn main() {
             tracking: "20450000000000".into(),
         },
         OrderStatus::Cancelled {
-            reason: "клієнт передумав".into(),
+            reason: "the customer changed their mind".into(),
         },
     ];
     for s in &all {

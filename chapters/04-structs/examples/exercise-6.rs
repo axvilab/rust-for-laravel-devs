@@ -1,8 +1,8 @@
-//! Вправа 6: `PartialEq` працює, `Eq` — ні (поле `price: f64`)
+//! Exercise 6: `PartialEq` works, `Eq` doesn't (the `price: f64` field)
 //!
-//! `#[derive(PartialEq, Eq)]` дає error[E0277]: the trait bound `f64: Eq` is not satisfied
-//! (див. broken/exercise-6.rs): f64 має NaN, який не дорівнює сам собі, тож
-//! гарантії «кожне значення дорівнює собі» (а це і є Eq) немає.
+//! `#[derive(PartialEq, Eq)]` gives error[E0277]: the trait bound `f64: Eq` is not satisfied
+//! (see broken/exercise-6.rs): f64 has NaN, which isn't equal to itself, so
+//! there's no "every value equals itself" guarantee (which is what Eq is).
 
 #[derive(Debug, Clone, PartialEq)]
 struct Product {
@@ -15,7 +15,7 @@ struct Product {
 fn main() {
     let a = Product {
         id: 1,
-        name: "Ноутбук".into(),
+        name: "Laptop".into(),
         price: 45_000.0,
         stock: 3,
     };

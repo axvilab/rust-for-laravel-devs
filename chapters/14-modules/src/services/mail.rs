@@ -8,9 +8,9 @@ impl Mailer {
     }
 
     pub fn send(&self, to: &str, subject: &str) {
-        // super:: — батьківський модуль (services), як ../
+        // super:: — the parent module (services), like ../
         let _ = super::payment::is_payable(1);
-        println!("лист на {to}: «{subject}»");
+        println!("email to {to}: '{subject}'");
     }
 }
 

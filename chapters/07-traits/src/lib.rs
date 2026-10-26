@@ -1,11 +1,11 @@
-//! Розділ 7. Трейти — інтерфейси, які вміють більше
+//! Chapter 7. Traits — interfaces that can do more
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch07-traits --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch07-traits --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.
 
 use std::fmt;
 
-/// Гроші в копійках — той самий `Money`, що в прикладах розділу.
+/// Money in kopecks — the same `Money` as in the chapter examples.
 ///
 /// ```
 /// use ch07_traits::Money;
@@ -30,7 +30,7 @@ impl Money {
 
 impl fmt::Display for Money {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        // знак окремо: `%` зберігає знак діленого, і без abs() -150 дало б "-1.-50"
+        // the sign goes separately: `%` keeps the dividend's sign, and without abs() -150 would give "-1.-50"
         let sign = if self.amount < 0 { "-" } else { "" };
         let abs = self.amount.abs();
         write!(f, "{sign}{}.{:02} {}", abs / 100, abs % 100, self.currency)

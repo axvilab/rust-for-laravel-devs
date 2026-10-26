@@ -1,9 +1,9 @@
-//! Generic без обмеження: компілятор не знає, чи можна порівнювати `T`
+//! A generic without a bound: the compiler doesn't know whether `T` can be compared
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0369]: binary operation `>` cannot be applied to type `&T`
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0369]: binary operation `>` cannot be applied to type `&T`
 //!   help: consider restricting type parameter `T` with trait `PartialOrd`
-//! Виправлення: `fn largest<T: PartialOrd>` — див. examples/02-largest.rs
+//! Fix: `fn largest<T: PartialOrd>` — see examples/02-largest.rs
 // expected-error: E0369
 
 fn largest<T>(items: &[T]) -> &T {

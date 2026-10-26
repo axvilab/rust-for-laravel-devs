@@ -1,4 +1,4 @@
-//! Generic-функція `send<T: Mailable>` — як `function send(Mailable $item)`
+//! A generic function `send<T: Mailable>` — like `function send(Mailable $item)`
 
 trait Mailable {
     fn subject(&self) -> String;
@@ -16,10 +16,10 @@ struct Newsletter {
 
 impl Mailable for Invoice {
     fn subject(&self) -> String {
-        format!("Рахунок №{}", self.id)
+        format!("Invoice #{}", self.id)
     }
     fn body(&self) -> String {
-        format!("До сплати: {} грн", self.total)
+        format!("Amount due: {} UAH", self.total)
     }
 }
 
@@ -28,7 +28,7 @@ impl Mailable for Newsletter {
         self.title.clone()
     }
     fn body(&self) -> String {
-        "Новини тижня".to_string()
+        "News of the week".to_string()
     }
 }
 
@@ -42,7 +42,7 @@ fn main() {
         total: 1500.0,
     };
     let newsletter = Newsletter {
-        title: "Дайджест".into(),
+        title: "Digest".into(),
     };
     send(&invoice);
     send(&newsletter);

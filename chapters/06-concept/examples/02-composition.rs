@@ -1,4 +1,4 @@
-//! Композиція замість наслідування: спільна частина — окремою структурою
+//! Composition instead of inheritance: the shared part is a separate struct
 
 #[derive(Debug)]
 struct Timestamps {
@@ -23,7 +23,7 @@ struct Order {
 fn main() {
     let u = User {
         id: 1,
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
         timestamps: Timestamps {
             created_at: 1_700_000_000,
             updated_at: 1_700_000_500,

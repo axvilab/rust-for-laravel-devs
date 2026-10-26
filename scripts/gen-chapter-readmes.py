@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Генерує chapters/<розділ>/README.md з шапок файлів examples/ і broken/.
+"""Generates chapters/<chapter>/README.md from the headers of examples/ and broken/ files.
 
-Перший рядок `//! ...` кожного файлу — опис «що показує».
-У broken/ ще береться рядок `//! Очікувана помилка: ...`.
+The first `//! ...` line of each file is the "what it shows" description.
+For broken/ files the `//! Expected error: ...` line is used as well.
 
     python3 scripts/gen-chapter-readmes.py
     docker run --rm -v "$PWD":/w -w /w python:3-slim python3 scripts/gen-chapter-readmes.py
@@ -27,8 +27,8 @@ def header(path: Path):
         text = line[3:].strip()
         if not desc and text:
             desc = text
-        if text.startswith("Очікувана помилка:"):
-            error = text.removeprefix("Очікувана помилка:").strip()
+        if text.startswith("Expected error:"):
+            error = text.removeprefix("Expected error:").strip()
     return desc, error
 
 
@@ -58,26 +58,26 @@ def generate(chapter: Path):
     broken = sorted((chapter / "broken").glob("*.rs"), key=sort_key)
     pkg = "ch" + chapter.name
     lib = (chapter / "src" / "lib.rs").read_text(encoding="utf-8").splitlines()[0]
-    title = lib.removeprefix("//! Розділ ").strip()
+    title = lib.removeprefix("//! Chapter ").strip()
 
     samples = [p for p in examples if not ex_name(p).startswith("exercise-")]
     exercises = [p for p in examples if ex_name(p).startswith("exercise-")]
 
     out = [f"# {title}", ""]
     out += [
-        "Код до розділу книги. Кожен приклад — окрема програма в `examples/`.",
+        "Code for this chapter of the book. Every example is a separate program in `examples/`.",
         "",
         "```bash",
         f"cargo run -p {pkg} --example {ex_name(samples[0])}",
-        "# без Rust на машині:",
+        "# without Rust installed:",
         f'docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p {pkg} --example {ex_name(samples[0])}',
         "```",
         "",
-        "Команди запускаються з кореня репозиторію.",
+        "Run the commands from the repository root.",
         "",
-        "## Приклади з тексту",
+        "## Examples from the text",
         "",
-        "| Приклад | Що показує | Команда запуску |",
+        "| Example | What it shows | Run |",
         "|---|---|---|",
     ]
     for p in samples:
@@ -85,7 +85,7 @@ def generate(chapter: Path):
         out.append(f"| [`{ex_name(p)}`]({ex_link(p)}) | {md(desc)} | `cargo run -p {pkg} --example {ex_name(p)}` |")
 
     if exercises:
-        out += ["", "## Розв'язки вправ «Спробуй»", "", "| Приклад | Що показує | Команда запуску |", "|---|---|---|"]
+        out += ["", "## Solutions to the “Try it” exercises", "", "| Example | What it shows | Run |", "|---|---|---|"]
         for p in exercises:
             desc, _ = header(p)
             out.append(f"| [`{ex_name(p)}`]({ex_link(p)}) | {md(desc)} | `cargo run -p {pkg} --example {ex_name(p)}` |")
@@ -94,30 +94,30 @@ def generate(chapter: Path):
     bins = sorted((chapter / "src" / "bin").glob("*.rs")) if (chapter / "src" / "bin").is_dir() else []
     has_tests = (chapter / "tests").is_dir() or "#[test]" in lib or "```" in lib
     if (chapter / "src" / "main.rs").exists() or bins or has_tests:
-        out += ["", "## Сам крейт", "", "```bash"]
+        out += ["", "## The crate itself", "", "```bash"]
         if (chapter / "src" / "main.rs").exists():
             out.append(f"cargo run -p {pkg}                      # src/main.rs")
         for b in bins:
             out.append(f"cargo run -p {pkg} --bin {b.stem}         # src/bin/{b.name}")
         if has_tests:
-            out.append(f"cargo test -p {pkg}                     # юніт-, інтеграційні та doc-тести")
+            out.append(f"cargo test -p {pkg}                     # unit, integration and doc tests")
         out.append("```")
 
     if broken:
         out += [
             "",
-            "## Навмисно зламані приклади",
+            "## Intentionally broken examples",
             "",
-            "У `broken/` лежить код, який книга показує як помилку компіляції. Cargo їх не збирає.",
-            "У шапці кожного файлу записано очікувану помилку і виправлення.",
-            "Перевірити, що вони справді не компілюються і з тією самою помилкою:",
+            "`broken/` holds code that the book shows as a compile error. Cargo does not build these files.",
+            "The header of each file states the expected error and the fix.",
+            "To check that they really fail, and with exactly that error:",
             "",
             "```bash",
             f"./scripts/check-broken.sh {chapter.name[:2]}",
-            f"rustc --edition 2024 chapters/{chapter.name}/broken/{broken[0].name}   # побачити повідомлення компілятора",
+            f"rustc --edition 2024 chapters/{chapter.name}/broken/{broken[0].name}   # see the compiler message",
             "```",
             "",
-            "| Файл | Що показує | Очікувана помилка |",
+            "| File | What it shows | Expected error |",
             "|---|---|---|",
         ]
         for p in broken:

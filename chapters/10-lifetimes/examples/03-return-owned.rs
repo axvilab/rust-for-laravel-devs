@@ -1,9 +1,9 @@
-//! Створив рядок у функції — повертай `String`, не `&str`
+//! Created a string in the function — return `String`, not `&str`
 
 fn make_greeting(name: &str) -> String {
-    format!("Привіт, {name}")
+    format!("Hello, {name}")
 }
 
 fn main() {
-    println!("{}", make_greeting("Віталій"));
+    println!("{}", make_greeting("Vitalii"));
 }

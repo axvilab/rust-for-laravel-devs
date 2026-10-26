@@ -1,26 +1,26 @@
-//! Тимчасовий guard у `match` живе до кінця всього `match`
+//! A temporary guard in `match` lives until the end of the whole `match`
 
 use std::collections::HashMap;
 use std::sync::Mutex;
 
 fn main() {
-    let cache = Mutex::new(HashMap::from([(1, String::from("один"))]));
+    let cache = Mutex::new(HashMap::from([(1, String::from("one"))]));
 
-    // clippy радить тут `if let` (single_match); залишаємо match, як у книзі —
-    // пастка однакова в обох формах: guard живе до кінця блоку.
+    // clippy suggests `if let` here (single_match); we keep match as in the book —
+    // the trap is the same in both forms: the guard lives until the end of the block.
     #[allow(clippy::single_match)]
     match cache.lock().unwrap().get(&1) {
         Some(v) => {
-            // замок ДОСІ взятий: тимчасовий guard живе до кінця всього match
-            // cache.lock() тут — дедлок; try_lock показує, що замок зайнятий:
-            println!("{v}: вільний = {}", cache.try_lock().is_ok()); // false
+            // the lock is STILL held: the temporary guard lives until the end of the whole match
+            // cache.lock() here would deadlock; try_lock shows that the lock is taken:
+            println!("{v}: free = {}", cache.try_lock().is_ok()); // false
         }
         None => {}
     }
 
-    // безпечно: guard знищиться в кінці рядка, у змінній — копія
+    // safe: the guard is destroyed at the end of the line, the variable holds a copy
     let value = cache.lock().unwrap().get(&1).cloned();
     if let Some(v) = value {
-        println!("{v}: вільний = {}", cache.try_lock().is_ok()); // true
+        println!("{v}: free = {}", cache.try_lock().is_ok()); // true
     }
 }

@@ -1,9 +1,9 @@
-//! Зайва `;` після останнього виразу: функція повертає `()` замість i32
+//! An extra `;` after the last expression: the function returns `()` instead of i32
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0308]: mismatched types — expected `i32`, found `()`
-//!   з підказкою `help: remove this semicolon to return this value`
-//! Виправлення: прибрати `;` після `n * n` — див. examples/13-return.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0308]: mismatched types — expected `i32`, found `()`
+//!   with the hint `help: remove this semicolon to return this value`
+//! Fix: remove the `;` after `n * n` — see examples/13-return.rs
 // expected-error: E0308
 
 fn square(n: i32) -> i32 {

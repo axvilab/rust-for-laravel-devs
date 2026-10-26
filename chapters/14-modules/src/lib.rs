@@ -1,23 +1,23 @@
-//! Розділ 14. Модулі, крейти і Cargo — як організувати проєкт
+//! Chapter 14. Modules, crates and Cargo — how to organize a project
 //!
-//! Цей крейт сам є прикладом розділу: бібліотека (`lib.rs` + модулі) з логікою,
-//! тонкий `main.rs`, окрема команда в `src/bin/`, doc-тести.
+//! This crate is itself an example for the chapter: a library (`lib.rs` + modules) with the logic,
+//! a thin `main.rs`, a separate command in `src/bin/`, doc tests.
 //!
 //! ```text
 //! src/
-//! ├── lib.rs           ← корінь бібліотеки: оголошує модулі
-//! ├── main.rs          ← бінарник: кілька рядків, викликає бібліотеку
-//! ├── bin/report.rs    ← ще одна команда: cargo run -p ch14-modules --bin report
+//! ├── lib.rs           ← the library root: declares the modules
+//! ├── main.rs          ← the binary: a few lines, calls the library
+//! ├── bin/report.rs    ← one more command: cargo run -p ch14-modules --bin report
 //! ├── models.rs        ← Product, Order
-//! ├── pricing.rs       ← розрахунки
+//! ├── pricing.rs       ← calculations
 //! ├── errors.rs        ← ShopError
-//! ├── services.rs      ← оголошує підмодулі + pub use
+//! ├── services.rs      ← declares the submodules + pub use
 //! └── services/
 //!     ├── payment.rs   ← services::payment
 //!     └── mail.rs      ← services::mail
 //! ```
 //!
-//! Модульна структура «як у книзі» з `mod` у `main.rs` — приклад
+//! The module layout "as in the book" with `mod` in `main.rs` is the example
 //! `examples/01-modules/` (`cargo run -p ch14-modules --example 01-modules`).
 
 pub mod errors;
@@ -25,9 +25,9 @@ pub mod models;
 pub mod pricing;
 pub mod services;
 
-/// Нараховує комісію за платіж: 2% (сума в копійках).
+/// Calculates the fee for a payment: 2% (the amount is in kopecks).
 ///
-/// Doc-тест — окрема програма, яка підключає крейт ЗЗОВНІ, тому потрібен `use`:
+/// A doc test is a separate program that uses the crate FROM OUTSIDE, so `use` is needed:
 ///
 /// ```
 /// use ch14_modules::calc_fee;
@@ -35,7 +35,7 @@ pub mod services;
 /// assert_eq!(calc_fee(1000), 20);
 /// ```
 ///
-/// Без `use` той самий приклад не скомпілюється — `compile_fail` перевіряє саме це
+/// Without `use` the same example doesn't compile — `compile_fail` checks exactly that
 /// (error[E0425]: cannot find function `calc_fee` in this scope):
 ///
 /// ```compile_fail,E0425
@@ -46,19 +46,16 @@ pub fn calc_fee(amount: u64) -> u64 {
     amount / 50
 }
 
-/// Точка входу застосунку: `main.rs` лише викликає її.
+/// The application entry point: `main.rs` only calls it.
 pub fn run() -> Result<(), errors::ShopError> {
     use models::{Order, Product};
     use services::{Mailer, PaymentService};
 
-    let laptop = Product::new(1, "Ноутбук", 4_500_000);
+    let laptop = Product::new(1, "Laptop", 4_500_000);
     let order = Order::new(7, vec![(laptop, 1)])?;
     let total = pricing::total_with_fee(&order);
 
     PaymentService::new().charge("v@example.com", total)?;
-    Mailer::new().send(
-        "v@example.com",
-        &format!("Замовлення #{} оплачено", order.id),
-    );
+    Mailer::new().send("v@example.com", &format!("Order #{} paid", order.id));
     Ok(())
 }

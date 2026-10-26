@@ -1,54 +1,54 @@
-# 14. Модулі, крейти і Cargo — як організувати проєкт
+# 14. Modules, crates and Cargo — how to organize a project
 
-Код до розділу книги. Кожен приклад — окрема програма в `examples/`.
+Code for this chapter of the book. Every example is a separate program in `examples/`.
 
 ```bash
 cargo run -p ch14-modules --example 01-modules
-# без Rust на машині:
+# without Rust installed:
 docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p ch14-modules --example 01-modules
 ```
 
-Команди запускаються з кореня репозиторію.
+Run the commands from the repository root.
 
-## Приклади з тексту
+## Examples from the text
 
-| Приклад | Що показує | Команда запуску |
+| Example | What it shows | Run |
 |---|---|---|
-| [`01-modules`](examples/01-modules/) | Модулі як у книзі: `mod` у main.rs, файли models.rs, services.rs, services/*.rs | `cargo run -p ch14-modules --example 01-modules` |
-| [`02-paths-and-visibility`](examples/02-paths-and-visibility.rs) | Шляхи `crate::`, `super::`, `self::` і рівні видимості `pub`, `pub(crate)`, `pub(super)` | `cargo run -p ch14-modules --example 02-paths-and-visibility` |
-| [`03-reexport`](examples/03-reexport.rs) | `pub use` — реекспорт, щоб сховати внутрішню структуру модулів | `cargo run -p ch14-modules --example 03-reexport` |
-| [`04-use-library-crate`](examples/04-use-library-crate.rs) | Приклад підключає бібліотеку цього ж пакета ззовні: дефіс у назві → підкреслення | `cargo run -p ch14-modules --example 04-use-library-crate` |
+| [`01-modules`](examples/01-modules/) | Modules as in the book: `mod` in main.rs, files models.rs, services.rs, services/*.rs | `cargo run -p ch14-modules --example 01-modules` |
+| [`02-paths-and-visibility`](examples/02-paths-and-visibility.rs) | Paths `crate::`, `super::`, `self::` and visibility levels `pub`, `pub(crate)`, `pub(super)` | `cargo run -p ch14-modules --example 02-paths-and-visibility` |
+| [`03-reexport`](examples/03-reexport.rs) | `pub use` — a re-export that hides the internal module structure | `cargo run -p ch14-modules --example 03-reexport` |
+| [`04-use-library-crate`](examples/04-use-library-crate.rs) | The example uses this package's own library from outside: a hyphen in the name → an underscore | `cargo run -p ch14-modules --example 04-use-library-crate` |
 
-## Розв'язки вправ «Спробуй»
+## Solutions to the “Try it” exercises
 
-| Приклад | Що показує | Команда запуску |
+| Example | What it shows | Run |
 |---|---|---|
-| [`exercise-1`](examples/exercise-1.rs) | Вправа 1: «shop» по модулях — models, pricing, errors (див. src/ цього крейта) | `cargo run -p ch14-modules --example exercise-1` |
-| [`exercise-2`](examples/exercise-2.rs) | Вправа 2: без `pub` функція приватна для свого модуля | `cargo run -p ch14-modules --example exercise-2` |
-| [`exercise-3`](examples/exercise-3.rs) | Вправа 3: `cargo add thiserror anyhow`, `cargo tree` — хто тягне `syn` | `cargo run -p ch14-modules --example exercise-3` |
-| [`exercise-4`](examples/exercise-4.rs) | Вправа 4: що `cargo clippy` пропонує найчастіше (уже виправлено) і `cargo fmt` | `cargo run -p ch14-modules --example exercise-4` |
-| [`exercise-5`](examples/exercise-5.rs) | Вправа 5: `calc_fee` у lib.rs з doc-прикладом — і чому без `use` він падає | `cargo run -p ch14-modules --example exercise-5` |
+| [`exercise-1`](examples/exercise-1.rs) | Exercise 1: a "shop" split into modules — models, pricing, errors (see this crate's src/) | `cargo run -p ch14-modules --example exercise-1` |
+| [`exercise-2`](examples/exercise-2.rs) | Exercise 2: without `pub` a function is private to its module | `cargo run -p ch14-modules --example exercise-2` |
+| [`exercise-3`](examples/exercise-3.rs) | Exercise 3: `cargo add thiserror anyhow`, `cargo tree` — who pulls in `syn` | `cargo run -p ch14-modules --example exercise-3` |
+| [`exercise-4`](examples/exercise-4.rs) | Exercise 4: what `cargo clippy` suggests most often (already fixed) and `cargo fmt` | `cargo run -p ch14-modules --example exercise-4` |
+| [`exercise-5`](examples/exercise-5.rs) | Exercise 5: `calc_fee` in lib.rs with a doc example — and why it fails without `use` | `cargo run -p ch14-modules --example exercise-5` |
 
-## Сам крейт
+## The crate itself
 
 ```bash
 cargo run -p ch14-modules                      # src/main.rs
 cargo run -p ch14-modules --bin report         # src/bin/report.rs
-cargo test -p ch14-modules                     # юніт-, інтеграційні та doc-тести
+cargo test -p ch14-modules                     # unit, integration and doc tests
 ```
 
-## Навмисно зламані приклади
+## Intentionally broken examples
 
-У `broken/` лежить код, який книга показує як помилку компіляції. Cargo їх не збирає.
-У шапці кожного файлу записано очікувану помилку і виправлення.
-Перевірити, що вони справді не компілюються і з тією самою помилкою:
+`broken/` holds code that the book shows as a compile error. Cargo does not build these files.
+The header of each file states the expected error and the fix.
+To check that they really fail, and with exactly that error:
 
 ```bash
 ./scripts/check-broken.sh 14
-rustc --edition 2024 chapters/14-modules/broken/02-private-function.rs   # побачити повідомлення компілятора
+rustc --edition 2024 chapters/14-modules/broken/02-private-function.rs   # see the compiler message
 ```
 
-| Файл | Що показує | Очікувана помилка |
+| File | What it shows | Expected error |
 |---|---|---|
-| [`02-private-function.rs`](broken/02-private-function.rs) | Виклик приватної функції з іншого модуля | error[E0603]: function `format_money` is private |
-| [`03-mod-for-dependency.rs`](broken/03-mod-for-dependency.rs) | `mod serde;` для залежності з Cargo.toml — так не роблять | error[E0583]: file not found for module `serde` |
+| [`02-private-function.rs`](broken/02-private-function.rs) | Calling a private function from another module | error[E0603]: function `format_money` is private |
+| [`03-mod-for-dependency.rs`](broken/03-mod-for-dependency.rs) | `mod serde;` for a dependency from Cargo.toml — that's not how it's done | error[E0583]: file not found for module `serde` |

@@ -1,17 +1,17 @@
-//! `T: 'static` — «не містить позичених посилань», а не «живе вічно»
+//! `T: 'static` means "holds no borrowed references", not "lives forever"
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0597]: `local` does not live long enough
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0597]: `local` does not live long enough
 //!   (argument requires that `local` is borrowed for `'static`)
-//! Виправлення: передати володіння (`keep(local)`) — див. examples/06-static-bound.rs
+//! Fix: pass ownership (`keep(local)`) — see examples/06-static-bound.rs
 // expected-error: E0597
 
 fn keep<T: 'static>(_x: T) {}
 
 fn main() {
-    let owned = String::from("я String, і мені можна");
-    keep(owned); // OK: String нічого не позичає
+    let owned = String::from("I'm a String, I'm allowed");
+    keep(owned); // OK: a String borrows nothing
 
-    let local = String::from("локальний");
-    keep(&local); // ПОМИЛКА: `local` does not live long enough
+    let local = String::from("local");
+    keep(&local); // ERROR: `local` does not live long enough
 }

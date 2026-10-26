@@ -1,13 +1,13 @@
-//! Вправа 6 (зламана версія): той самий String тричі в функцію, що приймає String
+//! Exercise 6 (broken version): the same String three times into a function that takes String
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0382]: use of moved value: `email`
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0382]: use of moved value: `email`
 //!   (value moved here, in previous iteration of loop)
-//! Виправлення: див. examples/exercise-6.rs
+//! Fix: see examples/exercise-6.rs
 // expected-error: in previous iteration of loop
 
 fn notify(email: String) {
-    println!("лист на {email}");
+    println!("email to {email}");
 }
 
 fn main() {

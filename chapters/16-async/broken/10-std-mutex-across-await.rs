@@ -1,11 +1,11 @@
-//! `std::sync::MutexGuard` живий під час `.await` — future перестає бути `Send`
+//! A `std::sync::MutexGuard` alive across `.await` — the future is no longer `Send`
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано. (Без tokio: `require_send` перевіряє те саме,
-//! що `tokio::spawn` — що future можна передати в інший потік.)
-//! Очікувана помилка: error: future cannot be sent between threads safely
+//! DOES NOT COMPILE — on purpose. (Without tokio: `require_send` checks the same thing
+//! as `tokio::spawn` — that the future can be sent to another thread.)
+//! Expected error: error: future cannot be sent between threads safely
 //!   note: future is not `Send` as this value is used across an await
-//! Виправлення: закрити замок блоком до `.await` або tokio::sync::Mutex —
-//!   див. examples/09-mutex-and-await.rs
+//! Fix: close the lock in a block before `.await`, or use tokio::sync::Mutex —
+//!   see examples/09-mutex-and-await.rs
 // expected-error: future cannot be sent between threads safely
 
 use std::sync::Mutex;

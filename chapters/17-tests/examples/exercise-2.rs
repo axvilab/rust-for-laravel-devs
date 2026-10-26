@@ -1,8 +1,8 @@
-//! Вправа 2: `println!` у тесті, що проходить — видно лише з `--nocapture`
+//! Exercise 2: `println!` in a passing test — visible only with `--nocapture`
 //!
-//!   cargo test -p ch17-tests --example exercise-2                  # рядка «рахую...» нема
-//!   cargo test -p ch17-tests --example exercise-2 -- --nocapture   # є
-//! Вивід тестів, що ПРОЙШЛИ, cargo ховає; вивід тестів, що впали, показує завжди.
+//!   cargo test -p ch17-tests --example exercise-2                  # no "calculating..." line
+//!   cargo test -p ch17-tests --example exercise-2 -- --nocapture   # there it is
+//! cargo hides the output of tests that PASSED; the output of failed tests is always shown.
 
 use ch17_tests::calc_fee;
 
@@ -16,7 +16,7 @@ mod tests {
 
     #[test]
     fn fee_for_5000() {
-        println!("рахую комісію для 5000...");
+        println!("calculating the fee for 5000...");
         assert_eq!(calc_fee(5000), 100);
     }
 }

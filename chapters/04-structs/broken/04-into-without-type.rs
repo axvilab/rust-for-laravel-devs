@@ -1,11 +1,11 @@
-//! `.into()` без відомого цільового типу
+//! `.into()` without a known target type
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0283]: type annotations needed
-//! Виправлення: `let s: String = "текст".into();` — див. examples/03-string-conversions.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0283]: type annotations needed
+//! Fix: `let s: String = "text".into();` — see examples/03-string-conversions.rs
 // expected-error: type annotations needed
 
 fn main() {
-    let s = "текст".into();
+    let s = "text".into();
     println!("{s}");
 }

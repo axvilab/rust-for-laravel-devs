@@ -1,4 +1,4 @@
-//! Декларативний макрос `hashmap!`: `$k:expr`, повтор `$( ... ),*`, кома в кінці `$(,)?`
+//! A declarative macro `hashmap!`: `$k:expr`, the repetition `$( ... ),*`, a trailing comma `$(,)?`
 
 macro_rules! hashmap {
     ($($k:expr => $v:expr),* $(,)?) => {{
@@ -9,8 +9,8 @@ macro_rules! hashmap {
 }
 
 fn main() {
-    let stock = hashmap! { "ноутбук" => 5, "миша" => 40 };
+    let stock = hashmap! { "laptop" => 5, "mouse" => 40 };
     let mut keys: Vec<_> = stock.keys().collect();
     keys.sort();
-    println!("{keys:?} {}", stock["ноутбук"]);
+    println!("{keys:?} {}", stock["laptop"]);
 }

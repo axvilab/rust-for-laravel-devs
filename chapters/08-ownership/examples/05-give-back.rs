@@ -1,12 +1,12 @@
-//! Варіант А: віддати і отримати володіння назад (працює, але так не пишуть)
+//! Option A: give ownership away and get it back (works, but nobody writes this)
 
 fn print_name(name: String) -> String {
     println!("{name}");
-    name // повертаємо володіння
+    name // give ownership back
 }
 
 fn main() {
-    let n = String::from("Віталій");
+    let n = String::from("Vitalii");
     let n = print_name(n);
-    println!("знову моє: {n}");
+    println!("mine again: {n}");
 }

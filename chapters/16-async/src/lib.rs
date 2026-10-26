@@ -1,4 +1,4 @@
-//! Розділ 16. Async — на чому працюють веб-сервери
+//! Chapter 16. Async — what web servers run on
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch16-async --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch16-async --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

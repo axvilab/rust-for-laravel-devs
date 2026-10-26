@@ -1,10 +1,10 @@
-//! Вправа 5: `is_cashless` через `matches!`
+//! Exercise 5: `is_cashless` with `matches!`
 //!
-//! Спроба через `==` (`*self != PaymentMethod::Cash`) не компілюється:
+//! An attempt with `==` (`*self != PaymentMethod::Cash`) does not compile:
 //!   error[E0369]: binary operation `!=` cannot be applied to type `PaymentMethod`
 //!   note: an implementation of `PartialEq` might be missing for `PaymentMethod`
-//! (див. broken/exercise-5.rs). Компілятору бракує `PartialEq`. Але `matches!`
-//! кращий: він перевіряє лише «форму» варіанта, не порівнюючи дані.
+//! (see broken/exercise-5.rs). The compiler misses `PartialEq`. But `matches!`
+//! is better anyway: it checks only the "shape" of the variant, not the data.
 
 enum PaymentMethod {
     Cash,

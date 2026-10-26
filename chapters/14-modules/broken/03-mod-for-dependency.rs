@@ -1,8 +1,8 @@
-//! `mod serde;` для залежності з Cargo.toml — так не роблять
+//! `mod serde;` for a dependency from Cargo.toml — that's not how it's done
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0583]: file not found for module `serde`
-//! Виправлення: прибрати `mod`; залежності доступні одразу: `use serde::Deserialize;`
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0583]: file not found for module `serde`
+//! Fix: remove the `mod`; dependencies are available right away: `use serde::Deserialize;`
 // expected-error: E0583
 
 mod serde;

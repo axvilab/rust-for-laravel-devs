@@ -1,4 +1,4 @@
-//! Розділ 11. Колекції та ітератори — замість PHP-масивів
+//! Chapter 11. Collections and iterators — instead of PHP arrays
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch11-collections --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch11-collections --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

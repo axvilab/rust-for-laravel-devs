@@ -1,6 +1,6 @@
-//! Вправа 5: зі `String` усередині — лише `Clone`, копія явна
+//! Exercise 5: with a `String` inside — only `Clone`, the copy is explicit
 //!
-//! `#[derive(Copy)]` тут дає E0204 (див. broken/exercise-5.rs).
+//! `#[derive(Copy)]` here gives E0204 (see broken/exercise-5.rs).
 
 #[derive(Debug, Clone)]
 struct User {
@@ -11,8 +11,8 @@ struct User {
 fn main() {
     let a = User {
         id: 1,
-        name: "Віталій".into(),
+        name: "Vitalii".into(),
     };
-    let b = a.clone(); // явна копія замість неявної
+    let b = a.clone(); // an explicit copy instead of an implicit one
     println!("{a:?} {b:?}");
 }

@@ -1,4 +1,4 @@
-//! Розділ 10. Лайфтайми — коротко і без паніки
+//! Chapter 10. Lifetimes — briefly and without panic
 //!
-//! Увесь код розділу — у `examples/` (запуск: `cargo run -p ch10-lifetimes --example <назва>`).
-//! Приклади, які навмисно не компілюються, — у `broken/`.
+//! All code for the chapter is in `examples/` (run: `cargo run -p ch10-lifetimes --example <name>`).
+//! Examples that intentionally do not compile are in `broken/`.

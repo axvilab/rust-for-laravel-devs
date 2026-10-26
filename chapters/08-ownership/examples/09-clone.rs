@@ -1,11 +1,11 @@
-//! Clone — явна (і глибока) копія
+//! Clone — an explicit (and deep) copy
 
 fn main() {
-    let a = String::from("привіт");
-    let b = a.clone(); // виділили нову пам'ять, скопіювали байти
-    println!("{a} {b}"); // ok, обидва живі
+    let a = String::from("hello");
+    let b = a.clone(); // allocated new memory, copied the bytes
+    println!("{a} {b}"); // ok, both alive
 
     let tags = vec!["rust".to_string(), "php".to_string()];
-    let copy = tags.clone(); // копія вектора І кожного рядка в ньому
+    let copy = tags.clone(); // a copy of the vector AND of every string in it
     println!("{tags:?} {copy:?}");
 }

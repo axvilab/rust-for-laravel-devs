@@ -1,4 +1,4 @@
-use crate::models::User; // crate:: — від кореня проєкту, як \App\
+use crate::models::User; // crate:: — from the project root, like \App\
 
 pub struct PaymentService;
 
@@ -7,6 +7,6 @@ impl PaymentService {
         PaymentService
     }
     pub fn charge(&self, user: &User, amount: u64) {
-        println!("списано {amount} з {}", user.email);
+        println!("charged {amount} to {}", user.email);
     }
 }

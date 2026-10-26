@@ -1,14 +1,14 @@
-//! `_` угорі ковтає все: гілки нижче недосяжні
+//! A `_` at the top swallows everything: the arms below are unreachable
 //!
-//! Компілятор попереджає `unreachable pattern` («no value can reach this»).
-//! Атрибут `allow` тут лише для CI (`-D warnings`); прибери його, щоб побачити попередження.
+//! The compiler warns `unreachable pattern` ("no value can reach this").
+//! The `allow` is here only for CI (`-D warnings`); remove it to see the warning.
 #![allow(unreachable_patterns)]
 
 fn main() {
     let status = 404;
     let label = match status {
         _ => "unknown",
-        404 => "not found", // сюди ніхто не дійде
+        404 => "not found", // nobody will ever get here
     };
     println!("{label}"); // unknown
 }

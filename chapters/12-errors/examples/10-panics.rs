@@ -1,19 +1,19 @@
-//! Паніка — для багів: expect, індекс за межами, unwrap, assert!, unreachable!, todo!
+//! Panics are for bugs: expect, out-of-bounds index, unwrap, assert!, unreachable!, todo!
 //!
-//! Кожна функція нижче панікує на «поганих» даних. main ловить паніки через
-//! `catch_unwind` лише для демонстрації — у звичайному коді так не роблять.
+//! Every function below panics on "bad" data. main catches the panics with
+//! `catch_unwind` only for the demo — normal code doesn't do this.
 
 fn item_at(items: &[i32], i: usize) -> i32 {
-    items[i] // паніка, якщо менше i+1 елементів
+    items[i] // panics if there are fewer than i+1 elements
 }
 
 fn parse_strict(s: &str) -> u32 {
-    s.parse().unwrap() // паніка на "abc"
+    s.parse().unwrap() // panics on "abc"
 }
 
 fn withdraw(balance: i64, amount: i64) -> i64 {
     let left = balance - amount;
-    assert!(left >= 0, "баланс не може бути від'ємним");
+    assert!(left >= 0, "balance cannot be negative");
     left
 }
 
@@ -21,20 +21,20 @@ fn status_text(code: u8) -> &'static str {
     match code {
         0 => "ok",
         1 => "error",
-        _ => unreachable!("сюди не можна потрапити"),
+        _ => unreachable!("we can never get here"),
     }
 }
 
 #[allow(dead_code)]
 fn send_report() {
-    todo!("реалізую пізніше"); // зручно для заглушок
+    todo!("will implement later"); // handy for stubs
 }
 
 fn main() {
-    // `expect` на конфіг: у книзі `load_config().expect(...)`; тут env-змінна,
-    // а Some-літерал clippy вважає зайвим unwrap (unnecessary_literal_unwrap).
-    let config = std::env::var("HOME").expect("HOME обов'язковий для старту");
-    println!("конфіг: {config}");
+    // `expect` on the config: the book has `load_config().expect(...)`; here an env var,
+    // since clippy considers unwrapping a Some literal pointless (unnecessary_literal_unwrap).
+    let config = std::env::var("HOME").expect("HOME is required to start");
+    println!("config: {config}");
     println!(
         "{} {} {}",
         item_at(&[1, 2, 3], 1),
@@ -43,8 +43,8 @@ fn main() {
     );
     println!("{}", status_text(0));
 
-    std::panic::set_hook(Box::new(|info| eprintln!("  (паніка: {info})")));
-    // Замикання без захоплень приводяться до `fn()` — їх можна передати в catch_unwind.
+    std::panic::set_hook(Box::new(|info| eprintln!("  (panic: {info})")));
+    // Closures without captures coerce to `fn()` — so they can go into catch_unwind.
     let cases: [(&str, fn()); 4] = [
         ("item_at", || {
             let _ = item_at(&[1, 2, 3], 5);
@@ -61,6 +61,6 @@ fn main() {
     ];
     for (name, f) in cases {
         let failed = std::panic::catch_unwind(f).is_err();
-        println!("{name}: запанікувала = {failed}");
+        println!("{name}: panicked = {failed}");
     }
 }

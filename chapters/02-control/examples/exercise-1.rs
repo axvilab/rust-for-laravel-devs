@@ -1,4 +1,4 @@
-//! Вправа 1: `http_class` через `match` з діапазонами
+//! Exercise 1: `http_class` with a `match` on ranges
 
 fn http_class(status: u16) -> &'static str {
     match status {
@@ -7,7 +7,7 @@ fn http_class(status: u16) -> &'static str {
         300..=399 => "3xx",
         400..=499 => "4xx",
         500..=599 => "5xx",
-        _ => "invalid", // усе інше: 0..=99 і 600..
+        _ => "invalid", // everything else: 0..=99 and 600..
     }
 }
 

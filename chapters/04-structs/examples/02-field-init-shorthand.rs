@@ -1,4 +1,4 @@
-//! Скорочення `name` замість `name: name`
+//! The shorthand `name` instead of `name: name`
 
 struct User {
     id: u64,
@@ -8,7 +8,7 @@ struct User {
 }
 
 fn main() {
-    let name = String::from("Віталій");
+    let name = String::from("Vitalii");
     let email = String::from("v@example.com");
     let user = User {
         id: 1,

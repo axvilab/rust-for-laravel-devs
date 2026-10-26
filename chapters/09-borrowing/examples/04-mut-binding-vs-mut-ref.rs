@@ -1,16 +1,16 @@
-//! `let mut r = &x` (можна перенаправити) проти `let r = &mut x` (можна змінити)
+//! `let mut r = &x` (can be redirected) vs `let r = &mut x` (can change the value)
 
 fn main() {
     let mut a = 1;
     let b = 2;
 
-    let r = &mut a; // r — незмінна змінна, але через неї МОЖНА змінити a
+    let r = &mut a; // r is an immutable variable, but through it you CAN change a
     *r += 10;
-    // r = &mut b;    // а перенаправити r на інше — не можна
+    // r = &mut b;    // but you can't point r at something else
 
-    let mut s = &b; // s можна перенаправити, але змінити через неї — ні
+    let mut s = &b; // s can be redirected, but you can't change anything through it
     println!("{s}"); // 2
-    // *s += 1;       // ПОМИЛКА: cannot assign to `*s`, which is behind a `&` reference
+    // *s += 1;       // ERROR: cannot assign to `*s`, which is behind a `&` reference
     s = &a;
     println!("{s}"); // 11
 }

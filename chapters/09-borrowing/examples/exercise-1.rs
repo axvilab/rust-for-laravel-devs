@@ -1,16 +1,16 @@
-//! Вправа 1: `count_vowels(&str)` працює і для String, і для літерала
+//! Exercise 1: `count_vowels(&str)` works for both a String and a literal
 
 fn count_vowels(s: &str) -> usize {
-    // голосні української та англійської (у нижньому регістрі)
-    const VOWELS: &str = "аеєиіїоуюяaeiou";
+    // vowels (lowercase)
+    const VOWELS: &str = "aeiou";
     s.chars()
         .filter(|c| VOWELS.contains(c.to_lowercase().next().unwrap_or(*c)))
         .count()
 }
 
 fn main() {
-    let owned = String::from("Віталій");
-    println!("{}", count_vowels(&owned)); // &String → &str автоматично
-    println!("{}", count_vowels("Дніпро")); // літерал — уже &str
-    println!("{owned}"); // жодного clone(), owned живий
+    let owned = String::from("Vitalii");
+    println!("{}", count_vowels(&owned)); // &String → &str automatically
+    println!("{}", count_vowels("Dnipro")); // a literal is already &str
+    println!("{owned}"); // no clone(), owned is alive
 }

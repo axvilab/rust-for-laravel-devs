@@ -13,27 +13,27 @@ use crate::domain::DomainError;
 
 #[derive(Debug, thiserror::Error)]
 pub enum AppError {
-    #[error("не знайдено")]
+    #[error("not found")]
     NotFound,
-    #[error("потрібна автентифікація")]
+    #[error("authentication required")]
     Unauthorized,
-    #[error("недостатньо прав")]
+    #[error("forbidden")]
     Forbidden,
-    #[error("конфлікт: {0}")]
+    #[error("conflict: {0}")]
     Conflict(String),
-    #[error("невалідний запит: {0}")]
+    #[error("invalid request: {0}")]
     Validation(String),
-    #[error("невалідне тіло запиту: {0}")]
+    #[error("invalid request body: {0}")]
     BadJson(#[from] JsonRejection),
-    #[error("помилки валідації")]
+    #[error("validation failed")]
     ValidationErrors(#[from] validator::ValidationErrors),
     #[error(transparent)]
     Domain(#[from] DomainError),
-    #[error("помилка бази даних")]
+    #[error("database error")]
     Db(#[from] sqlx::Error),
-    #[error("помилка токена")]
+    #[error("token error")]
     Jwt(#[from] jsonwebtoken::errors::Error),
-    #[error("внутрішня помилка")]
+    #[error("internal error")]
     Internal(#[from] anyhow::Error),
 }
 

@@ -1,15 +1,15 @@
-//! Лайфтайм не врятує посилання на локальну змінну
+//! A lifetime won't save a reference to a local variable
 //!
-//! НЕ КОМПІЛЮЄТЬСЯ — так задумано.
-//! Очікувана помилка: error[E0515]: cannot return reference to local variable `s`
-//! Виправлення: повертати `String` — див. examples/03-return-owned.rs
+//! DOES NOT COMPILE — on purpose.
+//! Expected error: error[E0515]: cannot return reference to local variable `s`
+//! Fix: return a `String` — see examples/03-return-owned.rs
 // expected-error: E0515
 
 fn make_greeting(name: &str) -> &str {
-    let s = format!("Привіт, {name}");
-    &s // ПОМИЛКА E0515
+    let s = format!("Hello, {name}");
+    &s // ERROR E0515
 }
 
 fn main() {
-    println!("{}", make_greeting("Віталій"));
+    println!("{}", make_greeting("Vitalii"));
 }

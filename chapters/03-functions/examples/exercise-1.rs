@@ -1,15 +1,15 @@
-//! Вправа 1: `stats` повертає (min, max, avg) кортежем
+//! Exercise 1: `stats` returns (min, max, avg) as a tuple
 
 fn stats(values: &[f64]) -> (f64, f64, f64) {
     let mut min = values[0];
     let mut max = values[0];
     let mut sum = 0.0;
     for &v in values {
-        min = min.min(v); // f64::min / f64::max — без if
+        min = min.min(v); // f64::min / f64::max — no if needed
         max = max.max(v);
         sum += v;
     }
-    // len() — usize, тому явне `as f64` (розділ 1: неявних перетворень немає)
+    // len() is usize, hence the explicit `as f64` (chapter 1: no implicit conversions)
     (min, max, sum / values.len() as f64)
 }
 

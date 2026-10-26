@@ -1,4 +1,4 @@
-//! Простий enum — як PHP 8.1 enum без значень
+//! A simple enum — like a PHP 8.1 enum without values
 
 #[derive(Debug)]
 enum OrderStatus {

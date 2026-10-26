@@ -1,4 +1,4 @@
-//! Тисяча паралельних задач; `h.await??` — два рівні помилок
+//! A thousand concurrent tasks; `h.await??` — two levels of errors
 
 use std::error::Error;
 use std::time::{Duration, Instant};
@@ -25,10 +25,10 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
 
     let mut sum = 0;
     for h in handles {
-        let user = h.await??; // перший ? — задача не впала, другий — fetch не повернув Err
+        let user = h.await??; // the first ? — the task didn't fail, the second — fetch didn't return Err
         sum += user.id;
     }
-    // 1000 «запитів» по 100 мс — разом ~100 мс, а не 100 секунд
-    println!("сума id {sum} за {:?}", start.elapsed());
+    // 1000 "requests" of 100 ms each — ~100 ms in total, not 100 seconds
+    println!("sum of ids {sum} in {:?}", start.elapsed());
     Ok(())
 }

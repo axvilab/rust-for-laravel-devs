@@ -1,14 +1,14 @@
-//! Вправа 3: `#[sqlx::test]` для `OrderRepo` — зберегти, оплатити, зберегти, прочитати
+//! Exercise 3: `#[sqlx::test]` for `OrderRepo` — save, pay, save, read back
 //!
-//! Розв'язок у проєкті: orders-api/tests/repo.rs, тест `save_pay_save_find`.
-//! Йому потрібен Postgres (`DATABASE_URL`), тому він живе поруч із репозиторієм:
+//! The solution is in the project: orders-api/tests/repo.rs, the test `save_pay_save_find`.
+//! It needs Postgres (`DATABASE_URL`), so it lives next to the repository:
 //!
 //!   cd orders-api && docker compose up -d db
 //!   cargo test -p orders-api --test repo
 //!
-//! Відмінність від фрагмента в книзі: у проєкті `Order::new(user_id, email, note)`
-//! приймає `Email` (newtype), а статус читається методом `status()`.
+//! The difference from the book's snippet: in the project `Order::new(user_id, email, note)`
+//! takes an `Email` (a newtype), and the status is read with the `status()` method.
 
 fn main() {
-    println!("див. orders-api/tests/repo.rs");
+    println!("see orders-api/tests/repo.rs");
 }

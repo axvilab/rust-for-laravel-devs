@@ -1,14 +1,14 @@
-//! `if let` — коли цікавить одна гілка
+//! `if let` — when you care about one arm
 
 struct User {
     name: String,
 }
 
-// Заглушка «пошуку в базі»: є тільки користувач з id 1.
+// A stand-in for a "database lookup": only the user with id 1 exists.
 fn find_user(id: u64) -> Option<User> {
     if id == 1 {
         Some(User {
-            name: "Віталій".into(),
+            name: "Vitalii".into(),
         })
     } else {
         None
@@ -18,9 +18,9 @@ fn find_user(id: u64) -> Option<User> {
 fn main() {
     for id in [1, 2] {
         if let Some(user) = find_user(id) {
-            println!("знайдено: {}", user.name);
+            println!("found: {}", user.name);
         } else {
-            println!("нема такого");
+            println!("no such user");
         }
     }
 }
