@@ -1,0 +1,14 @@
+[workspace]
+resolver = "3"
+members = [
+    "orders-api",
+    # Per-chapter examples (chapters/NN-*) are added here as they are written.
+]
+
+# Profiles are honoured only in the workspace root manifest.
+[profile.release]
+lto = true          # cross-crate optimisation: smaller and faster binary
+codegen-units = 1   # slower build, faster code
+strip = true        # drop debug symbols
+# panic = "abort" is deliberately NOT set: with unwinding, a panic in one
+# handler kills only that request's task; with "abort" it kills the server.
