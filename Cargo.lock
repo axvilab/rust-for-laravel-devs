@@ -316,6 +316,42 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f079e83a288787bcd14a6aea84cee5c87a67c5a3e660c30f557a3d24761b3527"
 
 [[package]]
+name = "ch01-basics"
+version = "0.1.0"
+
+[[package]]
+name = "ch02-control"
+version = "0.1.0"
+
+[[package]]
+name = "ch03-functions"
+version = "0.1.0"
+
+[[package]]
+name = "ch04-structs"
+version = "0.1.0"
+
+[[package]]
+name = "ch05-enums"
+version = "0.1.0"
+
+[[package]]
+name = "ch06-concept"
+version = "0.1.0"
+
+[[package]]
+name = "ch07-traits"
+version = "0.1.0"
+
+[[package]]
+name = "ch08-ownership"
+version = "0.1.0"
+
+[[package]]
+name = "ch09-borrowing"
+version = "0.1.0"
+
+[[package]]
 name = "chacha20"
 version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"

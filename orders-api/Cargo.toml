@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.94"
 description = "Orders microservice — the end-to-end project from the book \"Rust для Laravel-розробника\""
+license.workspace = true
 publish = false
 
 [dependencies]

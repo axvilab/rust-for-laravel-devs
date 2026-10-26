@@ -1,0 +1,11 @@
+[package]
+name = "ch02-control"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+description = "Приклади до розділу 2 книги «Rust для Laravel-розробника»"
+
+[lints]
+workspace = true

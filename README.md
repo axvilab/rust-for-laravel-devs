@@ -4,14 +4,32 @@ Companion code for the book **"Rust для Laravel-розробника / Rust f
 
 Тут лежить код з книги, який компілюється і проходить тести. Якщо код у тексті й тут розходяться, правильна версія та, що в репозиторії: її перевіряє CI на кожен коміт.
 
+Код поширюється за ліцензією MIT (див. [LICENSE](LICENSE)).
+
 ## Що всередині
 
 ```
-Cargo.toml            Cargo workspace (members = проєкти, які вже готові)
-chapters/             приклади до розділів 1–17 (будуть додані після редагування текстів)
+Cargo.toml            Cargo workspace: orders-api і крейти розділів
+chapters/NN-*/        крейт розділу: examples/ (запускаються), broken/ (навмисно не компілюються)
 orders-api/           наскрізний проєкт: сервіс замовлень (розділи 16b–16f)
-.github/workflows/    CI: fmt, clippy -D warnings, тести з Postgres, release-збірка, audit, docker
+scripts/              check-broken.sh — перевірка broken/; gen-chapter-readmes.py — README розділів
+.github/workflows/    CI: fmt, clippy -D warnings, тести з Postgres, broken/, release-збірка, audit, docker
 ```
+
+### Приклади до розділів
+
+Кожен розділ — окремий крейт `chNN-назва`, а кожен приклад з тексту — окрема програма:
+
+```bash
+cargo run -p ch01-basics --example 01-hello
+cargo run -p ch08-ownership --example 11-let-underscore
+cargo run -p ch05-enums --example exercise-4      # розв'язок вправи «Спробуй» №4
+
+# те саме без Rust на машині
+docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p ch01-basics --example 01-hello
+```
+
+Код, який у книзі наведено як помилку компіляції, лежить у `broken/` (Cargo його не збирає). У шапці кожного такого файлу записано очікувану помилку компілятора і посилання на виправлену версію в `examples/`. Скрипт `./scripts/check-broken.sh` перевіряє, що кожен файл справді не компілюється і що помилка саме та, яку обіцяє шапка. Таблиця прикладів є в README кожного розділу.
 
 ### `orders-api`
 
@@ -123,20 +141,20 @@ SQLX_OFFLINE=true cargo build # CI і Docker збирають без бази
 | 7. Трейти — інтерфейси, які вміють більше | `07-traits` | [`chapters/07-traits`](chapters/07-traits) |
 | 8. Ownership — один власник на кожну річ | `08-ownership` | [`chapters/08-ownership`](chapters/08-ownership) |
 | 9. Borrowing — позичити, не забираючи | `09-borrowing` | [`chapters/09-borrowing`](chapters/09-borrowing) |
-| 10. Лайфтайми — коротко і без паніки | `10-lifetimes` | [`chapters/10-lifetimes`](chapters/10-lifetimes) |
-| 11. Колекції та ітератори | `11-collections` | [`chapters/11-collections`](chapters/11-collections) |
-| 12. Обробка помилок — Result замість винятків | `12-errors` | [`chapters/12-errors`](chapters/12-errors) |
-| 13. Generics і розумні вказівники | `13-generics` | [`chapters/13-generics`](chapters/13-generics) |
-| 14. Модулі, крейти і Cargo | `14-modules` | [`chapters/14-modules`](chapters/14-modules) |
-| 15. Потоки | `15-threads` | [`chapters/15-threads`](chapters/15-threads) |
-| 16. Async — на чому працюють веб-сервери | `16-async` | [`chapters/16-async`](chapters/16-async) |
+| 10. Лайфтайми — коротко і без паніки | `10-lifetimes` | `chapters/10-lifetimes` — буде |
+| 11. Колекції та ітератори | `11-collections` | `chapters/11-collections` — буде |
+| 12. Обробка помилок — Result замість винятків | `12-errors` | `chapters/12-errors` — буде |
+| 13. Generics і розумні вказівники | `13-generics` | `chapters/13-generics` — буде |
+| 14. Модулі, крейти і Cargo | `14-modules` | `chapters/14-modules` — буде |
+| 15. Потоки | `15-threads` | `chapters/15-threads` — буде |
+| 16. Async — на чому працюють веб-сервери | `16-async` | `chapters/16-async` — буде |
 | Проєкт: сервіс замовлень від `struct` до HTTP-API | `16b-project` | [`orders-api/src/domain.rs`](orders-api/src/domain.rs), [`error.rs`](orders-api/src/error.rs), [`repo.rs`](orders-api/src/repo.rs), [`handlers/orders.rs`](orders-api/src/handlers/orders.rs), [`main.rs`](orders-api/src/main.rs) |
 | Middleware, автентифікація і стан застосунку | `16c-middleware` | [`middleware.rs`](orders-api/src/middleware.rs), [`auth.rs`](orders-api/src/auth.rs), [`state.rs`](orders-api/src/state.rs), [`handlers/auth.rs`](orders-api/src/handlers/auth.rs), [`lib.rs`](orders-api/src/lib.rs) |
 | База даних глибше: sqlx без Eloquent | `16d-database` | [`repo.rs`](orders-api/src/repo.rs), [`migrations/`](orders-api/migrations) |
 | Практики API: валідація, пагінація, версії | `16e-api` | [`validation.rs`](orders-api/src/validation.rs), [`pagination.rs`](orders-api/src/pagination.rs), [`filter.rs`](orders-api/src/filter.rs), [`error.rs`](orders-api/src/error.rs) |
 | Деплой: один бінарник замість Forge | `16f-deploy` | [`config.rs`](orders-api/src/config.rs), [`Dockerfile`](orders-api/Dockerfile), [`docker-compose.yml`](orders-api/docker-compose.yml), [`ci.yml`](.github/workflows/ci.yml) |
-| 17. Тести, макроси і що далі | `17-tests` | [`chapters/17-tests`](chapters/17-tests), [`orders-api/tests/api.rs`](orders-api/tests/api.rs) |
+| 17. Тести, макроси і що далі | `17-tests` | `chapters/17-tests` — буде; [`orders-api/tests/api.rs`](orders-api/tests/api.rs) |
 
 ## Версії
 
-Rust 1.97 (edition 2024, MSRV 1.94 через sqlx 0.9), axum 0.8.9, tokio 1.54, sqlx 0.9.0, tower-http 0.7.1, validator 0.21, jsonwebtoken 11.1 (бекенд `aws_lc_rs`), argon2 0.6, thiserror 2, serde 1, tracing-subscriber 0.3. Точні версії зафіксовані в `Cargo.lock`.
+Rust 1.97, edition 2024. Мінімальна версія Rust: 1.88 для розділів (let chains у розділі 2), 1.94 для `orders-api` (через sqlx 0.9). Залежності orders-api: axum 0.8.9, tokio 1.54, sqlx 0.9.0, tower-http 0.7.1, validator 0.21, jsonwebtoken 11.1 (бекенд `aws_lc_rs`), argon2 0.6, thiserror 2, serde 1, tracing-subscriber 0.3. Точні версії зафіксовані в `Cargo.lock`.

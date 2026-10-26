@@ -2,8 +2,28 @@
 resolver = "3"
 members = [
     "orders-api",
-    # Per-chapter examples (chapters/NN-*) are added here as they are written.
+    "chapters/01-basics",
+    "chapters/02-control",
+    "chapters/03-functions",
+    "chapters/04-structs",
+    "chapters/05-enums",
+    "chapters/06-concept",
+    "chapters/07-traits",
+    "chapters/08-ownership",
+    "chapters/09-borrowing",
 ]
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.88" # let chains (розділ 2) стабільні з 1.88
+license = "MIT"
+publish = false
+
+# Chapter crates opt in with `[lints] workspace = true`.
+# Book examples are fragments: a struct field that is only printed via `{:?}`
+# counts as "never read", so dead_code would be pure noise here.
+[workspace.lints.rust]
+dead_code = "allow"
 
 # Profiles are honoured only in the workspace root manifest.
 [profile.release]
