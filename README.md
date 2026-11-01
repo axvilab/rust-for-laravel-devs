@@ -11,6 +11,7 @@ The code is MIT-licensed (see [LICENSE](LICENSE)).
 ```
 Cargo.toml            Cargo workspace: orders-api and one crate per chapter
 chapters/NN-*/        a chapter crate: examples/ (runnable), broken/ (intentionally does not compile)
+                      16g-axum-deeper also has src/ (one module per topic) and tests/
 orders-api/           the end-to-end project: an orders microservice (chapters 16b–16f)
 scripts/              check-broken.sh — verifies broken/; gen-chapter-readmes.py — chapter READMEs
 .github/workflows/    CI: fmt, clippy -D warnings, tests with Postgres, broken/, release build, audit, docker
@@ -29,7 +30,16 @@ cargo run -p ch05-enums --example exercise-4      # solution to "Try it" exercis
 docker run --rm -v "$PWD":/w -w /w rust:1-bookworm cargo run -p ch01-basics --example 01-hello
 ```
 
-Code that the book shows as a compile error lives in `broken/`, which Cargo does not build. The header of each such file states the expected compiler error and points to the fixed version in `examples/`. `./scripts/check-broken.sh` verifies that every file really fails, and with exactly the error its header promises. Each chapter's README has a table of its examples.
+Code that the book shows as a compile error lives in `broken/`, which Cargo does not build. The header of each such file states the expected compiler error and points to the fixed version in `examples/`. `./scripts/check-broken.sh` verifies that every file really fails, and with exactly the error its header promises. Most of them are checked with plain `rustc`; files marked `// check-with: cargo` need the chapter crate's dependencies (axum, tower…) and are built as a temporary example of that crate. Each chapter's README has a table of its examples.
+
+### `chapters/16g-axum-deeper`
+
+The "Axum, deeper" chapter is a library crate: each topic is a module in `src/` with functions that build a `Router` (`layers`, `limits`, `cookies`, `sessions`, `pg_store`, `files`, `uploads`, `realtime`, `extractors`). The same routers are served by `examples/` and tested in `tests/` — through `tower::ServiceExt::oneshot`, and through a real TCP server for SSE and WebSockets. `tests/pg_store.rs` (a Postgres session store for tower-sessions 0.15 on sqlx 0.9) needs `DATABASE_URL`, like the `orders-api` tests.
+
+```bash
+cargo run -p ch16g-axum-deeper --example 03-tower-http-stack   # then: curl -si localhost:3000/report
+DATABASE_URL=postgres://postgres:pg@localhost:5432/postgres cargo test -p ch16g-axum-deeper
+```
 
 ### `orders-api`
 
@@ -153,11 +163,12 @@ After switching, add `ENV SQLX_OFFLINE=true` before `cargo build` in the `Docker
 | Database, deeper: sqlx without Eloquent | `16d-database` | [`repo.rs`](orders-api/src/repo.rs), [`migrations/`](orders-api/migrations) |
 | API practices: validation, pagination, versioning, documentation | `16e-api` | [`validation.rs`](orders-api/src/validation.rs), [`pagination.rs`](orders-api/src/pagination.rs), [`filter.rs`](orders-api/src/filter.rs), [`error.rs`](orders-api/src/error.rs) |
 | Deployment: a single binary instead of Forge | `16f-deploy` | [`config.rs`](orders-api/src/config.rs), [`Dockerfile`](orders-api/Dockerfile), [`docker-compose.yml`](orders-api/docker-compose.yml), [`ci.yml`](.github/workflows/ci.yml) |
+| Axum, deeper: layers, cookies, files and real time | `16g-axum-deeper` | [`chapters/16g-axum-deeper`](chapters/16g-axum-deeper) |
 | 17. Tests, macros, and what's next | `17-tests` | [`chapters/17-tests`](chapters/17-tests), [`orders-api/tests/`](orders-api/tests) |
 
 ## Versions
 
-Rust 1.97, edition 2024. Minimum Rust version: 1.88 for the chapters (let chains in chapter 2), 1.94 for `orders-api` (because of sqlx 0.9). Chapters 12, 16 and 17 use the same versions of tokio, axum, serde, thiserror and anyhow (plus toml 0.9) as orders-api. orders-api dependencies: axum 0.8.9, tokio 1.54, sqlx 0.9.0, tower-http 0.7.1, validator 0.21, jsonwebtoken 11.1 (`aws_lc_rs` backend), argon2 0.6, thiserror 2, serde 1, tracing-subscriber 0.3. Exact versions are pinned in `Cargo.lock`.
+Rust 1.97, edition 2024. Minimum Rust version: 1.88 for the chapters (let chains in chapter 2), 1.94 for `orders-api` (because of sqlx 0.9). Chapters 12, 16 and 17 use the same versions of tokio, axum, serde, thiserror and anyhow (plus toml 0.9) as orders-api. Chapter 16g adds tower 0.5, tower-http 0.7.1, axum-extra 0.12, tower-sessions 0.15, tower_governor 0.8 and tokio-tungstenite 0.29 (tests), on the same axum 0.8.9 and sqlx 0.9.0. orders-api dependencies: axum 0.8.9, tokio 1.54, sqlx 0.9.0, tower-http 0.7.1, validator 0.21, jsonwebtoken 11.1 (`aws_lc_rs` backend), argon2 0.6, thiserror 2, serde 1, tracing-subscriber 0.3. Exact versions are pinned in `Cargo.lock`.
 
 ## Українською
 
@@ -179,3 +190,4 @@ docker compose run --rm dev      # тести всередині rust:1-bookworm
 |---|---|---|
 | 1–17 | `NN-назва` | `chapters/NN-назва` (таблиця вище) |
 | Проєкт, 16b–16f | `16b-project` … `16f-deploy` | `orders-api/` |
+| Axum глибше: шари, cookie, файли і реальний час | `16g-axum-deeper` | `chapters/16g-axum-deeper` |

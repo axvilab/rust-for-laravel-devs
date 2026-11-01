@@ -1,0 +1,59 @@
+[package]
+name = "ch16g-axum-deeper"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+description = "Examples for the chapter \"Axum, deeper\" of the book \"Rust for Laravel Developers\""
+
+[lints]
+workspace = true
+
+[dependencies]
+axum = { workspace = true, features = ["macros", "ws", "multipart"] }
+async-trait = "0.1.92"
+axum-extra = { version = "0.12.6", features = ["cookie", "cookie-signed", "cookie-private", "query"] }
+futures-util = { version = "0.3.34", default-features = false, features = ["sink", "std"] }
+serde.workspace = true
+serde_json.workspace = true
+sqlx = { version = "0.9.0", default-features = false, features = ["postgres", "runtime-tokio"] }
+thiserror.workspace = true
+tokio.workspace = true
+tokio-stream = { version = "0.1", features = ["sync"] }
+tokio-util = { version = "0.7", features = ["rt"] }
+tower = { version = "0.5.3", features = ["util", "timeout", "limit", "load-shed", "buffer"] }
+tower-http = { version = "0.7.1", features = ["trace", "cors", "timeout", "compression-full", "limit", "request-id", "fs", "set-header", "csrf", "util"] }
+tower-sessions = "0.15.0"
+tower_governor = { version = "0.8.0", default-features = false, features = ["axum"] }
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+uuid = { version = "1.29.0", features = ["v4", "serde"] }
+
+[dev-dependencies]
+sqlx = { version = "0.9.0", default-features = false, features = ["postgres", "runtime-tokio", "macros", "migrate"] }
+futures-util = "0.3.34"
+http-body-util = "0.1.5"
+tokio-tungstenite = "0.29"
+
+# Exercise examples with tests inside: `cargo test` runs their #[test]s too
+
+[[example]]
+name = "exercise-2"
+test = true
+
+[[example]]
+name = "exercise-3"
+test = true
+
+[[example]]
+name = "exercise-4"
+test = true
+
+[[example]]
+name = "exercise-5"
+test = true
+
+[[example]]
+name = "exercise-6"
+test = true

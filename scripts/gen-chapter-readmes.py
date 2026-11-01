@@ -114,7 +114,17 @@ def generate(chapter: Path):
             "",
             "```bash",
             f"./scripts/check-broken.sh {chapter.name[:2]}",
-            f"rustc --edition 2024 chapters/{chapter.name}/broken/{broken[0].name}   # see the compiler message",
+        ]
+        if "// check-with: cargo" in broken[0].read_text(encoding="utf-8"):
+            # these need the crate's dependencies: build the file as a temporary example
+            out += [
+                f"cp chapters/{chapter.name}/broken/{broken[0].name} chapters/{chapter.name}/examples/zz-broken.rs",
+                f"cargo build -p {pkg} --example zz-broken          # see the compiler message",
+                f"rm chapters/{chapter.name}/examples/zz-broken.rs",
+            ]
+        else:
+            out.append(f"rustc --edition 2024 chapters/{chapter.name}/broken/{broken[0].name}   # see the compiler message")
+        out += [
             "```",
             "",
             "| File | What it shows | Expected error |",
