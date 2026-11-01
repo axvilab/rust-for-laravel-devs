@@ -2,7 +2,7 @@
 
 Code for the book **"Rust for Laravel Developers"** (Ukrainian edition: **"Rust для Laravel-розробника"**) by Vitaly Ax.
 
-Every code sample from the book is here, and all of it compiles and passes its tests. If the text and the repository ever disagree, trust the repository: CI checks it on every commit.
+Every code sample from the book is here, and all of it compiles and passes its tests. If the text and the repository ever disagree, trust the repository: `./scripts/check.sh` runs every check in Docker (fmt, clippy, tests with Postgres, `broken/`, release build, audit, docker build).
 
 The code is MIT-licensed (see [LICENSE](LICENSE)).
 
@@ -13,7 +13,8 @@ Cargo.toml            Cargo workspace: orders-api and one crate per chapter
 chapters/NN-*/        a chapter crate: examples/ (runnable), broken/ (intentionally does not compile)
                       16g-axum-deeper also has src/ (one module per topic) and tests/
 orders-api/           the end-to-end project: an orders microservice (chapters 16b–16f)
-scripts/              check-broken.sh — verifies broken/; gen-chapter-readmes.py — chapter READMEs
+scripts/              check.sh — all checks in Docker; check-broken.sh — verifies broken/;
+                      gen-chapter-readmes.py — chapter READMEs
 .github/workflows/    CI: fmt, clippy -D warnings, tests with Postgres, broken/, release build, audit, docker
 ```
 
@@ -172,7 +173,7 @@ Rust 1.97, edition 2024. Minimum Rust version: 1.88 for the chapters (let chains
 
 ## Українською
 
-Це код до книги **«Rust для Laravel-розробника»** (Vitaly Ax): усі приклади з тексту, розв'язки вправ «Спробуй» і наскрізний проєкт `orders-api` (сервіс замовлень на Axum + sqlx + Postgres). Усе компілюється й проходить тести в CI. Коментарі в коді англійською, бо репозиторій спільний для обох видань книги. Ліцензія — MIT.
+Це код до книги **«Rust для Laravel-розробника»** (Vitaly Ax): усі приклади з тексту, розв'язки вправ «Спробуй» і наскрізний проєкт `orders-api` (сервіс замовлень на Axum + sqlx + Postgres). Усе компілюється й проходить тести: `./scripts/check.sh` запускає всі перевірки в Docker. Коментарі в коді англійською, бо репозиторій спільний для обох видань книги. Ліцензія — MIT.
 
 Запуск через Docker, без Rust на машині (з кореня репозиторію):
 
