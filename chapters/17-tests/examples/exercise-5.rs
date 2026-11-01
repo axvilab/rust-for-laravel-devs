@@ -21,7 +21,10 @@ impl fmt::Debug for Point {
     }
 }
 
-// ≈ what #[derive(Clone)] generates: a clone of every field
+// ≈ what #[derive(Clone)] generates: a clone of every field.
+// Clippy would say "just copy the i32" — but here we deliberately show
+// what the derive writes, so the lint is switched off for this impl only.
+#[allow(clippy::clone_on_copy)]
 impl Clone for Point {
     fn clone(&self) -> Self {
         Point {
